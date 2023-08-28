@@ -79,7 +79,7 @@
                 return $this->roleVisiteur;
         }
 
-        public function getRoleVisiteur($roleVisiteur)
+        public function setRoleVisiteur($roleVisiteur)
         {
                 $this->roleVisiteur = $roleVisiteur;
 

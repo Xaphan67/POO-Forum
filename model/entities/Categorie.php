@@ -8,6 +8,9 @@
         private $id;
         private $nomCategorie;
 
+        private $nbSujets;
+        private $nbMessages;
+
         public function __construct($data){         
             $this->hydrate($data);        
         }
@@ -34,5 +37,34 @@
                 $this->nomCategorie = $nomCategorie;
 
                 return $this;
+        }
+
+        public function getNbSujets()
+        {
+                return $this->nbSujets;
+        }
+
+        public function setNbSujets($nbSujets)
+        {
+                $this->nbSujets = $nbSujets;
+
+                return $this;
+        }
+
+        public function getNbMessages()
+        {
+                return $this->nbMessages;
+        }
+
+        public function setNbMessages($nbMessages)
+        {
+                $this->nbMessages = $nbMessages;
+
+                return $this;
+        }
+
+        public function __toString()
+        {
+            return $this->nomCategorie;
         }
     }
