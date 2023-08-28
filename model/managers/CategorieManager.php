@@ -5,10 +5,10 @@
     use App\DAO;
     use Model\Managers\SujetManager;
 
-    class VisiteurManager extends Manager{
+    class CategorieManager extends Manager{
 
-        protected $className = "Model\Entities\Visiteur";
-        protected $tableName = "visiteur";
+        protected $className = "Model\Entities\Categorie";
+        protected $tableName = "categorie";
 
 
         public function __construct(){
