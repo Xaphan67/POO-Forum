@@ -4,15 +4,21 @@ $topics = $result["data"]['topics'];
     
 ?>
 
-<h1>liste topics</h1>
+<h1>Liste des sujets</h1>
 
 <?php
-foreach($topics as $topic ){
+if ($topics != null)
+{
+    foreach($topics as $topic ){
 
+        ?>
+        <p><?=$topic->getTitle()?></p>
+        <?php
+    }
+}
+else
+{
     ?>
-    <p><?=$topic->getTitle()?></p>
+    <p>Aucun sujet !</p>
     <?php
 }
-
-
-  
