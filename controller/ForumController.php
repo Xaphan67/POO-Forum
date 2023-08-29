@@ -72,4 +72,20 @@
 
             $this->redirectTo("forum", "viewTopic", $topicId);
         }
+
+        public function newTopic($categoryId) {
+            $topicManager = new SujetManager();
+            $postManager = new MessageManager();
+
+            if (isset($_POST['submit']))
+            {
+                if (isset($_POST["nom"]) && !empty($_POST['nom']) && isset($_POST["message"]) && !empty($_POST['message'])) {
+                    /* filtres ici */
+                    $newTopicId = $topicManager->add(['titreSujet' => $_POST["nom"], 'visiteur_id' => 1, 'categorie_id' => $categoryId]);
+                    $postManager->add(['texteMessage' => $_POST["message"], 'visiteur_id' => 1, 'sujet_id' => $newTopicId]);
+                }
+            }
+
+            $this->redirectTo("forum", "viewTopic", $newTopicId);
+        }
     }

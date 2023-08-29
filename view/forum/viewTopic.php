@@ -41,6 +41,6 @@ else
 
 <form action="index.php?ctrl=forum&action=submitPost&id=<?=$topic->getId()?>" method="post">
     <label for="reponse">Répondre : *</label>
-    <textarea id="reponse" name="reponse" rows="5" require></textarea>
+    <textarea id="reponse" name="reponse" rows="5" required></textarea>
     <button type="submit" name="submit">Répondre</button>
 </form>
