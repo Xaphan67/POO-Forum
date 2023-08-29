@@ -44,8 +44,8 @@
             return $formattedDate;
         }
 
-        public function setDateCreationMessage($dateMessage){
-            $this->dateCreationSujet = new \DateTime($dateMessage);
+        public function setDateCreationMessage($dateCreationMessage){
+            $this->dateCreationMessage = new \DateTime($dateCreationMessage);
             return $this;
         }
 

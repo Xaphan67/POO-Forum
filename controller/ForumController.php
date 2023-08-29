@@ -45,4 +45,17 @@
                 ]
             ];
         }
+
+        public function viewTopic($topicId) {
+            $topicManager = new SujetManager();
+            $postManager = new MessageManager();
+
+            return [
+                "view" => VIEW_DIR."forum/viewTopic.php",
+                "data" => [
+                    "topic" => $topicManager->findOneById($topicId),
+                    "posts" => $postManager->getAllPostsFromTopic($topicId)
+                ]
+            ];
+        }
     }

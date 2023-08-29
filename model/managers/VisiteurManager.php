@@ -3,7 +3,7 @@
     
     use App\Manager;
     use App\DAO;
-    use Model\Managers\SujetManager;
+    use Model\Managers\VisiteurManager;
 
     class VisiteurManager extends Manager{
 

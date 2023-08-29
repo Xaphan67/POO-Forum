@@ -58,3 +58,7 @@ tbody tr {
     padding-left: 0px;
     text-align: center;
 }
+
+.main-message {
+    height: 150px;
+}

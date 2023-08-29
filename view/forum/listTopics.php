@@ -2,6 +2,7 @@
 
 $category = $result["data"]['category'];
 $topics = $result["data"]['topics'];
+
 ?>
 
 <h1><a href="index.php?ctrl=forum&action=listCategories">Forum PHP</a> > <?=$category->getNomCategorie()?></h1>
@@ -21,8 +22,7 @@ if ($topics != null)
         </thead>
         <tbody>
         <?php
-        foreach($topics as $topic ){
-            
+        foreach($topics as $topic ){          
             ?>
             <tr>
                 <td><a href="index.php?ctrl=forum&action=viewTopic&id=<?=$topic->getId()?>"><?=$topic->getTitreSujet()?></a></td>
