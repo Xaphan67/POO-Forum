@@ -26,7 +26,7 @@ if ($categories != null)
             <tr>
                 <td><a href="index.php?ctrl=forum&action=listTopics&id=<?=$category->getId()?>"><?=$category->getNomCategorie()?></a></td>
                 <td class="cellCenter"><?=$category->getNbSujets()?></td>            
-                <td class="cellCenter"><?=$category->getNbMessages()?></td>  
+                <td class="cellCenter"><?=$category->getNbMessages() - $category->getNbSujets()?></td>  
                 <td></td>
             </tr>
             <?php

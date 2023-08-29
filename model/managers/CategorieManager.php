@@ -17,11 +17,21 @@
 
         public function getAllCategories()
         {
-            $sql = "SELECT c.id_categorie, c.nomCategorie, COUNT(s.id_sujet) AS nbSujets, COUNT(m.id_message) AS nbMessages
+            $sql = "SELECT
+            c.id_categorie,
+            c.id_categorie AS idCategorie,
+            c.nomCategorie,
+            (SELECT COUNT(*)
                 FROM sujet s
-                LEFT JOIN categorie c ON c.id_categorie = s.categorie_id
-                LEFT JOIN message m ON m.id_message = s.categorie_id
-                GROUP BY c.id_categorie";
+                INNER JOIN categorie c ON c.id_categorie = s.categorie_id
+                WHERE s.categorie_id = idCategorie) AS nbSujets,
+            (SELECT COUNT(*)
+                FROM sujet s
+                INNER JOIN message m ON m.sujet_id = s.id_sujet
+                WHERE s.categorie_id = idCategorie) AS nbMessages
+            FROM sujet s
+            RIGHT JOIN categorie c ON c.id_categorie = s.categorie_id
+            GROUP BY c.id_categorie";
 
             return $this->getMultipleResults(
                 DAO::select($sql),

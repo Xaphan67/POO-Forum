@@ -27,7 +27,7 @@ if ($topics != null)
             <tr>
                 <td><a href="index.php?ctrl=forum&action=viewTopic&id=<?=$topic->getId()?>"><?=$topic->getTitreSujet()?></a></td>
                 <td><a href="index.php?ctrl=forum&action=viewProfile&id=<?=$topic->getVisiteur()->getId()?>"><?=$topic->getVisiteur()?></a></td>
-                <td class="cellCenter"><?=$topic->getNbMessages()?></td>  
+                <td class="cellCenter"><?=max(0, $topic->getNbMessages() - 1)?></td>  
                 <td><?=$topic->getDateCreationSujet()?></td>
             </tr>
             <?php
