@@ -37,3 +37,10 @@ else
     <p>Aucun message !</p>
     <?php
 }
+?>
+
+<form action="index.php?ctrl=forum&action=submitPost&id=<?=$topic->getId()?>" method="post">
+    <label for="reponse">Répondre : *</label>
+    <textarea id="reponse" name="reponse" rows="5" require></textarea>
+    <button type="submit" name="submit">Répondre</button>
+</form>

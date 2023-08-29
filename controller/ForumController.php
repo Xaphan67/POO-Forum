@@ -58,4 +58,18 @@
                 ]
             ];
         }
+
+        public function submitPost($topicId) {
+            $postManager = new MessageManager();
+            
+            if (isset($_POST['submit']))
+            {
+                if (isset($_POST["reponse"]) && !empty($_POST['reponse'])) {
+                    /* filtres ici */
+                    $postManager->add(['texteMessage' => $_POST["reponse"], 'visiteur_id' => 1, 'sujet_id' => $topicId]);
+                }
+            }
+
+            $this->redirectTo("forum", "viewTopic", $topicId);
+        }
     }
