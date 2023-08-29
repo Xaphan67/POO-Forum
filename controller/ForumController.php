@@ -28,7 +28,20 @@
             return [
                 "view" => VIEW_DIR."forum/listCategories.php",
                 "data" => [
-                    "categories" => $categoryManager->getAllCategories(),
+                    "categories" => $categoryManager->getAllCategories()
+                ]
+            ];
+        }
+
+        public function listTopics($categoryId) {
+            $categoryManager = new CategorieManager();
+            $topicManager = new SujetManager();
+
+            return [
+                "view" => VIEW_DIR."forum/listTopics.php",
+                "data" => [
+                    "category" => $categoryManager->findOneById($categoryId),
+                    "topics" => $topicManager->getAllTopicsFromCategory($categoryId)
                 ]
             ];
         }

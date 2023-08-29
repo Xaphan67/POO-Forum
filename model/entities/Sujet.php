@@ -12,6 +12,8 @@
         private $visiteur;
         private $categorie;
 
+        private $nbMessages;
+
         public function __construct($data){         
             $this->hydrate($data);        
         }
@@ -67,7 +69,7 @@
                 return $this->visiteur;
         }
 
-        public function setVisiteurSujet($visiteur)
+        public function setVisiteur($visiteur)
         {
                 $this->visiteur = $visiteur;
 
@@ -82,6 +84,18 @@
         public function setCategorie($categorie)
         {
                 $this->categorie = $categorie;
+
+                return $this;
+        }
+
+        public function getNbMessages()
+        {
+                return $this->nbMessages;
+        }
+
+        public function setNbMessages($nbMessages)
+        {
+                $this->nbMessages = $nbMessages;
 
                 return $this;
         }
