@@ -15,13 +15,8 @@ class ForumController extends AbstractController implements ControllerInterface
     // Fonction par defaut, si l'action n'a pas été trouvée
     public function index()
     {
-        $topicManager = new SujetManager();
-
         return [
-            "view" => VIEW_DIR . "forum/listTopics.php",
-            "data" => [
-                "topics" => $topicManager->findAll(["dateCreationSujet", "DESC"])
-            ]
+            "view" => VIEW_DIR . "home.php",
         ];
     }
 
