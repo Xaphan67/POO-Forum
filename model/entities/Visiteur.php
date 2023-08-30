@@ -96,8 +96,8 @@ final class Visiteur extends Entity
                 return $this->getPseudoVisiteur();
         }
 
-        public function hasRole()
+        public function hasRole($role)
         {
-                return "ROLE_MEMBER";
+                return $this->getRoleVisiteur() == $role ? true : false;
         }
 }
