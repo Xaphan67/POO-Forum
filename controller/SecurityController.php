@@ -61,4 +61,10 @@ class SecurityController extends AbstractController implements ControllerInterfa
             ];
         }
     }
+
+    public function logout()
+    {
+        session_destroy(); // Détruit la session en cours
+        $this->redirectTo("forum", "listCategories"); // Redirige vers la liste des catégories
+    }
 }
