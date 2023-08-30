@@ -4,7 +4,7 @@ $category = $result["data"]['category'];
 $topics = $result["data"]['topics'];
 
 ?>
-
+<!-- Fil d'ariane -->
 <h1><a href="index.php?ctrl=forum&action=listCategories">Forum PHP</a> > <?= $category->getNomCategorie() ?></h1>
 
 <?php
@@ -24,7 +24,7 @@ if ($topics != null) {
             foreach ($topics as $topic) {
             ?>
                 <tr>
-                    <td>
+                    <td> <!-- Lien vers le sujet, avec icône de cadenas si le sujet est verrouillé -->
                         <?php
                         if ($topic->getVerouilleSujet()) {
                         ?>
@@ -37,7 +37,7 @@ if ($topics != null) {
                         <a href="index.php?ctrl=forum&action=viewTopic&id=<?= $topic->getId() ?>"><?= $topic->getTitreSujet() ?></a>
                     </td>
                     <td><a href="index.php?ctrl=forum&action=viewProfile&id=<?= $topic->getVisiteur()->getId() ?>"><?= $topic->getVisiteur() ?></a></td>
-                    <td class="cellCenter"><?= max(0, $topic->getNbMessages() - 1) ?></td>
+                    <td class="cellCenter"><?= max(0, $topic->getNbMessages() - 1) ?></td> <!-- Nombre de messages dans le sujet, -1 pour ne compter que les réponses -->
                     <td><?= $topic->getDateCreationSujet() ?></td>
                 </tr>
             <?php
@@ -53,6 +53,7 @@ if ($topics != null) {
 }
 ?>
 
+<!-- Formulaire de création d'un nouveau sujet -->
 <p>Créer un nouveau sujet :</p>
 <form action="index.php?ctrl=forum&action=newTopic&id=<?= $category->getId() ?>" method="post">
     <label for="nom">Nom du sujet : *</label>

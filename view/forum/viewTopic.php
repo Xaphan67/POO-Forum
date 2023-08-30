@@ -4,10 +4,10 @@ $messages = $result["data"]['posts'];
 $topic = $result["data"]['topic'];
 
 ?>
-
+<!-- Fil d'ariane -->
 <h1><a href="index.php?ctrl=forum&action=listCategories">Forum PHP</a> > <a href="index.php?ctrl=forum&action=listTopics&id=<?= $topic->getCategorie()->getId() ?>"><?= $topic->getCategorie() ?></a> > <?= $topic ?></h1>
 
-<div>
+<div> <!-- Boutons de verouillage / déverrouillage du sujet -->
     <?php
     if ($topic->getVerouilleSujet()) {
     ?>
@@ -23,7 +23,7 @@ $topic = $result["data"]['topic'];
 <div><a href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId() ?>">Supprimer</a></div>
 
 <?php
-if ($messages != null) {
+if ($messages != null) { // Normalement, il y à toujours un message : Celui de l'auteur.
 ?>
     <table>
         <tbody>
@@ -50,6 +50,7 @@ if ($messages != null) {
 <?php
 }
 
+// Formulaire de réponse au sujet, uniquement s'il n'est pas verrouillé
 if (!$topic->getVerouilleSujet()) {
 ?>
     <form action="index.php?ctrl=forum&action=submitPost&id=<?= $topic->getId() ?>" method="post">
