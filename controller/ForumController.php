@@ -71,7 +71,8 @@ class ForumController extends AbstractController implements ControllerInterface
         if (isset($_POST['submit'])) { // Vérifie qu'un formulaire à été soumis
             if (isset($_POST["reponse"]) && !empty($_POST['reponse'])) { // Vérifie que les champs du formulaires existent et ne sont pas vides
                 /* filtres ici */
-                $postManager->add(['texteMessage' => $_POST["reponse"], 'visiteur_id' => 1, 'sujet_id' => $topicId]); // Ajoute les informations du formulaire en BDD
+                $userId = Session::getUser()->getId(); // Récupère l'ID du visiteur actuellement connecté
+                $postManager->add(['texteMessage' => $_POST["reponse"], 'visiteur_id' => $userId, 'sujet_id' => $topicId]); // Ajoute les informations du formulaire en BDD
             }
         }
 
@@ -87,8 +88,9 @@ class ForumController extends AbstractController implements ControllerInterface
         if (isset($_POST['submit'])) { // Vérifie qu'un formulaire à été soumis
             if (isset($_POST["nom"]) && !empty($_POST['nom']) && isset($_POST["message"]) && !empty($_POST['message'])) { // Vérifie que les champs du formulaires existent et ne sont pas vides
                 /* filtres ici */
-                $newTopicId = $topicManager->add(['titreSujet' => $_POST["nom"], 'visiteur_id' => 1, 'categorie_id' => $categoryId]); // Ajoute les informations du formulaire pour le sujet en BDD, retourne l'id du sujet ajouté
-                $postManager->add(['texteMessage' => $_POST["message"], 'visiteur_id' => 1, 'sujet_id' => $newTopicId]); // Ajoute les informations du formulaire pour le 1er message du sujet
+                $userId = Session::getUser()->getId(); // Récupère l'ID du visiteur actuellement connecté
+                $newTopicId = $topicManager->add(['titreSujet' => $_POST["nom"], 'visiteur_id' => $userId, 'categorie_id' => $categoryId]); // Ajoute les informations du formulaire pour le sujet en BDD, retourne l'id du sujet ajouté
+                $postManager->add(['texteMessage' => $_POST["message"], 'visiteur_id' => $userId, 'sujet_id' => $newTopicId]); // Ajoute les informations du formulaire pour le 1er message du sujet
             }
         }
 

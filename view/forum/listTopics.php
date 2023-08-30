@@ -51,14 +51,22 @@ if ($topics != null) {
     <p>Aucun sujet !</p>
 <?php
 }
-?>
 
-<!-- Formulaire de création d'un nouveau sujet -->
-<p>Créer un nouveau sujet :</p>
-<form action="index.php?ctrl=forum&action=newTopic&id=<?= $category->getId() ?>" method="post">
-    <label for="nom">Nom du sujet : *</label>
-    <input type=text name="nom" required>
-    <label for="message">Message : *</label>
-    <textarea id="message" name="message" rows="5" required></textarea>
-    <button type="submit" name="submit">Répondre</button>
-</form>
+
+// Formulaire de création d'un nouveau sujet, uniquement si un visiteur est connecté
+if (App\Session::getUser()) {
+?>
+    <p>Créer un nouveau sujet :</p>
+    <form action="index.php?ctrl=forum&action=newTopic&id=<?= $category->getId() ?>" method="post">
+        <label for="nom">Nom du sujet : *</label>
+        <input type=text name="nom" required>
+        <label for="message">Message : *</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+        <button type="submit" name="submit">Répondre</button>
+    </form>
+<?php
+} else {
+?>
+    <p>Connectez vous pour pouvoir poster un nouveau sujet</p>
+<?php
+}

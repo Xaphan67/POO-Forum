@@ -50,17 +50,23 @@ if ($messages != null) { // Normalement, il y à toujours un message : Celui de 
 <?php
 }
 
-// Formulaire de réponse au sujet, uniquement s'il n'est pas verrouillé
-if (!$topic->getVerouilleSujet()) {
+// Formulaire de réponse au sujet, uniquement s'il n'est pas verrouillé et qu'un visiteur est connecté
+if (!$topic->getVerouilleSujet() && App\Session::getUser()) {
 ?>
     <form action="index.php?ctrl=forum&action=submitPost&id=<?= $topic->getId() ?>" method="post">
         <label for="reponse">Répondre : *</label>
         <textarea id="reponse" name="reponse" rows="5" required></textarea>
         <button type="submit" name="submit">Répondre</button>
     </form>
-<?php
+    <?php
 } else {
-?>
-    <p>Ce sujet est vérouillé. Vous ne pouvez pas y répondre.</p>
+    if (!App\Session::getUser()) {
+    ?>
+        <p>Connectez vous pour pouvoir répondre</p>
+    <?php
+    } else {
+    ?>
+        <p>Ce sujet est vérouillé. Vous ne pouvez pas y répondre.</p>
 <?php
+    }
 }
