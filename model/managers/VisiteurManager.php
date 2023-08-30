@@ -17,27 +17,41 @@ class VisiteurManager extends Manager
         parent::connect();
     }
 
-    // Vérifie si l'email éxiste déja en BDD -> Renvoie un tableau "emailCheck => 0 ou 1"
-    public function checkIfEmailExist($email)
+    // Retourne un visiteur par son e-mail
+    public function findOneByEmail($email)
     {
-        $sql = "SELECT COUNT(1) AS emailCheck
-            FROM $this->tableName v
+        $sql = "SELECT *
+            FROM visiteur v
             WHERE v.emailVisiteur = :email";
 
-        return $this->getSingleScalarResult(
-            DAO::select($sql, ["email" => $email])
+        return $this->getOneOrNullResult(
+            DAO::select($sql, ["email" => $email], false),
+            $this->className
         );
     }
 
-    // Vérifie si le pseudo éxiste déja en BDD -> Renvoie un tableau "pseudoCheck => 0 ou 1"
-    public function checkIfPseudoExist($pseudo)
+    // Retourne un visiteur par son pseudo
+    public function findOneByPseudo($pseudo)
     {
-        $sql = "SELECT COUNT(1) AS pseudoCheck
-            FROM $this->tableName v
+        $sql = "SELECT *
+            FROM visiteur v
             WHERE v.pseudoVisiteur = :pseudo";
 
+        return $this->getOneOrNullResult(
+            DAO::select($sql, ["pseudo" => $pseudo], false),
+            $this->className
+        );
+    }
+
+    // Retourne le hash du mdp d'un visiteur -> Renvoie un tableau "mdpVisiteur => hash du mdp du visiteur"
+    public function getPasswordHash($email)
+    {
+        $sql = "SELECT v.mdpVisiteur
+        FROM visiteur v
+        WHERE v.emailVisiteur = :email";
+
         return $this->getSingleScalarResult(
-            DAO::select($sql, ["pseudo" => $pseudo])
+            DAO::select($sql, ["email" => $email])
         );
     }
 }

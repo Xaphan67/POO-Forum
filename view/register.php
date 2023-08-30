@@ -1,4 +1,4 @@
-<p>formulaire d'inscription:</p>
+<p>formulaire d'inscription :</p>
 <form action="index.php?ctrl=security&action=register" method="post">
     <label for="pseudo">Pseudonyme : *</label>
     <input type=text name="pseudo" required>

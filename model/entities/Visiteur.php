@@ -1,9 +1,11 @@
 <?php
-    namespace Model\Entities;
 
-    use App\Entity;
+namespace Model\Entities;
 
-    final class Visiteur extends Entity{
+use App\Entity;
+
+final class Visiteur extends Entity
+{
 
         private $id;
         private $pseudoVisiteur;
@@ -12,10 +14,11 @@
         private $emailVisiteur;
         private $roleVisiteur;
 
-        public function __construct($data){         
-            $this->hydrate($data);        
+        public function __construct($data)
+        {
+                $this->hydrate($data);
         }
- 
+
         public function getId()
         {
                 return $this->id;
@@ -52,14 +55,16 @@
                 return $this;
         }
 
-        public function getDateInscriptionVisiteur(){
-            $formattedDate = $this->dateInscriptionVisiteur->format("d/m/Y, H:i:s");
-            return $formattedDate;
+        public function getDateInscriptionVisiteur()
+        {
+                $formattedDate = $this->dateInscriptionVisiteur->format("d/m/Y, H:i:s");
+                return $formattedDate;
         }
 
-        public function setDateInscriptionVisiteur($dateInscriptionVisiteur){
-            $this->dateInscriptionVisiteur = new \DateTime($dateInscriptionVisiteur);
-            return $this;
+        public function setDateInscriptionVisiteur($dateInscriptionVisiteur)
+        {
+                $this->dateInscriptionVisiteur = new \DateTime($dateInscriptionVisiteur);
+                return $this;
         }
 
         public function getEmailVisiteur()
@@ -86,7 +91,13 @@
                 return $this;
         }
 
-        public function __toString(){
+        public function __toString()
+        {
                 return $this->getPseudoVisiteur();
         }
-    }
+
+        public function hasRole()
+        {
+                return "ROLE_MEMBER";
+        }
+}

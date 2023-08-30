@@ -13,7 +13,6 @@
 
 <body>
     <div id="wrapper">
-
         <div id="mainpage">
             <!-- c'est ici que les messages (erreur ou succès) s'affichent-->
             <h3 class="message" style="color: red"><?= App\Session::getFlash("error") ?></h3>
@@ -41,12 +40,10 @@
                         <?php
                         } else {
                         ?>
-                            <a href="./view/security/login.php">Connexion</a>
+                            <a href="index.php?ctrl=security&action=login">Connexion</a>
                             <a href="index.php?ctrl=security&action=register">Inscription</a>
                         <?php
                         }
-
-
                         ?>
                     </div>
                 </nav>
