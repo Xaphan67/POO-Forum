@@ -1,19 +1,19 @@
 <?php
-    namespace Model\Managers;
-    
-    use App\Manager;
-    use App\DAO;
-    use Model\Managers\VisiteurManager;
 
-    class VisiteurManager extends Manager{
+namespace Model\Managers;
 
-        protected $className = "Model\Entities\Visiteur";
-        protected $tableName = "visiteur";
+use App\Manager;
+use App\DAO;
 
+class VisiteurManager extends Manager
+{
 
-        public function __construct(){
-            parent::connect();
-        }
+    protected $className = "Model\Entities\Visiteur";
+    protected $tableName = "visiteur";
 
 
+    public function __construct()
+    {
+        parent::connect();
     }
+}

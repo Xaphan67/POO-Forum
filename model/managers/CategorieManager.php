@@ -1,23 +1,25 @@
 <?php
-    namespace Model\Managers;
-    
-    use App\Manager;
-    use App\DAO;
-    use Model\Managers\CategorieManager;
 
-    class CategorieManager extends Manager{
+namespace Model\Managers;
 
-        protected $className = "Model\Entities\Categorie";
-        protected $tableName = "categorie";
+use App\Manager;
+use App\DAO;
+
+class CategorieManager extends Manager
+{
+
+    protected $className = "Model\Entities\Categorie";
+    protected $tableName = "categorie";
 
 
-        public function __construct(){
-            parent::connect();
-        }
+    public function __construct()
+    {
+        parent::connect();
+    }
 
-        public function getAllCategories()
-        {
-            $sql = "SELECT
+    public function getAllCategories()
+    {
+        $sql = "SELECT
             c.id_categorie,
             c.id_categorie AS idCategorie,
             c.nomCategorie,
@@ -33,9 +35,9 @@
             RIGHT JOIN categorie c ON c.id_categorie = s.categorie_id
             GROUP BY c.id_categorie";
 
-            return $this->getMultipleResults(
-                DAO::select($sql),
-                $this->className
-            );
-        }
+        return $this->getMultipleResults(
+            DAO::select($sql),
+            $this->className
+        );
     }
+}
