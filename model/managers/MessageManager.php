@@ -17,6 +17,7 @@ class MessageManager extends Manager
         parent::connect();
     }
 
+    // Retourne la liste de tout les messages d'un sujet avec leur id, texte, date de création, id de l'auteur et id du sujet auxquel il sont ratachés
     public function getAllPostsFromTopic($id)
     {
         $sql = "SELECT m.id_message, m.texteMessage, m.dateCreationMessage, m.visiteur_id, m.sujet_id

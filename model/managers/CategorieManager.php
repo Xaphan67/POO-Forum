@@ -17,6 +17,7 @@ class CategorieManager extends Manager
         parent::connect();
     }
 
+    // Retourne la liste de toutes les catégories du forum avec leur id, nom, nombre de sujets et nombre de messages
     public function getAllCategories()
     {
         $sql = "SELECT

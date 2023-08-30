@@ -7,9 +7,8 @@ $categories = $result["data"]['categories'];
 <h1>Forum PHP</h1>
 
 <?php
-if ($categories != null)
-{
-    ?>
+if ($categories != null) {
+?>
     <table>
         <thead>
             <tr>
@@ -20,25 +19,23 @@ if ($categories != null)
             </tr>
         </thead>
         <tbody>
-        <?php
-        foreach($categories as $category ){
-            ?>
-            <tr>
-                <td><a href="index.php?ctrl=forum&action=listTopics&id=<?=$category->getId()?>"><?=$category->getNomCategorie()?></a></td>
-                <td class="cellCenter"><?=$category->getNbSujets()?></td>            
-                <td class="cellCenter"><?=$category->getNbMessages() - $category->getNbSujets()?></td>  
-                <td></td>
-            </tr>
             <?php
-        }
-        ?>
+            foreach ($categories as $category) {
+            ?>
+                <tr>
+                    <td><a href="index.php?ctrl=forum&action=listTopics&id=<?= $category->getId() ?>"><?= $category->getNomCategorie() ?></a></td>
+                    <td class="cellCenter"><?= $category->getNbSujets() ?></td> <!-- Nombre de sujets de la catégorie -->
+                    <td class="cellCenter"><?= $category->getNbMessages() - $category->getNbSujets() ?></td> <!-- Nombre de messages - nombres de sujets pour obtenir uniquement le nombre de réponses -->
+                    <td></td>
+                </tr>
+            <?php
+            }
+            ?>
         </tbody>
     </table>
-    <?php
-}
-else
-{
-    ?>
+<?php
+} else {
+?>
     <p>Aucune catégorie !</p>
-    <?php
+<?php
 }
