@@ -55,4 +55,15 @@ class SujetManager extends Manager
             $this->className
         );
     }
+
+    public function deleteTopic($id)
+    {
+        $sql = "DELETE FROM sujet s
+            WHERE s.id_sujet = :id";
+
+        return $this->getOneOrNullResult(
+            DAO::select($sql, ["id" => $id]),
+            $this->className
+        );
+    }
 }
