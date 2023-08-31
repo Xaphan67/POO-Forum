@@ -26,7 +26,7 @@ if ($categories != null) {
                     <td><a href="index.php?ctrl=forum&action=listTopics&id=<?= $category->getId() ?>"><?= $category->getNomCategorie() ?></a></td>
                     <td class="cellCenter"><?= $category->getNbSujets() ?></td> <!-- Nombre de sujets de la catégorie -->
                     <td class="cellCenter"><?= $category->getNbMessages() - $category->getNbSujets() ?></td> <!-- Nombre de messages - nombres de sujets pour obtenir uniquement le nombre de réponses -->
-                    <td></td>
+                    <td><?= $category->getDateMessageRecent() == null ? "Aucun message" : $category->getDateMessageRecent() ?></td>
                 </tr>
             <?php
             }

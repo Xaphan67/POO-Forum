@@ -10,9 +10,10 @@
 
         private $nbSujets;
         private $nbMessages;
+        private $dateMessageRecent;
 
         public function __construct($data){         
-            $this->hydrate($data);        
+                $this->hydrate($data);        
         }
  
         public function getId()
@@ -23,8 +24,6 @@
         public function setId($id)
         {
                 $this->id = $id;
-
-                return $this;
         }
 
         public function getNomCategorie()
@@ -35,8 +34,6 @@
         public function setNomCategorie($nomCategorie)
         {
                 $this->nomCategorie = $nomCategorie;
-
-                return $this;
         }
 
         public function getNbSujets()
@@ -47,8 +44,6 @@
         public function setNbSujets($nbSujets)
         {
                 $this->nbSujets = $nbSujets;
-
-                return $this;
         }
 
         public function getNbMessages()
@@ -59,12 +54,28 @@
         public function setNbMessages($nbMessages)
         {
                 $this->nbMessages = $nbMessages;
+        }
 
-                return $this;
+        public function getDateMessageRecent()
+        {
+                if ($this->dateMessageRecent != null)
+                {
+                        $formattedDate = $this->dateMessageRecent->format("d/m/Y, H:i:s");
+                        return $formattedDate;
+                }
+                return null;
+        }
+
+        public function setDateMessageRecent($dateMessageRecent)
+        {
+                if ($dateMessageRecent != null)
+                {
+                        $this->dateMessageRecent = new \DateTime($dateMessageRecent);
+                }
         }
 
         public function __toString()
         {
-            return $this->nomCategorie;
+                return $this->nomCategorie;
         }
     }

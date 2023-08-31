@@ -27,8 +27,6 @@
         public function setId($id)
         {
                 $this->id = $id;
-
-                return $this;
         }
 
         public function getTitreSujet()
@@ -39,8 +37,6 @@
         public function setTitreSujet($titreSujet)
         {
                 $this->titreSujet = $titreSujet;
-
-                return $this;
         }
 
         public function getDateCreationSujet(){
@@ -50,7 +46,6 @@
 
         public function setDateCreationSujet($dateSujet){
             $this->dateCreationSujet = new \DateTime($dateSujet);
-            return $this;
         }
 
         public function getVerouilleSujet()
@@ -61,8 +56,6 @@
         public function setVerouilleSujet($verouilleSujet)
         {
                 $this->verouilleSujet = $verouilleSujet;
-
-                return $this;
         }
 
         public function getVisiteur()
@@ -73,8 +66,6 @@
         public function setVisiteur($visiteur)
         {
                 $this->visiteur = $visiteur;
-
-                return $this;
         }
 
         public function getCategorie()
@@ -85,8 +76,6 @@
         public function setCategorie($categorie)
         {
                 $this->categorie = $categorie;
-
-                return $this;
         }
 
         public function getNbMessages()
@@ -97,20 +86,24 @@
         public function setNbMessages($nbMessages)
         {
                 $this->nbMessages = $nbMessages;
-
-                return $this;
         }
 
         public function getDateMessageRecent()
         {
-                $formattedDate = $this->dateMessageRecent->format("d/m/Y, H:i:s");
-                return $formattedDate;
+                if ($this->dateMessageRecent != null)
+                {
+                        $formattedDate = $this->dateMessageRecent->format("d/m/Y, H:i:s");
+                        return $formattedDate;
+                }
+                return null;
         }
 
         public function setDateMessageRecent($dateMessageRecent)
         {
-                $this->dateMessageRecent = new \DateTime($dateMessageRecent);
-                return $this;
+                if ($dateMessageRecent != null)
+                {
+                        $this->dateMessageRecent = new \DateTime($dateMessageRecent);
+                }
         }
 
         public function __toString()

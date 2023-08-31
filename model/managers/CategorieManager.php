@@ -31,9 +31,11 @@ class CategorieManager extends Manager
             (SELECT COUNT(*)
                 FROM sujet s
                 INNER JOIN message m ON m.sujet_id = s.id_sujet
-                WHERE s.categorie_id = idCategorie) AS nbMessages
+                WHERE s.categorie_id = idCategorie) AS nbMessages,
+            MAX(m.dateCreationMessage) AS dateMessageRecent
             FROM sujet s
             RIGHT JOIN categorie c ON c.id_categorie = s.categorie_id
+            LEFT JOIN message m ON m.sujet_id = s.id_sujet
             GROUP BY c.id_categorie";
 
         return $this->getMultipleResults(
