@@ -9,18 +9,24 @@ $topic = $result["data"]['topic'];
 
 <div> <!-- Boutons de verouillage / déverrouillage du sujet -->
     <?php
-    if ($topic->getVerouilleSujet()) {
-    ?>
-        <a href="index.php?ctrl=forum&action=unlockTopic&id=<?= $topic->getId() ?>">Déverouiller</a>
-    <?php
-    } else {
-    ?>
-        <a href="index.php?ctrl=forum&action=lockTopic&id=<?= $topic->getId() ?>">Verouiller</a>
+    if(App\Session::getUser() && App\Session::isAdmin())
+    {
+        if ($topic->getVerouilleSujet()) {
+            ?>
+                <a href="index.php?ctrl=forum&action=unlockTopic&id=<?= $topic->getId() ?>">Déverouiller</a>
+            <?php
+            } else {
+            ?>
+                <a href="index.php?ctrl=forum&action=lockTopic&id=<?= $topic->getId() ?>">Verouiller</a>
+            <?php
+            }
+            ?>
+        <div><a href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId() ?>">Supprimer</a></div>
     <?php
     }
     ?>
 </div>
-<div><a href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId() ?>">Supprimer</a></div>
+
 
 <?php
 if ($messages != null) { // Normalement, il y a toujours un message : Celui de l'auteur.
