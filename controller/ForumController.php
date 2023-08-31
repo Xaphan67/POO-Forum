@@ -137,6 +137,21 @@ class ForumController extends AbstractController implements ControllerInterface
         $this->redirectTo("forum", "viewTopic", $newTopicId); // Redicection vers la vue du sujet
     }
 
+    // Traite les informations et modifie le titre du sujet via le formulaire
+    public function editTopic($topicId)
+    {
+        $topicManager = new SujetManager();
+
+        if (isset($_POST['edit'])) { // Vérifie qu'un formulaire à été soumis
+            if (isset($_POST["edit" . $topicId]) && !empty($_POST["edit" . $topicId])) { // Vérifie que les champs du formulaires existent et ne sont pas vides
+                /* filtres ici */
+                $topicManager->edit($topicId, $_POST["edit" . $topicId]); // Ajoute les informations du formulaire pour le 1er message du sujet
+            }
+        }
+
+        $this->redirectTo("forum", "viewTopic", $topicId); // Redicection vers la vue du sujet
+    }
+
     // Verrouille un sujet
     public function lockTopic($topicId)
     {

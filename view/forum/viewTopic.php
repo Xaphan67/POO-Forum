@@ -21,7 +21,17 @@ $topic = $result["data"]['topic'];
             <?php
             }
             ?>
-        <div><a href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId() ?>">Supprimer</a></div>
+        <a href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId() ?>">Supprimer</a>
+    <?php
+    }
+    if (!$topic->getVerouilleSujet() && (App\Session::getUser()->getId() == $topic->getVisiteur()->getId() || App\Session::isAdmin()))
+    {
+    ?>
+        <button onclick="showTopicEditForm(<?= $topic->getId() ?>)" type="submit" name="edit">Modifier le nom du sujet</button>
+        <form class ="editForm" id="editTopicForm<?= $topic->getId() ?>" action="index.php?ctrl=forum&action=editTopic&id=<?= $topic->getId() ?>" style="display: none" method="post">
+            <input id="edit<?= $topic->getId() ?>" name="edit<?= $topic->getId() ?>" type="text" value="<?= $topic->getTitreSujet() ?>" required></input>
+            <button type="submit" name="edit">Modifier</button>
+        </form>
     <?php
     }
     ?>
@@ -45,7 +55,7 @@ if ($messages != null) { // Normalement, il y a toujours un message : Celui de l
                             if (App\Session::getUser()->getId() == $message->getVisiteur()->getId() || App\Session::isAdmin())
                             {
                             ?>
-                                <button onclick="showEditForm(<?= $message->getID() ?>)" type="submit" name="edit">Modifier</button>
+                                <button onclick="showPostEditForm(<?= $message->getId() ?>)" type="submit" name="edit">Modifier</button>
                             <?php
                             }
                         }
@@ -64,9 +74,9 @@ if ($messages != null) { // Normalement, il y a toujours un message : Celui de l
                     } ?>
                     <td>Inscrit le <?= $message->getVisiteur()->getDateInscriptionVisiteur() ?><br><?= $role ?></td>
                     <td>
-                        <p id="message<?= $message->getID() ?>"><?= $message->getTexteMessage() ?></p>
-                        <form class ="editForm" id="editForm<?= $message->getID() ?>" action="index.php?ctrl=forum&action=editPost&id=<?= $message->getId() ?>" method="post">
-                            <textarea id="edit<?= $message->getID() ?>" name="edit<?= $message->getID() ?>" rows="5" required><?= $message->getTexteMessage() ?></textarea>
+                        <p id="message<?= $message->getId() ?>"><?= $message->getTexteMessage() ?></p>
+                        <form class ="editForm" id="editForm<?= $message->getId() ?>" action="index.php?ctrl=forum&action=editPost&id=<?= $message->getId() ?>" method="post">
+                            <textarea id="edit<?= $message->getId() ?>" name="edit<?= $message->getId() ?>" rows="5" required><?= $message->getTexteMessage() ?></textarea>
                             <button type="submit" name="edit">Modifier</button>
                         </form>
                     </td>
@@ -106,7 +116,7 @@ if (!$topic->getVerouilleSujet() && App\Session::getUser()) {
 ?>
 <script>
     // Affiche le formulaire d'edition d'un message
-    function showEditForm(id) {
+    function showPostEditForm(id) {
         const message = document.querySelector("#message" + id);
         const editForm = document.querySelector("#editForm" + id);
         if (message.style.display != "none") 
@@ -118,4 +128,15 @@ if (!$topic->getVerouilleSujet() && App\Session::getUser()) {
             editForm.style.display = "none";
         }
     } 
+
+    // Affiche le formulaire d'edition du titre du sujet
+    function showTopicEditForm(id) {
+        const editForm = document.querySelector("#editTopicForm" + id);
+        if (editForm.style.display == "none") 
+        {
+            editForm.style.display = "unset";
+        } else {
+            editForm.style.display = "none";
+        }
+    }
 </script>

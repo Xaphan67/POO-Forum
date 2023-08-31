@@ -33,6 +33,19 @@ class SujetManager extends Manager
         );
     }
 
+    // Modifie le nom du sujet
+    public function edit($id, $nom)
+    {
+        $sql = "UPDATE sujet s
+            SET s.titreSujet = :nom
+            WHERE s.id_sujet = :id";
+
+        return $this->getOneOrNullResult(
+            DAO::select($sql, ["nom" => $nom, "id" => $id]),
+            $this->className
+        );
+    }
+
     // Verrouille un sujet
     public function lockTopic($id)
     {
