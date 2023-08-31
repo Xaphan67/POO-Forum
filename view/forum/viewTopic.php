@@ -9,30 +9,33 @@ $topic = $result["data"]['topic'];
 
 <div> <!-- Boutons de verouillage / déverrouillage du sujet -->
     <?php
-    if(App\Session::getUser() && App\Session::isAdmin())
+    if (App\Session::getUser())
     {
-        if ($topic->getVerouilleSujet()) {
-            ?>
-                <a href="index.php?ctrl=forum&action=unlockTopic&id=<?= $topic->getId() ?>">Déverouiller</a>
-            <?php
-            } else {
-            ?>
-                <a href="index.php?ctrl=forum&action=lockTopic&id=<?= $topic->getId() ?>">Verouiller</a>
-            <?php
-            }
-            ?>
-        <a href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId() ?>">Supprimer</a>
-    <?php
-    }
-    if (!$topic->getVerouilleSujet() && (App\Session::getUser()->getId() == $topic->getVisiteur()->getId() || App\Session::isAdmin()))
-    {
-    ?>
-        <button onclick="showTopicEditForm(<?= $topic->getId() ?>)" type="submit" name="edit">Modifier le nom du sujet</button>
-        <form class ="editForm" id="editTopicForm<?= $topic->getId() ?>" action="index.php?ctrl=forum&action=editTopic&id=<?= $topic->getId() ?>" style="display: none" method="post">
-            <input id="edit<?= $topic->getId() ?>" name="edit<?= $topic->getId() ?>" type="text" value="<?= $topic->getTitreSujet() ?>" required></input>
-            <button type="submit" name="edit">Modifier</button>
-        </form>
-    <?php
+        if(App\Session::isAdmin())
+        {
+            if ($topic->getVerouilleSujet()) {
+                ?>
+                    <a href="index.php?ctrl=forum&action=unlockTopic&id=<?= $topic->getId() ?>">Déverouiller</a>
+                <?php
+                } else {
+                ?>
+                    <a href="index.php?ctrl=forum&action=lockTopic&id=<?= $topic->getId() ?>">Verouiller</a>
+                <?php
+                }
+                ?>
+            <a href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId() ?>">Supprimer</a>
+        <?php
+        }
+        if (!$topic->getVerouilleSujet() && (App\Session::getUser()->getId() == $topic->getVisiteur()->getId() || App\Session::isAdmin()))
+        {
+        ?>
+            <button onclick="showTopicEditForm(<?= $topic->getId() ?>)" type="submit" name="edit">Modifier le nom du sujet</button>
+            <form class ="editForm" id="editTopicForm<?= $topic->getId() ?>" action="index.php?ctrl=forum&action=editTopic&id=<?= $topic->getId() ?>" style="display: none" method="post">
+                <input id="edit<?= $topic->getId() ?>" name="edit<?= $topic->getId() ?>" type="text" value="<?= $topic->getTitreSujet() ?>" required></input>
+                <button type="submit" name="edit">Modifier</button>
+            </form>
+        <?php
+        }   
     }
     ?>
 </div>
