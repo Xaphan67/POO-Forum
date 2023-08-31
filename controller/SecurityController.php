@@ -35,6 +35,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
                         {
                             if ($mdp == $mdpCheck) { // Vérifie que mdp et mdpCheck sont identiques
                                 $visitorManager->add(['pseudoVisiteur' => $pseudo , 'mdpVisiteur' => password_hash($mdp, PASSWORD_DEFAULT), 'emailVisiteur' => $email]); // Hashe le mdp et ajoute les informations du formulaire en BDD
+                                Session::addFlash("success", 'Merci ! Vous êtes désormais inscrit en tant que "$pseudo"');
                             }
                         }
                     }    
@@ -57,7 +58,9 @@ class SecurityController extends AbstractController implements ControllerInterfa
                 $mdp = filter_input(INPUT_POST, "mdp", FILTER_SANITIZE_SPECIAL_CHARS);
                 $passwordHash = $visitorManager->getPasswordHash($email)["mdpVisiteur"];
                 if (password_verify($mdp, $passwordHash)) { // Vérifie que le mdp saisi est valide
-                    Session::setUser($visitorManager->findOneByEmail($email));
+                    $user = $visitorManager->findOneByEmail($email);
+                    Session::setUser($user);
+                    Session::addFlash("success", "Bienvenue " . $user . " !");
                 }
                 $this->redirectTo("forum", "listCategories"); // Redirige vers la liste des catégories
             }

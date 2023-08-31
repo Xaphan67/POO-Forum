@@ -30,10 +30,16 @@ class ForumController extends AbstractController implements ControllerInterface
                 $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_SPECIAL_CHARS);
                 if ($nom)
                 {
-                    $categoryManager->add(['nomCategorie' => $nom]); // Ajoute les informations du formulaire pour la catégorie en BDD   
+                    $categoryManager->add(['nomCategorie' => $nom]); // Ajoute les informations du formulaire pour la catégorie en BDD 
+                    Session::addFlash("success", "Catégorie ajoutée !");
                 }
             }
-        };
+            else
+            {
+                Session::addFlash("error", "Le nom est invalide !");
+            }
+        }
+        
         return [
             "view" => VIEW_DIR . "forum/listCategories.php",
             "data" => [
@@ -47,15 +53,16 @@ class ForumController extends AbstractController implements ControllerInterface
     {
         $categoryManager = new CategorieManager();
 
-        if (isset($_POST['edit'])) { // Vérifie qu'un formulaire à été soumis
-            if (isset($_POST['edit' . $categoryId]) && !empty($_POST['edit' . $categoryId])) { // Vérifie que les champs du formulaires existent et ne sont pas vides
-                $nom = filter_input(INPUT_POST, "edit" . $categoryId, FILTER_SANITIZE_SPECIAL_CHARS);
-                if ($nom)
-                {
-                    $categoryManager->edit($categoryId, $nom); // Ajoute les informations du formulaire en BDD
-                }
+        if (isset($_POST['edit']) && isset($_POST['edit' . $categoryId]) && !empty($_POST['edit' . $categoryId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+            $nom = filter_input(INPUT_POST, "edit" . $categoryId, FILTER_SANITIZE_SPECIAL_CHARS);
+            if ($nom)
+            {
+                $categoryManager->edit($categoryId, $nom); // Ajoute les informations du formulaire en BDD
+                Session::addFlash("success", "Catégorie modifiée !");
+                $this->redirectTo("forum", "listCategories"); // Redirection vers la liste des catégories
             }
         }
+        Session::addFlash("error", "Le nom est invalide !");
 
         $this->redirectTo("forum", "listCategories"); // Redirection vers la liste des catégories
     }
@@ -95,16 +102,17 @@ class ForumController extends AbstractController implements ControllerInterface
     {
         $postManager = new MessageManager();
 
-        if (isset($_POST['submit'])) { // Vérifie qu'un formulaire à été soumis
-            if (isset($_POST["reponse"]) && !empty($_POST['reponse'])) { // Vérifie que les champs du formulaires existent et ne sont pas vides
-                $reponse = filter_input(INPUT_POST, "reponse", FILTER_SANITIZE_SPECIAL_CHARS);
-                if ($reponse)
-                {
-                    $userId = Session::getUser()->getId(); // Récupère l'ID du visiteur actuellement connecté
-                    $postManager->add(['texteMessage' => $reponse, 'visiteur_id' => $userId, 'sujet_id' => $topicId]); // Ajoute les informations du formulaire en BDD    
-                }
+        if (isset($_POST['submit']) && isset($_POST["reponse"]) && !empty($_POST['reponse'])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+            $reponse = filter_input(INPUT_POST, "reponse", FILTER_SANITIZE_SPECIAL_CHARS);
+            if ($reponse)
+            {
+                $userId = Session::getUser()->getId(); // Récupère l'ID du visiteur actuellement connecté
+                $postManager->add(['texteMessage' => $reponse, 'visiteur_id' => $userId, 'sujet_id' => $topicId]); // Ajoute les informations du formulaire en BDD
+                Session::addFlash("success", "Message ajouté !");
+                $this->redirectTo("forum", "viewTopic", $topicId); // Redirection vers la vue du sujet
             }
         }
+        Session::addFlash("error", "Le message est invalide !");
 
         $this->redirectTo("forum", "viewTopic", $topicId); // Redirection vers la vue du sujet
     }
@@ -113,19 +121,18 @@ class ForumController extends AbstractController implements ControllerInterface
     public function editPost($postId)
     {
         $postManager = new MessageManager();
+        $topicId = $postManager->findOneById(($postId))->getSujet()->getId(); // Récupère l'id du sujet du message
 
-        if (isset($_POST['edit'])) { // Vérifie qu'un formulaire à été soumis
-            if (isset($_POST['edit' . $postId]) && !empty($_POST['edit' . $postId])) { // Vérifie que les champs du formulaires existent et ne sont pas vides
-                $message = filter_input(INPUT_POST, "edit" . $postId, FILTER_SANITIZE_SPECIAL_CHARS);
-                if ($message)
-                {
-                    $postManager->edit($postId, $message); // Ajoute les informations du formulaire en BDD
-                }
+        if (isset($_POST['edit']) && isset($_POST['edit' . $postId]) && !empty($_POST['edit' . $postId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+            $message = filter_input(INPUT_POST, "edit" . $postId, FILTER_SANITIZE_SPECIAL_CHARS);
+            if ($message)
+            {
+                $postManager->edit($postId, $message); // Ajoute les informations du formulaire en BDD
+                Session::addFlash("success", "Message modifié !");
+                $this->redirectTo("forum", "viewTopic", $topicId); // Redirection vers la vue du sujet
             }
         }
-
-        $post = $postManager->findOneById(($postId)); // Récupère les informations correspondantes au message
-        $topicId = $post->getSujet()->getId(); // Récupère l'id du sujet du message
+        Session::addFlash("error", "Le message est invalide !");
 
         $this->redirectTo("forum", "viewTopic", $topicId); // Redirection vers la vue du sujet
     }
@@ -136,20 +143,21 @@ class ForumController extends AbstractController implements ControllerInterface
         $topicManager = new SujetManager();
         $postManager = new MessageManager();
 
-        if (isset($_POST['submit'])) { // Vérifie qu'un formulaire à été soumis
-            if (isset($_POST["nom"]) && !empty($_POST['nom']) && isset($_POST["message"]) && !empty($_POST['message'])) { // Vérifie que les champs du formulaires existent et ne sont pas vides
-                $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_SPECIAL_CHARS);
-                $message = filter_input(INPUT_POST, "message", FILTER_SANITIZE_SPECIAL_CHARS);
-                if ($nom && $message)
-                {
-                    $userId = Session::getUser()->getId(); // Récupère l'ID du visiteur actuellement connecté
-                    $newTopicId = $topicManager->add(['titreSujet' => $nom, 'visiteur_id' => $userId, 'categorie_id' => $categoryId]); // Ajoute les informations du formulaire pour le sujet en BDD, retourne l'id du sujet ajouté
-                    $postManager->add(['texteMessage' => $message, 'visiteur_id' => $userId, 'sujet_id' => $newTopicId]); // Ajoute les informations du formulaire pour le 1er message du sujet    
-                }
+        if (isset($_POST['submit']) && isset($_POST["nom"]) && !empty($_POST['nom']) && isset($_POST["message"]) && !empty($_POST['message'])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+            $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_SPECIAL_CHARS);
+            $message = filter_input(INPUT_POST, "message", FILTER_SANITIZE_SPECIAL_CHARS);
+            if ($nom && $message)
+            {
+                $userId = Session::getUser()->getId(); // Récupère l'ID du visiteur actuellement connecté
+                $newTopicId = $topicManager->add(['titreSujet' => $nom, 'visiteur_id' => $userId, 'categorie_id' => $categoryId]); // Ajoute les informations du formulaire pour le sujet en BDD, retourne l'id du sujet ajouté
+                $postManager->add(['texteMessage' => $message, 'visiteur_id' => $userId, 'sujet_id' => $newTopicId]); // Ajoute les informations du formulaire pour le 1er message du sujet    
+                Session::addFlash("success", "Sujet créé !");
+                $this->redirectTo("forum", "viewTopic", $newTopicId); // Redicection vers la vue du sujet
             }
         }
+        Session::addFlash("error", "Le " . (!$nom ? "nom du sujet" : "message") . " est invalide !");
 
-        $this->redirectTo("forum", "viewTopic", $newTopicId); // Redicection vers la vue du sujet
+        $this->redirectTo("forum", "listTopics", $categoryId); // Redicection vers la liste des sujets de la catégorie
     }
 
     // Traite les informations et modifie le titre du sujet via le formulaire
@@ -157,14 +165,16 @@ class ForumController extends AbstractController implements ControllerInterface
     {
         $topicManager = new SujetManager();
 
-        if (isset($_POST['edit'])) { // Vérifie qu'un formulaire à été soumis
-            if (isset($_POST["edit" . $topicId]) && !empty($_POST["edit" . $topicId])) { // Vérifie que les champs du formulaires existent et ne sont pas vides
-                $title = filter_input(INPUT_POST, "edit" . $topicId, FILTER_SANITIZE_SPECIAL_CHARS);
-                if ($title)
-                {
-                    $topicManager->edit($topicId, $title); // Ajoute les informations du formulaire pour le 1er message du sujet
-                }
+        if (isset($_POST['edit']) && isset($_POST["edit" . $topicId]) && !empty($_POST["edit" . $topicId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+           
+            $title = filter_input(INPUT_POST, "edit" . $topicId, FILTER_SANITIZE_SPECIAL_CHARS);
+            if ($title)
+            {
+                $topicManager->edit($topicId, $title); // Ajoute les informations du formulaire pour le 1er message du sujet
+                Session::addFlash("success", "Titre du sujet modifié !");
+                $this->redirectTo("forum", "viewTopic", $topicId); // Redicection vers la vue du sujet
             }
+            Session::addFlash("error", "Le titre du sujet est invalide !");
         }
 
         $this->redirectTo("forum", "viewTopic", $topicId); // Redicection vers la vue du sujet
@@ -176,6 +186,7 @@ class ForumController extends AbstractController implements ControllerInterface
         $topicManager = new SujetManager();
 
         $topicManager->lockTopic($topicId); // Appelle la méthode du manager qui verrouille le sujet en BDD
+        Session::addFlash("success", "Sujet verrouillé !");
 
         $this->redirectTo("forum", "viewTopic", $topicId); // Redirection vers la vue su sujet
     }
@@ -186,6 +197,7 @@ class ForumController extends AbstractController implements ControllerInterface
         $topicManager = new SujetManager();
 
         $topicManager->unlockTopic($topicId); // Appelle la méthode du manager qui déverrouille le sujet en BDD
+        Session::addFlash("success", "Sujet déverrouillé !");
 
         $this->redirectTo("forum", "viewTopic", $topicId); // Redirection vers la vue su sujet
     }
@@ -198,6 +210,7 @@ class ForumController extends AbstractController implements ControllerInterface
         $topic = $topicManager->findOneById(($topicId)); // Récupère les informations correspondantes au sujet
         $categoryId = $topic->getCategorie()->getId(); // Récupère l'id de la catégoriue du sujet
         $topicManager->deleteTopic($topicId); // Appelle la méthode du manager qui supprime le sujet en BDD
+        Session::addFlash("success", "Sujet supprimé !");
 
         $this->redirectTo("forum", "listTopics", $categoryId); // Redirection vers la catégorie qui contenait le sujet
     }
