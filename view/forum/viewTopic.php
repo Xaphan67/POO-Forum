@@ -23,7 +23,7 @@ $topic = $result["data"]['topic'];
 <div><a href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId() ?>">Supprimer</a></div>
 
 <?php
-if ($messages != null) { // Normalement, il y à toujours un message : Celui de l'auteur.
+if ($messages != null) { // Normalement, il y a toujours un message : Celui de l'auteur.
 ?>
     <table>
         <tbody>
@@ -32,7 +32,16 @@ if ($messages != null) { // Normalement, il y à toujours un message : Celui de 
             ?>
                 <tr>
                     <td><a href="index.php?ctrl=forum&action=viewProfile&id=<?= $message->getVisiteur()->getId() ?>"><?= $message->getVisiteur() ?></a></td>
-                    <td><?= $message->getDateCreationMessage() ?> <button onclick="showEditForm(<?= $message->getID() ?>)" type="edit" name="edit">Modifier</button></td>
+                    <td>
+                        <?= $message->getDateCreationMessage() ?>
+                        <?php if (App\Session::getUser()->getId() == $message->getVisiteur()->getId() || App\Session::isAdmin())
+                        {
+                        ?>
+                            <button onclick="showEditForm(<?= $message->getID() ?>)" type="edit" name="edit">Modifier</button>
+                        <?php
+                        }
+                        ?>
+                    </td>
                 </tr>
                 <tr class="main-message">
                     <?php $role = $message->getVisiteur()->getRoleVisiteur();
