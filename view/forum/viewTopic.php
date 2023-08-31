@@ -43,7 +43,7 @@ if ($messages != null) { // Normalement, il y a toujours un message : Celui de l
                         <?php if (App\Session::getUser()->getId() == $message->getVisiteur()->getId() || App\Session::isAdmin())
                         {
                         ?>
-                            <button onclick="showEditForm(<?= $message->getID() ?>)" type="edit" name="edit">Modifier</button>
+                            <button onclick="showEditForm(<?= $message->getID() ?>)" type="submit" name="edit">Modifier</button>
                         <?php
                         }
                         ?>
@@ -62,12 +62,10 @@ if ($messages != null) { // Normalement, il y a toujours un message : Celui de l
                     <td>Inscrit le <?= $message->getVisiteur()->getDateInscriptionVisiteur() ?><br><?= $role ?></td>
                     <td>
                         <p id="message<?= $message->getID() ?>"><?= $message->getTexteMessage() ?></p>
-                        <div class ="editForm" id="editForm<?= $message->getID() ?>">
-                            <form action="index.php?ctrl=forum&action=editPost&id=<?= $message->getId() ?>" method="post">
+                        <form class ="editForm" id="editForm<?= $message->getID() ?>" action="index.php?ctrl=forum&action=editPost&id=<?= $message->getId() ?>" method="post">
                                 <textarea id="edit<?= $message->getID() ?>" name="edit<?= $message->getID() ?>" rows="5" required><?= $message->getTexteMessage() ?></textarea>
                                 <button type="submit" name="edit">Modifier</button>
-                            </form>
-                        </div>
+                        </form>
                     </td>
                 </tr>
             <?php
@@ -104,16 +102,17 @@ if (!$topic->getVerouilleSujet() && App\Session::getUser()) {
 }
 ?>
 <script>
-        function showEditForm(id) {
-            const message = document.querySelector("#message" + id);
-            const editForm = document.querySelector("#editForm" + id);
-            if (message.style.display != "none") 
-            {
-                message.style.display = "none";
-                editForm.style.display = "unset";
-            } else {
-                message.style.display = "unset";
-                editForm.style.display = "none";
-            }
-        } 
+    // Affiche le formulaire d'edition d'un message
+    function showEditForm(id) {
+        const message = document.querySelector("#message" + id);
+        const editForm = document.querySelector("#editForm" + id);
+        if (message.style.display != "none") 
+        {
+            message.style.display = "none";
+            editForm.style.display = "unset";
+        } else {
+            message.style.display = "unset";
+            editForm.style.display = "none";
+        }
+    } 
 </script>
