@@ -23,8 +23,6 @@
         public function setId($id)
         {
                 $this->id = $id;
-
-                return $this;
         }
 
         public function getTexteMessage()
@@ -35,8 +33,6 @@
         public function setTexteMessage($texteMessage)
         {
                 $this->texteMessage = $texteMessage;
-
-                return $this;
         }
 
         public function getDateCreationMessage(){
@@ -46,7 +42,6 @@
 
         public function setDateCreationMessage($dateCreationMessage){
             $this->dateCreationMessage = new \DateTime($dateCreationMessage);
-            return $this;
         }
 
         public function getVisiteur()
@@ -57,8 +52,6 @@
         public function setVisiteur($visiteur)
         {
                 $this->visiteur = $visiteur;
-
-                return $this;
         }
 
         public function getSujet()
@@ -69,7 +62,5 @@
         public function setSujet($sujet)
         {
                 $this->sujet = $sujet;
-
-                return $this;
         }
     }
