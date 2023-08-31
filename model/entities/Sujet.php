@@ -13,6 +13,7 @@
         private $categorie;
 
         private $nbMessages;
+        private $dateMessageRecent;
 
         public function __construct($data){         
             $this->hydrate($data);        
@@ -97,6 +98,18 @@
         {
                 $this->nbMessages = $nbMessages;
 
+                return $this;
+        }
+
+        public function getDateMessageRecent()
+        {
+                $formattedDate = $this->dateMessageRecent->format("d/m/Y, H:i:s");
+                return $formattedDate;
+        }
+
+        public function setDateMessageRecent($dateMessageRecent)
+        {
+                $this->dateMessageRecent = new \DateTime($dateMessageRecent);
                 return $this;
         }
 

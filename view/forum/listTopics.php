@@ -38,7 +38,7 @@ if ($topics != null) {
                     </td>
                     <td><a href="index.php?ctrl=forum&action=viewProfile&id=<?= $topic->getVisiteur()->getId() ?>"><?= $topic->getVisiteur() ?></a></td>
                     <td class="cellCenter"><?= max(0, $topic->getNbMessages() - 1) ?></td> <!-- Nombre de messages dans le sujet, -1 pour ne compter que les réponses -->
-                    <td><?= $topic->getDateCreationSujet() ?></td>
+                    <td><?= $topic->getDateMessageRecent() ?></td>
                 </tr>
             <?php
             }
