@@ -35,7 +35,16 @@ if ($messages != null) { // Normalement, il y à toujours un message : Celui de 
                     <td><?= $message->getDateCreationMessage() ?></td>
                 </tr>
                 <tr class="main-message">
-                    <td>Inscrit le <?= $message->getVisiteur()->getDateInscriptionVisiteur() ?><br><?= $message->getVisiteur()->getRoleVisiteur() ?></td>
+                    <?php $role = $message->getVisiteur()->getRoleVisiteur();
+                    if (str_contains($role, "ADMIN"))
+                    {
+                        $role = "Administrateur";
+                    } else if (str_contains($role, "MODERATOR")) {
+                        $role = "Modérateur";
+                    } else {
+                        $role = "Membre";
+                    } ?>
+                    <td>Inscrit le <?= $message->getVisiteur()->getDateInscriptionVisiteur() ?><br><?= $role ?></td>
                     <td><?= $message->getTexteMessage() ?></td>
                 </tr>
             <?php
