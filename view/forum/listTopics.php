@@ -62,7 +62,7 @@ if (App\Session::getUser()) {
         <input type=text name="nom" required>
         <label for="message">Message : *</label>
         <textarea id="message" name="message" rows="5" required></textarea>
-        <button type="submit" name="submit">Répondre</button>
+        <button type="submit" name="submit">Créer</button>
     </form>
 <?php
 } else {
