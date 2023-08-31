@@ -25,14 +25,20 @@ if ($categories != null) {
                 <tr>
                     <td>
                         <a id="category<?= $category->getID() ?>" href="index.php?ctrl=forum&action=listTopics&id=<?= $category->getId() ?>"><?= $category->getNomCategorie() ?></a>
-                        <div class ="editForm" id="editForm<?= $category->getID() ?>">
-                            <form action="index.php?ctrl=forum&action=editCategory&id=<?= $category->getId() ?>" method="post">
-                                <input id="edit<?= $category->getId() ?>" type="text" value="<?= $category->getNomCategorie() ?>" required></input>
-                                <button type="submit" name="edit">Valider</button>
-                            </form>
-                            <button onclick="showEditForm(<?= $category->getId() ?>)" type="submit" name="cancel">Annuler</button>
-                        </div>
+                        <?php if (App\Session::getUser() && App\Session::isAdmin())
+                        {
+                        ?>
+                            <div class="editForm" id="editForm<?= $category->getID() ?>">
+                                <form action="index.php?ctrl=forum&action=editCategory&id=<?= $category->getId() ?>" method="post">
+                                    <input id="edit<?= $category->getId() ?>" type="text" value="<?= $category->getNomCategorie() ?>" required></input>
+                                    <button type="submit" name="edit">Valider</button>
+                                </form>
+                                <button onclick="showEditForm(<?= $category->getId() ?>)" type="submit" name="cancel">Annuler</button>
+                            </div>
                         <button id="editBtn<?= $category->getID() ?>" onclick="showEditForm(<?= $category->getId() ?>)" type="submit" name="edit">Modifier</button>
+                        <?php
+                        }
+                        ?>
                     </td>
                     <td class="cellCenter"><?= $category->getNbSujets() ?></td> <!-- Nombre de sujets de la catégorie -->
                     <td class="cellCenter"><?= $category->getNbMessages() - $category->getNbSujets() ?></td> <!-- Nombre de messages - nombres de sujets pour obtenir uniquement le nombre de réponses -->
