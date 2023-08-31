@@ -39,6 +39,22 @@ class ForumController extends AbstractController implements ControllerInterface
         ]; 
     }
 
+    // Traite les informations et modifie le nom d'une catégorie via le formulaire
+    public function editCategory($categoryId)
+    {
+        $categoryManager = new CategorieManager();
+
+        if (isset($_POST['edit'])) { // Vérifie qu'un formulaire à été soumis
+            if (isset($_POST['edit' . $categoryId]) && !empty($_POST['edit' . $categoryId])) { // Vérifie que les champs du formulaires existent et ne sont pas vides
+                /* filtres ici */
+                
+                $categoryManager->edit($categoryId, $_POST['edit' . $categoryId]); // Ajoute les informations du formulaire en BDD
+            }
+        }
+
+        $this->redirectTo("forum", "listCategories"); // Redirection vers la liste des catégories
+    }
+
     // Affiche la liste des sujets d'une catégrie du forum
     public function listTopics($categoryId)
     {

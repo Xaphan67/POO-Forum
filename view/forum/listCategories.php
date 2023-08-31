@@ -30,7 +30,7 @@ if ($categories != null) {
                         ?>
                             <div class="editForm" id="editForm<?= $category->getID() ?>">
                                 <form action="index.php?ctrl=forum&action=editCategory&id=<?= $category->getId() ?>" method="post">
-                                    <input id="edit<?= $category->getId() ?>" type="text" value="<?= $category->getNomCategorie() ?>" required></input>
+                                    <input id="edit<?= $category->getId() ?>" name="edit<?= $category->getId() ?>" type="text" value="<?= $category->getNomCategorie() ?>" required></input>
                                     <button type="submit" name="edit">Valider</button>
                                 </form>
                                 <button onclick="showEditForm(<?= $category->getId() ?>)" type="submit" name="cancel">Annuler</button>

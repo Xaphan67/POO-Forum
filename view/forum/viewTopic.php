@@ -40,13 +40,16 @@ if ($messages != null) { // Normalement, il y a toujours un message : Celui de l
                     <td><a href="index.php?ctrl=forum&action=viewProfile&id=<?= $message->getVisiteur()->getId() ?>"><?= $message->getVisiteur() ?></a></td>
                     <td>
                         <?= $message->getDateCreationMessage() ?>
-                        <?php if (App\Session::getUser()->getId() == $message->getVisiteur()->getId() || App\Session::isAdmin())
+                        <?php if (App\Session::getUser())
                         {
-                        ?>
-                            <button onclick="showEditForm(<?= $message->getID() ?>)" type="submit" name="edit">Modifier</button>
-                        <?php
+                            if (App\Session::getUser()->getId() == $message->getVisiteur()->getId() || App\Session::isAdmin())
+                            {
+                            ?>
+                                <button onclick="showEditForm(<?= $message->getID() ?>)" type="submit" name="edit">Modifier</button>
+                            <?php
+                            }
                         }
-                        ?>
+                        ?> 
                     </td>
                 </tr>
                 <tr class="main-message">
@@ -63,8 +66,8 @@ if ($messages != null) { // Normalement, il y a toujours un message : Celui de l
                     <td>
                         <p id="message<?= $message->getID() ?>"><?= $message->getTexteMessage() ?></p>
                         <form class ="editForm" id="editForm<?= $message->getID() ?>" action="index.php?ctrl=forum&action=editPost&id=<?= $message->getId() ?>" method="post">
-                                <textarea id="edit<?= $message->getID() ?>" name="edit<?= $message->getID() ?>" rows="5" required><?= $message->getTexteMessage() ?></textarea>
-                                <button type="submit" name="edit">Modifier</button>
+                            <textarea id="edit<?= $message->getID() ?>" name="edit<?= $message->getID() ?>" rows="5" required><?= $message->getTexteMessage() ?></textarea>
+                            <button type="submit" name="edit">Modifier</button>
                         </form>
                     </td>
                 </tr>
