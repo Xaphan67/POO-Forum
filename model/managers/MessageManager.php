@@ -30,4 +30,17 @@ class MessageManager extends Manager
             $this->className
         );
     }
+
+    // Modifie le texte d'un messsage
+    public function edit($id, $text)
+    {
+        $sql = "UPDATE message m
+            SET m.texteMessage = :text
+            WHERE m.id_message = :id";
+
+        return $this->getOneOrNullResult(
+            DAO::select($sql, ["text" => $text, "id" => $id]),
+            $this->className
+        );
+    }
 }

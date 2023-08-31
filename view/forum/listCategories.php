@@ -39,3 +39,15 @@ if ($categories != null) {
     <p>Aucune catégorie !</p>
 <?php
 }
+
+if (App\Session::getUser() && App\Session::isAdmin()) {
+?>
+    <p>Créer une nouvelle catégorie :</p>
+    <form action="index.php?ctrl=forum&action=listCategories" method="post">
+        <label for="nom">Nom de la catégorie : *</label>
+        <input type=text name="nom" required>
+        <button type="submit" name="submit">Créer</button>
+    </form>
+<?php
+}
+?>

@@ -25,12 +25,18 @@ class ForumController extends AbstractController implements ControllerInterface
     {
         $categoryManager = new CategorieManager();
 
+        if (isset($_POST['submit'])) { // Vérifie qu'un formulaire à été soumis
+            if (isset($_POST["nom"]) && !empty($_POST['nom'])) { // Vérifie que les champs du formulaires existent et ne sont pas vides
+                /* filtres ici */
+                $categoryManager->add(['nomCategorie' => $_POST["nom"]]); // Ajoute les informations du formulaire pour la catégorie en BDD
+            }
+        };
         return [
             "view" => VIEW_DIR . "forum/listCategories.php",
             "data" => [
                 "categories" => $categoryManager->getAllCategories() // Informations relatives aux catégories (Noms, nombre sujets et réponses etc...)
             ]
-        ];
+        ]; 
     }
 
     // Affiche la liste des sujets d'une catégrie du forum
@@ -63,7 +69,7 @@ class ForumController extends AbstractController implements ControllerInterface
         ];
     }
 
-    // Traite les informations et ajoute un noveau message à un sujet via le forumaire
+    // Traite les informations et ajoute un noveau message à un sujet via le formulaire
     public function submitPost($topicId)
     {
         $postManager = new MessageManager();
@@ -75,6 +81,24 @@ class ForumController extends AbstractController implements ControllerInterface
                 $postManager->add(['texteMessage' => $_POST["reponse"], 'visiteur_id' => $userId, 'sujet_id' => $topicId]); // Ajoute les informations du formulaire en BDD
             }
         }
+
+        $this->redirectTo("forum", "viewTopic", $topicId); // Redirection vers la vue du sujet
+    }
+
+    // Traite les informations et modifie un message via le formulaire
+    public function editPost($postId)
+    {
+        $postManager = new MessageManager();
+
+        if (isset($_POST['edit'])) { // Vérifie qu'un formulaire à été soumis
+            if (isset($_POST['edit' . $postId]) && !empty($_POST['edit' . $postId])) { // Vérifie que les champs du formulaires existent et ne sont pas vides
+                /* filtres ici */
+                $postManager->edit($postId, $_POST['edit' . $postId]); // Ajoute les informations du formulaire en BDD
+            }
+        }
+
+        $post = $postManager->findOneById(($postId)); // Récupère les informations correspondantes au message
+        $topicId = $post->getSujet()->getId(); // Récupère l'id du sujet du message
 
         $this->redirectTo("forum", "viewTopic", $topicId); // Redirection vers la vue du sujet
     }

@@ -62,3 +62,7 @@ tbody tr {
 .main-message {
     height: 150px;
 }
+
+.editForm {
+    display: none;
+}
