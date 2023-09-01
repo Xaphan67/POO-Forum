@@ -5,7 +5,7 @@ $topics = $result["data"]['topics'];
 
 ?>
 <!-- Fil d'ariane -->
-<h1><a href="index.php?ctrl=forum&action=listCategories">Forum PHP</a> > <?= $category->getNomCategorie() ?></h1>
+<h1><a href="index.php?ctrl=categorie&action=listCategories">Forum PHP</a> > <?= $category->getNomCategorie() ?></h1>
 
 <?php
 if ($topics != null) {
@@ -34,7 +34,7 @@ if ($topics != null) {
                         <?php
                         }
                         ?>
-                        <a href="index.php?ctrl=forum&action=viewTopic&id=<?= $topic->getId() ?>"><?= $topic->getTitreSujet() ?></a>
+                        <a href="index.php?ctrl=sujet&action=viewTopic&id=<?= $topic->getId() ?>"><?= $topic->getTitreSujet() ?></a>
                     </td>
                     <td><a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $topic->getVisiteur()->getId() ?>"><?= $topic->getVisiteur() ?></a></td>
                     <td class="cellCenter"><?= max(0, $topic->getNbMessages() - 1) ?></td> <!-- Nombre de messages dans le sujet, -1 pour ne compter que les réponses -->
@@ -57,7 +57,7 @@ if ($topics != null) {
 if (App\Session::getUser()) {
 ?>
     <p>Créer un nouveau sujet :</p>
-    <form action="index.php?ctrl=forum&action=newTopic&id=<?= $category->getId() ?>" method="post">
+    <form action="index.php?ctrl=sujet&action=newTopic&id=<?= $category->getId() ?>" method="post">
         <label for="nom">Nom du sujet : *</label>
         <input type=text name="nom" required>
         <label for="message">Message : *</label>

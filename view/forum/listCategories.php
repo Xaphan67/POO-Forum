@@ -24,19 +24,19 @@ if ($categories != null) {
             ?>
                 <tr>
                     <td>
-                        <a id="category<?= $category->getID() ?>" href="index.php?ctrl=forum&action=listTopics&id=<?= $category->getId() ?>"><?= $category->getNomCategorie() ?></a>
+                        <a id="category<?= $category->getID() ?>" href="index.php?ctrl=categorie&action=listTopics&id=<?= $category->getId() ?>"><?= $category->getNomCategorie() ?></a>
                         <?php if (App\Session::getUser() && App\Session::isAdmin())
                         {
                         ?>
                             <div class="editForm" id="editForm<?= $category->getID() ?>">
-                                <form action="index.php?ctrl=forum&action=editCategory&id=<?= $category->getId() ?>" method="post">
+                                <form action="index.php?ctrl=categorie&action=editCategory&id=<?= $category->getId() ?>" method="post">
                                     <input id="edit<?= $category->getId() ?>" name="edit<?= $category->getId() ?>" type="text" value="<?= $category->getNomCategorie() ?>" required></input>
                                     <button type="submit" name="edit">Valider</button>
                                 </form>
                                 <button onclick="showEditForm(<?= $category->getId() ?>)" type="submit" name="cancel">Annuler</button>
                             </div>
                         <button id="editBtn<?= $category->getID() ?>" onclick="showEditForm(<?= $category->getId() ?>)" type="submit" name="edit">Modifier</button>
-                        <a href="index.php?ctrl=forum&action=deleteCategory&id=<?= $category->getID() ?>">Supprimer</a>
+                        <a href="index.php?ctrl=categorie&action=deleteCategory&id=<?= $category->getID() ?>">Supprimer</a>
                         <?php
                         }
                         ?>
@@ -60,7 +60,7 @@ if ($categories != null) {
 if (App\Session::getUser() && App\Session::isAdmin()) {
 ?>
     <p>Créer une nouvelle catégorie :</p>
-    <form action="index.php?ctrl=forum&action=listCategories" method="post">
+    <form action="index.php?ctrl=categorie&action=listCategories" method="post">
         <label for="nom">Nom de la catégorie : *</label>
         <input type=text name="nom" required>
         <button type="submit" name="submit">Créer</button>
