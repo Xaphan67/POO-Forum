@@ -23,37 +23,43 @@ class MessageController extends AbstractController implements ControllerInterfac
     {
         $postManager = new MessageManager();
 
-        if (isset($_POST['submit']) && isset($_POST["reponse"]) && !empty($_POST['reponse'])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
-            $reponse = filter_input(INPUT_POST, "reponse", FILTER_SANITIZE_SPECIAL_CHARS);
-            if ($reponse)
-            {
-                $userId = Session::getUser()->getId(); // Récupère l'ID du visiteur actuellement connecté
-                $postManager->add(['texteMessage' => $reponse, 'visiteur_id' => $userId, 'sujet_id' => $topicId]); // Ajoute les informations du formulaire en BDD
-                Session::addFlash("success", "Message ajouté !");
-                $this->redirectTo("sujet", "viewTopic", $topicId); // Redirection vers la vue du sujet
+        if (Session::getUser()) // Vérifie que le visiteur est connecté
+        {
+            if (isset($_POST['submit']) && isset($_POST["reponse"]) && !empty($_POST['reponse'])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+                $reponse = filter_input(INPUT_POST, "reponse", FILTER_SANITIZE_SPECIAL_CHARS);
+                if ($reponse)
+                {
+                    $userId = Session::getUser()->getId(); // Récupère l'ID du visiteur actuellement connecté
+                    $postManager->add(['texteMessage' => $reponse, 'visiteur_id' => $userId, 'sujet_id' => $topicId]); // Ajoute les informations du formulaire en BDD
+                    Session::addFlash("success", "Message ajouté !");
+                    $this->redirectTo("sujet", "viewTopic", $topicId); // Redirection vers la vue du sujet
+                }
             }
+            Session::addFlash("error", "Le message est invalide !");    
         }
-        Session::addFlash("error", "Le message est invalide !");
 
         $this->redirectTo("sujet", "viewTopic", $topicId); // Redirection vers la vue du sujet
     }
 
-    // Traite les informations et modifie un message via le formulaire
+    // Modifie un message via le formulaire
     public function editPost($postId)
     {
         $postManager = new MessageManager();
         $topicId = $postManager->findOneById(($postId))->getSujet()->getId(); // Récupère l'id du sujet du message
 
-        if (isset($_POST['edit']) && isset($_POST['edit' . $postId]) && !empty($_POST['edit' . $postId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
-            $message = filter_input(INPUT_POST, "edit" . $postId, FILTER_SANITIZE_SPECIAL_CHARS);
-            if ($message)
-            {
-                $postManager->edit($postId, $message); // Ajoute les informations du formulaire en BDD
-                Session::addFlash("success", "Message modifié !");
-                $this->redirectTo("sujet", "viewTopic", $topicId); // Redirection vers la vue du sujet
+        if (Session::getUser() && (Session::getUser()->getId() == $postManager->findOneById($postId)->getVisiteur()->getId() || Session::isAdmin())) // Vérifie que le visiteur est connecté et qu'il est l'auteur du message
+        {
+            if (isset($_POST['edit']) && isset($_POST['edit' . $postId]) && !empty($_POST['edit' . $postId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+                $message = filter_input(INPUT_POST, "edit" . $postId, FILTER_SANITIZE_SPECIAL_CHARS);
+                if ($message)
+                {
+                    $postManager->edit($postId, $message); // Ajoute les informations du formulaire en BDD
+                    Session::addFlash("success", "Message modifié !");
+                    $this->redirectTo("sujet", "viewTopic", $topicId); // Redirection vers la vue du sujet
+                }
             }
+            Session::addFlash("error", "Le message est invalide !");
         }
-        Session::addFlash("error", "Le message est invalide !");
 
         $this->redirectTo("sujet", "viewTopic", $topicId); // Redirection vers la vue du sujet
     }
@@ -62,11 +68,14 @@ class MessageController extends AbstractController implements ControllerInterfac
     public function deletePost($postId)
     {
         $postManager = new MessageManager();
-        $topicId = $postManager->findOneById(($postId))->getSujet()->getId(); // Récupère l'id du sujet du message
+        $topicId = $postManager->findOneById($postId)->getSujet()->getId(); // Récupère l'id du sujet du message
 
-        $postManager->delete($postId);
-        Session::addFlash("success", "Message supprimé !");
+        if (Session::getUser() && (Session::getUser()->getId() == $postManager->findOneById($postId)->getVisiteur()->getId() || Session::isAdmin())) // Vérifie que le visiteur est connecté et qu'il est l'auteur du message
+        {
+            $postManager->delete($postId);
+            Session::addFlash("success", "Message supprimé !");
+        }
 
-        $this->redirectTo("sujet", "viewTopic", $topicId); // Redirection vers la vue du sujet
+        $this->redirectTo("sujet", "viewTopic", $topicId); // Redirection vers la vue du sujet 
     }
 }
