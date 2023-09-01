@@ -148,6 +148,18 @@ class ForumController extends AbstractController implements ControllerInterface
         $this->redirectTo("forum", "viewTopic", $topicId); // Redirection vers la vue du sujet
     }
 
+    // Supprime un message
+    public function deletePost($postId)
+    {
+        $postManager = new MessageManager();
+        $topicId = $postManager->findOneById(($postId))->getSujet()->getId(); // Récupère l'id du sujet du message
+
+        $postManager->delete($postId);
+        Session::addFlash("success", "Message supprimé !");
+
+        $this->redirectTo("forum", "viewTopic", $topicId); // Redirection vers la vue du sujet
+    }
+
     // Traite les informations et ajoute un nouveau sujet via le formulaire
     public function newTopic($categoryId)
     {
