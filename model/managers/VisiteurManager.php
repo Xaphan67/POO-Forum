@@ -54,4 +54,17 @@ class VisiteurManager extends Manager
             DAO::select($sql, ["email" => $email])
         );
     }
+
+    // Modifie le rôle du sujet
+    public function edit($id, $role)
+    {
+        $sql = "UPDATE visiteur v
+            SET v.roleVisiteur = :role
+            WHERE v.id_visiteur = :id";
+
+        return $this->getOneOrNullResult(
+            DAO::select($sql, ["role" => $role, "id" => $id]),
+            $this->className
+        );
+    }
 }

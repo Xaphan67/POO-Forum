@@ -24,7 +24,7 @@
                         <?php
                         if (App\Session::isAdmin()) {
                         ?>
-                            <a href="index.php?ctrl=visiteur&action=users">Voir la liste des utilisateurs</a>
+                            <a href="index.php?ctrl=visiteur&action=users">Gérer les utilisateurs</a>
                         <?php
                         }
                         ?>
