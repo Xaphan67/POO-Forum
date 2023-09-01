@@ -62,7 +62,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
             $this->redirectTo("security", "register"); // Redirige vers le formulaire d'inscription
         } else {
             return [
-                "view" => VIEW_DIR . "register.php"
+                "view" => VIEW_DIR . "security/register.php"
             ];
         }
     }
@@ -98,7 +98,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
             $this->redirectTo("security", "login"); // Redirige vers la liste des catégories
         } else {
             return [
-                "view" => VIEW_DIR . "login.php"
+                "view" => VIEW_DIR . "security/login.php"
             ];
         }
     }
