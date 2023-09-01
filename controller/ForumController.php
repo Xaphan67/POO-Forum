@@ -108,7 +108,7 @@ class ForumController extends AbstractController implements ControllerInterface
         ];
     }
 
-    // Traite les informations et ajoute un noveau message à un sujet via le formulaire
+    // Traite les informations et ajoute un nouveau message à un sujet via le formulaire
     public function submitPost($topicId)
     {
         $postManager = new MessageManager();

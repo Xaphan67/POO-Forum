@@ -52,7 +52,7 @@ if ($messages != null) { // Normalement, il y a toujours un message : Celui de l
                 $numMessage++;
             ?>
                 <tr>
-                    <td><a href="index.php?ctrl=forum&action=viewProfile&id=<?= $message->getVisiteur()->getId() ?>"><?= $message->getVisiteur() ?></a></td>
+                    <td><a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $message->getVisiteur()->getId() ?>"><?= $message->getVisiteur() ?></a></td>
                     <td>
                         <?= $message->getDateCreationMessage() ?>
                         <?php if (App\Session::getUser())
