@@ -28,21 +28,35 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
 
 <h2>Les derniers messages de <?= $user->getPseudoVisiteur() ?>:</h2>
 
-<table>
-    <tbody>
+
     <?php 
-    foreach ($messages as $message) {
+    if ($messages != null)
+    {
     ?>
-        <tr>
-            <td><a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $message->getVisiteur()->getId() ?>"><?= $message->getVisiteur() ?></a></td>
-            <td>Sujet : <?= $message->getSujet()->getTitreSujet() ?></td>
-        </tr>
-        <tr class="main-message">
-            <td><?= $message->getDateCreationMessage() ?></td>
-            <td><?= $message->getTexteMessage() ?></td>
-        </tr>
+        <table>
+            <tbody>
+            <?php
+                foreach ($messages as $message) {
+                ?>
+                    <tr>
+                        <td><a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $message->getVisiteur()->getId() ?>"><?= $message->getVisiteur() ?></a></td>
+                        <td>Sujet : <?= $message->getSujet()->getTitreSujet() ?></td>
+                    </tr>
+                    <tr class="main-message">
+                        <td><?= $message->getDateCreationMessage() ?></td>
+                        <td><?= $message->getTexteMessage() ?></td>
+                    </tr>
+                <?php
+                }
+                ?>
+            </tbody>
+        </table>
+    <?php
+    }
+    else
+    {
+    ?>
+        <p>Aucun message !</p>
     <?php
     }
     ?>
-    </tbody>
-</table>
