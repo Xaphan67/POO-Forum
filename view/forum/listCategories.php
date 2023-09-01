@@ -36,6 +36,7 @@ if ($categories != null) {
                                 <button onclick="showEditForm(<?= $category->getId() ?>)" type="submit" name="cancel">Annuler</button>
                             </div>
                         <button id="editBtn<?= $category->getID() ?>" onclick="showEditForm(<?= $category->getId() ?>)" type="submit" name="edit">Modifier</button>
+                        <a href="index.php?ctrl=forum&action=deleteCategory&id=<?= $category->getID() ?>">Supprimer</a>
                         <?php
                         }
                         ?>

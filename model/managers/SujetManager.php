@@ -71,16 +71,4 @@ class SujetManager extends Manager
             $this->className
         );
     }
-
-    // Supprime un sujet (et les messages qui lui sont ratachés via CASCADE en BDD)
-    public function deleteTopic($id)
-    {
-        $sql = "DELETE FROM sujet s
-            WHERE s.id_sujet = :id";
-
-        return $this->getOneOrNullResult(
-            DAO::select($sql, ["id" => $id]),
-            $this->className
-        );
-    }
 }

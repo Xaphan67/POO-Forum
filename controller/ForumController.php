@@ -67,6 +67,17 @@ class ForumController extends AbstractController implements ControllerInterface
         $this->redirectTo("forum", "listCategories"); // Redirection vers la liste des catégories
     }
 
+    // Supprime une catégorie
+    public function deleteCategory($categoryId)
+    {
+        $categoryManager = new CategorieManager();
+
+        $categoryManager->delete($categoryId); // Appelle la méthode du manager qui supprime la catégorie
+        Session::addFlash("success", "Catégorie supprimée !");
+
+        $this->redirectTo("forum", "listCategories"); // Redirection vers la liste des catégories
+    }
+
     // Affiche la liste des sujets d'une catégrie du forum
     public function listTopics($categoryId)
     {
@@ -209,7 +220,7 @@ class ForumController extends AbstractController implements ControllerInterface
 
         $topic = $topicManager->findOneById(($topicId)); // Récupère les informations correspondantes au sujet
         $categoryId = $topic->getCategorie()->getId(); // Récupère l'id de la catégoriue du sujet
-        $topicManager->deleteTopic($topicId); // Appelle la méthode du manager qui supprime le sujet en BDD
+        $topicManager->delete($topicId); // Appelle la méthode du manager qui supprime le sujet en BDD
         Session::addFlash("success", "Sujet supprimé !");
 
         $this->redirectTo("forum", "listTopics", $categoryId); // Redirection vers la catégorie qui contenait le sujet
