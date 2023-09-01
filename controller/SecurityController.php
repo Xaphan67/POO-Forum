@@ -20,7 +20,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
 
     public function register()
     {
-        if (isset($_POST['submit'])) { // Vérifie qu'un formulaire à été soumis
+        if (Session::getUser() && isset($_POST['submit'])) { // Vérifie que le visiteur n'est pas connecté et qu'un formulaire à été soumis
             $visitorManager = new VisiteurManager();
             if (isset($_POST["pseudo"]) && isset($_POST["email"]) && isset($_POST["mdp"]) && isset($_POST["mdpCheck"]) && !empty($_POST['pseudo']) && !empty($_POST['email']) && !empty($_POST['mdp']) && !empty($_POST['mdpCheck'])) { // Vérifie que les champs du formulaires existent et ne sont pas vides
                 $pseudo = filter_input(INPUT_POST, "pseudo", FILTER_SANITIZE_SPECIAL_CHARS);
@@ -69,7 +69,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
 
     public function login()
     {
-        if (isset($_POST['submit'])) { // Vérifie qu'un formulaire à été soumis
+        if (!Session::getUser() && isset($_POST['submit'])) { // Vérifie que le visiteur n'est pas connecté et qu'un formulaire à été soumis
             $visitorManager = new VisiteurManager();
             if (isset($_POST["email"]) && isset($_POST["mdp"]) && !empty($_POST['email']) && !empty($_POST['mdp'])) { // Vérifie que les champs du formulaires existent et ne sont pas vides
                 $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);

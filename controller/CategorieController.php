@@ -25,6 +25,9 @@ class CategorieController extends AbstractController implements ControllerInterf
         $categoryManager = new CategorieManager();
 
         if (isset($_POST['submit'])) { // Vérifie qu'un formulaire à été soumis
+
+            $this->restrictTo("ROLE_ADMIN"); // Seul l'admin peut avoir accès -> redirige vers le formulaire de login sinon
+            
             if (isset($_POST["nom"]) && !empty($_POST['nom'])) { // Vérifie que les champs du formulaires existent et ne sont pas vides
                 $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_SPECIAL_CHARS);
                 if ($nom)
@@ -50,6 +53,8 @@ class CategorieController extends AbstractController implements ControllerInterf
     // Traite les informations et modifie le nom d'une catégorie via le formulaire
     public function editCategory($categoryId)
     {
+        $this->restrictTo("ROLE_ADMIN"); // Seul l'admin peut avoir accès -> redirige vers le formulaire de login sinon
+
         $categoryManager = new CategorieManager();
 
         if (isset($_POST['edit']) && isset($_POST['edit' . $categoryId]) && !empty($_POST['edit' . $categoryId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
@@ -69,6 +74,8 @@ class CategorieController extends AbstractController implements ControllerInterf
     // Supprime une catégorie
     public function deleteCategory($categoryId)
     {
+        $this->restrictTo("ROLE_ADMIN"); // Seul l'admin peut avoir accès -> redirige vers le formulaire de login sinon
+
         $categoryManager = new CategorieManager();
 
         $categoryManager->delete($categoryId); // Appelle la méthode du manager qui supprime la catégorie
