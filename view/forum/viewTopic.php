@@ -74,16 +74,7 @@ if ($messages != null) { // Normalement, il y a toujours un message : Celui de l
                     </td>
                 </tr>
                 <tr class="main-message">
-                    <?php $role = $message->getVisiteur()->getRoleVisiteur();
-                    if (str_contains($role, "ADMIN"))
-                    {
-                        $role = "Administrateur";
-                    } else if (str_contains($role, "MODERATOR")) {
-                        $role = "Modérateur";
-                    } else {
-                        $role = "Membre";
-                    } ?>
-                    <td>Inscrit le <?= $message->getVisiteur()->getDateInscriptionVisiteur() ?><br><?= $role ?></td>
+                    <td>Inscrit le <?= $message->getVisiteur()->getDateInscriptionVisiteur() ?><br><?= $message->getVisiteur()->getRoleVisiteur() ?></td>
                     <td>
                         <p id="message<?= $message->getId() ?>"><?= $message->getTexteMessage() ?></p>
                         <form class ="editForm" id="editForm<?= $message->getId() ?>" action="index.php?ctrl=message&action=editPost&id=<?= $message->getId() ?>" method="post">

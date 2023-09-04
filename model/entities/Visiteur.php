@@ -77,7 +77,8 @@ final class Visiteur extends Entity
 
         public function getRoleVisiteur()
         {
-                return $this->roleVisiteur;
+                $role = ($this->roleVisiteur == "ROLE_ADMIN" ? "Administrateur" : ($this->roleVisiteur == "ROLE_MODERATOR" ? "Modérateur" : "Membre"));
+                return $role;
         }
 
         public function setRoleVisiteur($roleVisiteur)
@@ -102,7 +103,7 @@ final class Visiteur extends Entity
 
         public function hasRole($role)
         {
-                return $this->getRoleVisiteur() == $role ? true : false;
+                return $this->roleVisiteur == $role ? true : false;
         }
 
         public function isBanned()

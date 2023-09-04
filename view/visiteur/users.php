@@ -24,33 +24,23 @@ $users = $result["data"]['users'];
                 <td><a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $user->getId() ?>"><?= $user->getPseudoVisiteur() ?></a></td>
                 <td><?= $user->getDateInscriptionVisiteur() ?></td>
                 <td>
-                <?php 
-                    $role = $user->getRoleVisiteur();
-                    if (str_contains($role, "ADMIN"))
-                    {
-                        $role = "Administrateur";
-                    } else if (str_contains($role, "MODERATOR")) {
-                        $role = "Modérateur";
-                    } else {
-                        $role = "Membre";
-                    } ?>
                     <div id="role<?= $user->getId() ?>">
-                        <?= $role ?>
+                        <?= $user->getRoleVisiteur() ?>
                         <button onclick="showRoleEditForm(<?= $user->getId() ?>)" type="submit" name="edit">Modifier</button>
                     </div>
                     <form class ="editForm" id="editForm<?= $user->getId() ?>" action="index.php?ctrl=visiteur&action=editRole&id=<?= $user->getId() ?>" method="post">
                         <select id="edit<?= $user->getId() ?>" name="edit<?= $user->getId() ?>" required>
                             <option value="">Veuillez sélectionner un rôle</option>
-                            <option value="ROLE_ADMIN" <?= str_contains($user->getRoleVisiteur(), "ADMIN") ? "selected" : "" ?>>Administrateur</option>
-                            <option value="ROLE_MODERATOR" <?= str_contains($user->getRoleVisiteur(), "MODERATOR") ? "selected" : "" ?>>Modérateur</option>
-                            <option value="ROLE_MEMBER" <?= str_contains($user->getRoleVisiteur(), "MEMBER") ? "selected" : "" ?>>Membre</option>
+                            <option value="ROLE_ADMIN" <?= $user->getRoleVisiteur() == "Administrateur" ? "selected" : "" ?>>Administrateur</option>
+                            <option value="ROLE_MODERATOR" <?= $user->getRoleVisiteur() == "Modérateur" ? "selected" : "" ?>>Modérateur</option>
+                            <option value="ROLE_MEMBER" <?= $user->getRoleVisiteur() == "Membre" ? "selected" : "" ?>>Membre</option>
                         </select>
                         <button type="submit" name="edit">Modifier</button>
                     </form>
                 </td>
                 <td>
                     <?php
-                    if (!str_contains($user->getRoleVisiteur(), "ADMIN"))
+                    if ($user->getRoleVisiteur() != "Administrateur")
                     {
                         if ($user->getDateBanissementVisiteur() < $today)
                         {

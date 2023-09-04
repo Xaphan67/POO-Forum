@@ -10,20 +10,7 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
 
 <p>Pseudo : <a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $user->getId() ?>"><?= $user->getPseudoVisiteur() ?></a></p>
 <p>Date d'inscription : <?= $user->getDateInscriptionVisiteur() ?></p>
-<p>Rôle : 
-<?php 
-    $role = $user->getRoleVisiteur();
-    if (str_contains($role, "ADMIN"))
-    {
-        $role = "Administrateur";
-    } else if (str_contains($role, "MODERATOR")) {
-        $role = "Modérateur";
-    } else {
-        $role = "Membre";
-    }
-?>
-    <?= $role ?>
-</p>
+<p>Rôle : <?= $user->getRoleVisiteur() ?></p>
 <p>Messages : <?= $nbMessages ?></p>
 
 <h2>Les derniers messages de <?= $user->getPseudoVisiteur() ?>:</h2>
