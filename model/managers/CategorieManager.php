@@ -24,6 +24,7 @@ class CategorieManager extends Manager
             c.id_categorie,
             c.id_categorie AS idCategorie,
             c.nomCategorie,
+            c.descriptionCategorie,
             (SELECT COUNT(*)
                 FROM sujet s
                 INNER JOIN categorie c ON c.id_categorie = s.categorie_id
@@ -53,6 +54,19 @@ class CategorieManager extends Manager
 
         return $this->getOneOrNullResult(
             DAO::select($sql, ["nom" => $nom, "id" => $id]),
+            $this->className
+        );
+    }
+
+    //
+    public function editDesc($id, $description)
+    {
+        $sql = "UPDATE categorie c
+            SET c.descriptionCategorie = :description
+            WHERE c.id_categorie = :id";
+
+        return $this->getOneOrNullResult(
+            DAO::select($sql, ["description" => $description, "id" => $id]),
             $this->className
         );
     }

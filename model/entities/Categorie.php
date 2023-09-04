@@ -7,6 +7,7 @@
 
         private $id;
         private $nomCategorie;
+        private $descriptionCategorie;
 
         private $nbSujets;
         private $nbMessages;
@@ -34,6 +35,16 @@
         public function setNomCategorie($nomCategorie)
         {
                 $this->nomCategorie = $nomCategorie;
+        }
+
+        public function getDescriptionCategorie()
+        {
+                return $this->descriptionCategorie;
+        }
+
+        public function setDescriptionCategorie($descriptionCategorie)
+        {
+                $this->descriptionCategorie = $descriptionCategorie;
         }
 
         public function getNbSujets()
