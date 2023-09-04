@@ -57,7 +57,7 @@ class VisiteurController extends AbstractController implements ControllerInterfa
         ];
     }
 
-    // modifie le rôle d'un visiteur
+    // Modifie le rôle d'un visiteur
     public function editRole($visitorId)
     {
         $this->restrictTo("ROLE_ADMIN"); // Seul l'admin peut voir la page -> redirige vers le formulaire de login sinon
@@ -66,9 +66,55 @@ class VisiteurController extends AbstractController implements ControllerInterfa
 
         if (isset($_POST['edit']) && isset($_POST["edit" . $visitorId]) && !empty($_POST["edit" . $visitorId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
             $role = filter_input(INPUT_POST, "edit" . $visitorId, FILTER_SANITIZE_SPECIAL_CHARS);
-            $VisitorManager->edit($visitorId, $role); // Appelle la méthode du manager qui modifie le visiteur en BDD
-            Session::addFlash("success", "Rôle modifié !");
-        }    
+            if ($role)
+            {
+                $VisitorManager->edit($visitorId, $role); // Appelle la méthode du manager qui modifie le visiteur en BDD
+                Session::addFlash("success", "Rôle modifié !");
+                $this->redirectTo("visiteur", "users"); // Redicection vers la gestion des visiteurs
+            }
+        }
+        Session::addFlash("error", "Le rôle est invalide !"); 
+
+        $this->redirectTo("visiteur", "users"); // Redicection vers la gestion des visiteurs
+    }
+
+    // Bannis un visiteur
+    public function ban($visitorId)
+    {
+        $this->restrictTo("ROLE_ADMIN"); // Seul l'admin peut voir la page -> redirige vers le formulaire de login sinon
+
+        $VisitorManager = new VisiteurManager();
+
+        if (isset($_POST['ban']) && isset($_POST["ban" . $visitorId]) && !empty($_POST["ban" . $visitorId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+            $date = new \DateTime($_POST["ban" . $visitorId]);
+            $today = new \DateTime();
+            if ($date > $today)
+            {
+                $date = $date->format("Y-m-d H:i:s");
+                if ($date)
+                {
+                    $VisitorManager->ban($visitorId, $date); // Appelle la méthode du manager qui modifie le visiteur en BDD
+                    Session::addFlash("success", "Visiteur banni jusqu'au $date !");  
+                    $this->redirectTo("visiteur", "users"); // Redicection vers la gestion des visiteurs  
+                }
+                Session::addFlash("error", "La date est invalide !"); 
+                $this->redirectTo("visiteur", "users"); // Redicection vers la gestion des visiteurs
+            }
+        }
+        Session::addFlash("error", "La date doit être supérieure à la date actuelle !"); 
+
+        $this->redirectTo("visiteur", "users"); // Redicection vers la gestion des visiteurs
+    }
+
+    // Débannis un visiteur
+    public function unban($visitorId)
+    {
+        $this->restrictTo("ROLE_ADMIN"); // Seul l'admin peut voir la page -> redirige vers le formulaire de login sinon
+
+        $VisitorManager = new VisiteurManager();
+
+        $VisitorManager->unban($visitorId); // Appelle la méthode du manager qui modifie le visiteur en BDD
+        Session::addFlash("success", "l'utilisateur n'est plus banni !");  
 
         $this->redirectTo("visiteur", "users"); // Redicection vers la gestion des visiteurs
     }

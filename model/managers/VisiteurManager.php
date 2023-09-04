@@ -55,7 +55,7 @@ class VisiteurManager extends Manager
         );
     }
 
-    // Modifie le rôle du sujet
+    // Modifie le rôle d'un visiteur
     public function edit($id, $role)
     {
         $sql = "UPDATE visiteur v
@@ -66,5 +66,31 @@ class VisiteurManager extends Manager
             DAO::select($sql, ["role" => $role, "id" => $id]),
             $this->className
         );
+    }
+
+    // Bannis le visiteur
+    public function ban ($id, $date)
+    {
+        $sql = "UPDATE visiteur v
+            SET v.dateBanissementVisiteur = :date
+            WHERE v.id_visiteur = :id";
+
+        return $this->getOneOrNullResult(
+            DAO::select($sql, ["date" => $date, "id" => $id]),
+            $this->className
+        );
+    }
+
+    // Débannis le visiteur
+    public function unban($id)
+    {
+        $sql = "UPDATE visiteur v
+            SET v.dateBanissementVisiteur = NULL
+            WHERE v.id_visiteur = :id";
+
+        return $this->getOneOrNullResult(
+            DAO::select($sql, ["id" => $id]),
+            $this->className
+);
     }
 }

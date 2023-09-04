@@ -13,6 +13,7 @@ final class Visiteur extends Entity
         private $dateInscriptionVisiteur;
         private $emailVisiteur;
         private $roleVisiteur;
+        private $dateBanissementVisiteur;
 
         public function __construct($data)
         {
@@ -27,8 +28,6 @@ final class Visiteur extends Entity
         public function setId($id)
         {
                 $this->id = $id;
-
-                return $this;
         }
 
         public function getPseudoVisiteur()
@@ -39,8 +38,6 @@ final class Visiteur extends Entity
         public function setPseudoVisiteur($pseudoVisiteur)
         {
                 $this->pseudoVisiteur = $pseudoVisiteur;
-
-                return $this;
         }
 
         public function getMdpVisiteur()
@@ -51,20 +48,21 @@ final class Visiteur extends Entity
         public function setMdpVisiteur($mdpVisiteur)
         {
                 $this->mdpVisiteur = $mdpVisiteur;
-
-                return $this;
         }
 
         public function getDateInscriptionVisiteur()
         {
-                $formattedDate = $this->dateInscriptionVisiteur->format("d/m/Y, H:i:s");
-                return $formattedDate;
+                if ($this->dateInscriptionVisiteur != null)
+                {
+                        $formattedDate = $this->dateInscriptionVisiteur->format("d/m/Y, H:i:s");
+                        return $formattedDate;
+                }
+                return null;
         }
 
         public function setDateInscriptionVisiteur($dateInscriptionVisiteur)
         {
                 $this->dateInscriptionVisiteur = new \DateTime($dateInscriptionVisiteur);
-                return $this;
         }
 
         public function getEmailVisiteur()
@@ -75,8 +73,6 @@ final class Visiteur extends Entity
         public function setEmailVisiteur($emailVisiteur)
         {
                 $this->emailVisiteur = $emailVisiteur;
-
-                return $this;
         }
 
         public function getRoleVisiteur()
@@ -87,8 +83,16 @@ final class Visiteur extends Entity
         public function setRoleVisiteur($roleVisiteur)
         {
                 $this->roleVisiteur = $roleVisiteur;
+        }
 
-                return $this;
+        public function getDateBanissementVisiteur()
+        {
+                return $this->dateBanissementVisiteur = null ? null : $this->dateBanissementVisiteur;
+        }
+
+        public function setDateBanissementVisiteur($dateBanissementVisiteur)
+        {
+                $this->dateBanissementVisiteur = ($dateBanissementVisiteur == null ? null : new \DateTime($dateBanissementVisiteur));
         }
 
         public function __toString()

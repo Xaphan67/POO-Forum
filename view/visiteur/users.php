@@ -9,13 +9,15 @@ $users = $result["data"]['users'];
 <table>
     <thead>
         <tr>
-            <th class="width50">Pseudo</th>
+            <th class="width20">Pseudo</th>
             <th class="width20">Date d'inscription</th>
             <th class="width30">Rôle</th>
+            <th class="width30">Banissement</th>
         </tr>
     </thead>
     <tbody>
         <?php
+        $today = new DateTime();
         foreach ($users as $user) {
         ?>
             <tr>
@@ -46,6 +48,26 @@ $users = $result["data"]['users'];
                         <button type="submit" name="edit">Modifier</button>
                     </form>
                 </td>
+                <td>
+                    <?php
+                    if ($user->getDateBanissementVisiteur() < $today)
+                    {
+                        ?>
+                        <button id="banBtn<?= $user->getId() ?>" onclick="showBanForm(<?= $user->getId() ?>)" type="submit" name="ban">Bannir</button>
+                        <form class ="editForm" id="banForm<?= $user->getId() ?>" action="index.php?ctrl=visiteur&action=ban&id=<?= $user->getId() ?>" method="post">
+                            <input id="ban<?= $user->getId() ?>" name="ban<?= $user->getId() ?>" type="date" required></input>
+                            <button type="submit" name="ban">Bannir</button>
+                        </form>
+                        <?php
+                    }
+                    else
+                    {
+                        ?>
+                        Banni jusqu'au <?= $user->getDateBanissementVisiteur()->format("d/m/Y, H:i:s") ?> <a href="index.php?ctrl=visiteur&action=unban&id=<?= $user->getID() ?>">Débannir</a>
+                        <?php
+                    }
+                    ?>
+                </td>
             </tr>
         <?php
         }
@@ -64,6 +86,19 @@ $users = $result["data"]['users'];
         } else {
             role.style.display = "unset";
             editForm.style.display = "none";
+        }
+    }
+
+    function showBanForm(id) {
+        const banBtn = document.querySelector("#banBtn" + id);
+        const banForm = document.querySelector("#banForm" + id);
+        if (banBtn.style.display != "none") 
+        {
+            banBtn.style.display = "none";
+            banForm.style.display = "unset";
+        } else {
+            banBtn.style.display = "unset";
+            banForm.style.display = "none";
         }
     }
 </script>
