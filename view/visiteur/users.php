@@ -41,29 +41,34 @@ $users = $result["data"]['users'];
                     <form class ="editForm" id="editForm<?= $user->getId() ?>" action="index.php?ctrl=visiteur&action=editRole&id=<?= $user->getId() ?>" method="post">
                         <select id="edit<?= $user->getId() ?>" name="edit<?= $user->getId() ?>" required>
                             <option value="">Veuillez sélectionner un rôle</option>
-                            <option value="ROLE_ADMIN" <?= $role = "Administrateur" ? "selected" : "" ?>>Administrateur</option>
-                            <option value="ROLE_MODERATOR" <?= $role = "Modérateur" ? "selected" : "" ?>>Modérateur</option>
-                            <option value="ROLE_MEMBER" <?= $role = "Membre" ? "selected" : "" ?>>Membre</option>
+                            <option value="ROLE_ADMIN" <?= str_contains($user->getRoleVisiteur(), "ADMIN") ? "selected" : "" ?>>Administrateur</option>
+                            <option value="ROLE_MODERATOR" <?= str_contains($user->getRoleVisiteur(), "MODERATOR") ? "selected" : "" ?>>Modérateur</option>
+                            <option value="ROLE_MEMBER" <?= str_contains($user->getRoleVisiteur(), "MEMBER") ? "selected" : "" ?>>Membre</option>
                         </select>
                         <button type="submit" name="edit">Modifier</button>
                     </form>
                 </td>
                 <td>
                     <?php
-                    if ($user->getDateBanissementVisiteur() < $today)
+                    if (!str_contains($user->getRoleVisiteur(), "ADMIN"))
                     {
+                        if ($user->getDateBanissementVisiteur() < $today)
+                        {
+                            ?>
+                            <button id="banBtn<?= $user->getId() ?>" onclick="showBanForm(<?= $user->getId() ?>)" type="submit" name="ban">Bannir</button>
+                            <form class ="editForm" id="banForm<?= $user->getId() ?>" action="index.php?ctrl=visiteur&action=ban&id=<?= $user->getId() ?>" method="post">
+                                <input id="ban<?= $user->getId() ?>" name="ban<?= $user->getId() ?>" type="date" required></input>
+                                <button type="submit" name="ban">Bannir</button>
+                            </form>
+                            <?php
+                        } else {
+                            ?>
+                            Banni jusqu'au <?= $user->getDateBanissementVisiteur()->format("d/m/Y, H:i:s") ?> <a href="index.php?ctrl=visiteur&action=unban&id=<?= $user->getID() ?>">Débannir</a>
+                            <?php
+                        }    
+                    } else {
                         ?>
-                        <button id="banBtn<?= $user->getId() ?>" onclick="showBanForm(<?= $user->getId() ?>)" type="submit" name="ban">Bannir</button>
-                        <form class ="editForm" id="banForm<?= $user->getId() ?>" action="index.php?ctrl=visiteur&action=ban&id=<?= $user->getId() ?>" method="post">
-                            <input id="ban<?= $user->getId() ?>" name="ban<?= $user->getId() ?>" type="date" required></input>
-                            <button type="submit" name="ban">Bannir</button>
-                        </form>
-                        <?php
-                    }
-                    else
-                    {
-                        ?>
-                        Banni jusqu'au <?= $user->getDateBanissementVisiteur()->format("d/m/Y, H:i:s") ?> <a href="index.php?ctrl=visiteur&action=unban&id=<?= $user->getID() ?>">Débannir</a>
+                        -
                         <?php
                     }
                     ?>
@@ -75,7 +80,7 @@ $users = $result["data"]['users'];
     </tbody>
 </table>
 <script>
-    // Affiche le formulaire d'edition du titre du sujet
+    // Affiche le formulaire d'edition du titre du rôle
     function showRoleEditForm(id) {
         const role = document.querySelector("#role" + id);
         const editForm = document.querySelector("#editForm" + id);
@@ -89,6 +94,7 @@ $users = $result["data"]['users'];
         }
     }
 
+    // Affiche le forumulaire de banissement
     function showBanForm(id) {
         const banBtn = document.querySelector("#banBtn" + id);
         const banForm = document.querySelector("#banForm" + id);
