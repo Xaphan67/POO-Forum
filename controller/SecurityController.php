@@ -78,8 +78,8 @@ class SecurityController extends AbstractController implements ControllerInterfa
                 if ($email && $mdp && password_verify($mdp, $passwordHash)) { // Vérifie les champs et que le mdp saisi est valide
                     $user = $visitorManager->findOneByEmail($email);
                     Session::setUser($user);
-                    Session::addFlash("success", "Bienvenue " . $user . " !");
-                    $this->redirectTo("forum", "listCategories"); // Redirige vers la liste des catégories
+                    Session::addFlash("success", "Bienvenue  $user !");
+                    $this->redirectTo("categorie", "listCategories"); // Redirige vers la liste des catégories
                 }
                 switch (true) { // Affiche une erreur via un message en fonction du probleme
                     case !$email:

@@ -53,20 +53,26 @@ if ($topics != null) {
 }
 
 
-// Formulaire de création d'un nouveau sujet, uniquement si un visiteur est connecté
+// Formulaire de création d'un nouveau sujet, uniquement si un visiteur est connecté et non banni
 if (App\Session::getUser()) {
-?>
-    <p>Créer un nouveau sujet :</p>
-    <form action="index.php?ctrl=sujet&action=newTopic&id=<?= $category->getId() ?>" method="post">
-        <label for="nom">Nom du sujet : *</label>
-        <input type=text name="nom" required>
-        <label for="message">Message : *</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
-        <button type="submit" name="submit">Créer</button>
-    </form>
-<?php
+    if (!App\Session::getUser()->isBanned()) {
+    ?>
+        <p>Créer un nouveau sujet :</p>
+        <form action="index.php?ctrl=sujet&action=newTopic&id=<?= $category->getId() ?>" method="post">
+            <label for="nom">Nom du sujet : *</label>
+            <input type=text name="nom" required>
+            <label for="message">Message : *</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            <button type="submit" name="submit">Créer</button>
+        </form>
+    <?php
+    } else {
+    ?>
+        <p>Vous ne pouvez pas poster un nouveau message car vous êtes banni jusqu'au <?= App\Session::getUser()->getDateBanissementVisiteur()->format("d/m/Y") ?></p>
+    <?php        
+    }
 } else {
-?>
+    ?>
     <p>Connectez vous pour pouvoir poster un nouveau sujet</p>
-<?php
+    <?php
 }

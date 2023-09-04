@@ -104,4 +104,10 @@ final class Visiteur extends Entity
         {
                 return $this->getRoleVisiteur() == $role ? true : false;
         }
+
+        public function isBanned()
+        {
+                $today = new \DateTime();
+                return $this->getDateBanissementVisiteur() > $today;
+        }
 }
