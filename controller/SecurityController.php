@@ -53,7 +53,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
                     case $visitorManager->findOneByPseudo($pseudo):
                         Session::addFlash("error", "Ce pseudonyme est déjà utilisé !");
                         break;
-                    case $mdp == $mdpCheck:
+                    case $mdp != $mdpCheck:
                         Session::addFlash("error", "Les mots de passe ne correspondent pas !");
                         break;
                 }
