@@ -21,7 +21,14 @@ $users = $result["data"]['users'];
         foreach ($users as $user) {
         ?>
             <tr>
-                <td><a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $user->getId() ?>"><?= $user->getPseudoVisiteur() ?></a></td>
+                <td class="no-padding">
+                        <div class="visiteur-display">
+                            <figure>
+                                <img class="avatar-msg" src="<?= PUBLIC_DIR ?>/img/<?= "avatars/" . $user->getAvatarVisiteur() ?>" alt="Avatar de <?= $user ?>" />
+                            </figure>
+                            <a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $user->getId() ?>"><?= $user ?></a>
+                        </div>
+                    </td>
                 <td><?= $user->getDateInscriptionVisiteur() ?></td>
                 <td>
                     <div id="role<?= $user->getId() ?>">
