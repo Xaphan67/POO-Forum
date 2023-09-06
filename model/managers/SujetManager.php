@@ -17,10 +17,22 @@ class SujetManager extends Manager
         parent::connect();
     }
 
-    // Retourne la liste de tout les sujets d'une catégroie, avec leur id, titre, date de création, s'ils sont verrouillés ou non, leur nombre de messages et l'id de leur auteur
+    // Retourne la liste de tout les sujets d'une catégroie
     public function getAllTopicsFromCategory($id)
     {
-        $sql = "SELECT s.id_sujet, s.titreSujet, s.dateCreationSujet, MAX(m.dateCreationMessage) AS dateMessageRecent, s.verouilleSujet, COUNT(m.id_message) AS nbMessages, s.visiteur_id
+        $sql = "SELECT s.id_sujet, s.titreSujet, s.dateCreationSujet,
+                MAX(m.dateCreationMessage) AS dateMessageRecent, s.verouilleSujet,
+                COUNT(m.id_message) AS nbMessages, s.visiteur_id,
+                (SELECT v.id_Visiteur
+                    FROM message m
+                    INNER JOIN visiteur v ON v.id_visiteur = m.visiteur_id
+                    WHERE m.sujet_id = s.id_sujet
+                    ORDER BY m.id_message DESC LIMIT 1) AS idVisiteurRecent,
+                (SELECT v.pseudoVisiteur
+                    FROM message m
+                    INNER JOIN visiteur v ON v.id_visiteur = m.visiteur_id
+                    WHERE m.sujet_id = s.id_sujet
+                    ORDER BY m.id_message DESC LIMIT 1) AS pseudoVisiteurRecent
                 FROM sujet s
                 LEFT JOIN message m ON m.sujet_id = s.id_sujet
                 WHERE s.categorie_id = :id

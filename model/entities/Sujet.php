@@ -14,6 +14,8 @@
 
         private $nbMessages;
         private $dateMessageRecent;
+        private $idVisiteurRecent;
+        private $pseudoVisiteurRecent;
 
         public function __construct($data){         
             $this->hydrate($data);        
@@ -104,6 +106,26 @@
                 {
                         $this->dateMessageRecent = new \DateTime($dateMessageRecent);
                 }
+        }
+
+        public function getIdVisiteurRecent()
+        {
+                return $this->idVisiteurRecent;
+        }
+
+        public function setIdVisiteurRecent($idVisiteurRecent)
+        {
+                $this->idVisiteurRecent = $idVisiteurRecent;
+        }
+
+        public function getPseudoVisiteurRecent()
+        {
+                return $this->pseudoVisiteurRecent;
+        }
+
+        public function setPseudoVisiteurRecent($pseudoVisiteurRecent)
+        {
+                $this->pseudoVisiteurRecent = $pseudoVisiteurRecent;
         }
 
         public function __toString()

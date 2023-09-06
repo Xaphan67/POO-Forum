@@ -45,7 +45,7 @@ if ($topics != null) {
                         </div>
                     </td>
                     <td class="cellCenter"><?= max(0, $topic->getNbMessages() - 1) ?></td> <!-- Nombre de messages dans le sujet, -1 pour ne compter que les réponses -->
-                    <td><?= $topic->getDateMessageRecent() ?></td>
+                    <td>Par <a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $topic->getIdVisiteurRecent() ?>"><?= $topic->getPseudoVisiteurRecent() ?></a><br>Le <?= $topic->getDateMessageRecent() ?></td>
                 </tr>
             <?php
             }

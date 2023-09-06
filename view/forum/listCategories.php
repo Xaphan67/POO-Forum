@@ -59,7 +59,17 @@ if ($categories != null) {
                     </td>
                     <td class="cellCenter"><?= $category->getNbSujets() ?></td> <!-- Nombre de sujets de la catégorie -->
                     <td class="cellCenter"><?= $category->getNbMessages() - $category->getNbSujets() ?></td> <!-- Nombre de messages - nombres de sujets pour obtenir uniquement le nombre de réponses -->
-                    <td><?= $category->getDateMessageRecent() == null ? "Aucun message" : $category->getDateMessageRecent() ?></td>
+                    <td><?php if ($category->getDateMessageRecent() == null) {
+                        ?>
+                            Aucun message
+                        <?php
+                        } else {
+                        ?>
+                            Par <a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $category->getIdVisiteurRecent() ?>"><?= $category->getPseudoVisiteurRecent() ?></a><br>Le <?= $category->getDateMessageRecent() ?>
+                        <?php
+                        }
+                        ?>
+                    </td>
                 </tr>
             <?php
             }

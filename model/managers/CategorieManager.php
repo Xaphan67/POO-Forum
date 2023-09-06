@@ -33,6 +33,20 @@ class CategorieManager extends Manager
                 FROM sujet s
                 INNER JOIN message m ON m.sujet_id = s.id_sujet
                 WHERE s.categorie_id = idCategorie) AS nbMessages,
+            (SELECT m.visiteur_id
+                FROM message m
+                INNER JOIN visiteur v ON v.id_visiteur = m.visiteur_id
+                INNER JOIN sujet s ON s.id_sujet = m.sujet_id
+                INNER JOIN categorie c ON c.id_categorie = s.categorie_id
+                WHERE c.id_categorie = idCategorie
+                ORDER BY v.id_visiteur DESC LIMIT 1) AS idVisiteurRecent,
+            (SELECT v.pseudoVisiteur
+                FROM message m
+                INNER JOIN visiteur v ON v.id_visiteur = m.visiteur_id
+                INNER JOIN sujet s ON s.id_sujet = m.sujet_id
+                INNER JOIN categorie c ON c.id_categorie = s.categorie_id
+                WHERE c.id_categorie = idCategorie
+                ORDER BY v.id_visiteur DESC LIMIT 1) AS pseudoVisiteurRecent,
             MAX(m.dateCreationMessage) AS dateMessageRecent
             FROM sujet s
             RIGHT JOIN categorie c ON c.id_categorie = s.categorie_id
