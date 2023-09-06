@@ -50,12 +50,17 @@ if ($messages != null) { // Normalement, il y a toujours un message : Celui de l
             $numMessage = 0;
             foreach ($messages as $message) {
                 $numMessage++;
-            ?>
+                ?>
                 <tr>
                     <td><a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $message->getVisiteur()->getId() ?>"><?= $message->getVisiteur() ?></a></td>
                     <td>
-                        <?= $message->getDateCreationMessage() ?>
-                        <?php if (App\Session::getUser())
+                        Créé le <?= $message->getDateCreationMessage() ?>
+                        <?php if ($message->getDateModificationMessage() != null) {
+                        ?>
+                             - Modifié le <?= $message->getDateModificationMessage() ?>
+                        <?php
+                        }
+                        if (App\Session::getUser())
                         {
                             if (App\Session::getUser()->getId() == $message->getVisiteur()->getId() || App\Session::isAdmin())
                             {

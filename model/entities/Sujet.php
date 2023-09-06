@@ -40,7 +40,7 @@
         }
 
         public function getDateCreationSujet(){
-            $formattedDate = $this->dateCreationSujet->format("d/m/Y, H:i:s");
+            $formattedDate = $this->dateCreationSujet->format("d/m/Y à H:i");
             return $formattedDate;
         }
 
@@ -92,7 +92,7 @@
         {
                 if ($this->dateMessageRecent != null)
                 {
-                        $formattedDate = $this->dateMessageRecent->format("d/m/Y, H:i:s");
+                        $formattedDate = $this->dateMessageRecent->format("d/m/Y à H:i");
                         return $formattedDate;
                 }
                 return null;

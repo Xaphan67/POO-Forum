@@ -54,7 +54,7 @@ final class Visiteur extends Entity
         {
                 if ($this->dateInscriptionVisiteur != null)
                 {
-                        $formattedDate = $this->dateInscriptionVisiteur->format("d/m/Y, H:i:s");
+                        $formattedDate = $this->dateInscriptionVisiteur->format("d/m/Y à H:i");
                         return $formattedDate;
                 }
                 return null;
