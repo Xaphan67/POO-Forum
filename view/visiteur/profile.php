@@ -12,13 +12,7 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
 <p>Date d'inscription : <?= $user->getDateInscriptionVisiteur() ?></p>
 <p>Rôle : <?= $user->getRoleVisiteur() ?></p>
 <p>Messages : <?= $nbMessages ?></p>
-<?php
-    $avatarPath = "avatars/" . $user->getAvatarVisiteur();
-    if (empty($avatarPath)) {
-        $avatarPath = "avatar.png";
-    }
-?>
-<img class="avatar-prf" src="<?= PUBLIC_DIR ?>/img/<?= $avatarPath ?>" alt="Avatar de <?= $user->getPseudoVisiteur() ?>" /><br>
+<img class="avatar-prf" src="<?= PUBLIC_DIR ?>/img/<?= "avatars/" . $user->getAvatarVisiteur() ?>" alt="Avatar de <?= $user->getPseudoVisiteur() ?>" /><br>
 <?php if (App\Session::getUser()) {
     if (App\Session::getUser()->getId() == $user->getId() || App\Session::isAdmin()) {
     ?>
