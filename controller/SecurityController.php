@@ -20,18 +20,19 @@ class SecurityController extends AbstractController implements ControllerInterfa
 
     public function register()
     {
-        if (Session::getUser() && isset($_POST['submit'])) { // Vérifie que le visiteur n'est pas connecté et qu'un formulaire à été soumis
+        if (!Session::getUser() && isset($_POST['submit'])) { // Vérifie que le visiteur n'est pas connecté et qu'un formulaire à été soumis
             $visitorManager = new VisiteurManager();
             if (isset($_POST["pseudo"]) && isset($_POST["email"]) && isset($_POST["mdp"]) && isset($_POST["mdpCheck"]) && !empty($_POST['pseudo']) && !empty($_POST['email']) && !empty($_POST['mdp']) && !empty($_POST['mdpCheck'])) { // Vérifie que les champs du formulaires existent et ne sont pas vides
                 $pseudo = filter_input(INPUT_POST, "pseudo", FILTER_SANITIZE_SPECIAL_CHARS);
                 $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
                 $mdp = filter_input(INPUT_POST, "mdp", FILTER_SANITIZE_SPECIAL_CHARS);
                 $mdpCheck = filter_input(INPUT_POST, "mdpCheck", FILTER_SANITIZE_SPECIAL_CHARS);
+
                 if ($pseudo && $email && $mdp && $mdpCheck && !$visitorManager->findOneByEmail($email) && !$visitorManager->findOneByPseudo($pseudo) && ($mdp == $mdpCheck))
                 {
                     $visitorManager->add(['pseudoVisiteur' => $pseudo , 'mdpVisiteur' => password_hash($mdp, PASSWORD_DEFAULT), 'emailVisiteur' => $email]); // Hashe le mdp et ajoute les informations du formulaire en BDD
-                    Session::addFlash("success", 'Merci ! Vous êtes désormais inscrit en tant que "$pseudo"');
-                    $this->redirectTo("forum", "listCategories"); // Redirige vers la liste des catégories
+                    Session::addFlash("success", 'Merci ! Vous êtes désormais inscrit en tant que "' . $pseudo . '"');
+                    $this->redirectTo("categorie", "listCategories"); // Redirige vers la liste des catégories
                 }
                 switch (true) { // Affiche une erreur via un message en fonction du probleme
                     case !$pseudo:
