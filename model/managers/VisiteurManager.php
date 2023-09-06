@@ -81,6 +81,21 @@ class VisiteurManager extends Manager
         );
     }
 
+    // Supprime (anonymise) un utilisateur
+    public function delete ($id)
+    {
+        $mdp = uniqid();
+
+        $sql = "UPDATE visiteur v
+            SET v.pseudoVisiteur = 'Utilisateur supprimé', mdpVisiteur = :mdp, dateInscriptionvisiteur = '1900-01-01 00:00:00', emailVisiteur = 'deleted@no-mail.com', roleVisiteur = 'ROLE_MEMBER', avatarVisiteur = 'avatar.png'
+            WHERE v.id_visiteur = :id";
+
+        return $this->getOneOrNullResult(
+            DAO::select($sql, ["mdp" => $mdp, "id" => $id]),
+            $this->className
+        );
+    }
+
     // Bannis le visiteur
     public function ban ($id, $date)
     {
@@ -104,6 +119,6 @@ class VisiteurManager extends Manager
         return $this->getOneOrNullResult(
             DAO::select($sql, ["id" => $id]),
             $this->className
-);
+        );
     }
 }

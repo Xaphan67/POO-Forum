@@ -29,6 +29,7 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
     }
 }
 ?>
+<a href="index.php?ctrl=visiteur&action=delete&id=<?= $user->getId() ?>">Me désinscrire</a>
 <h2>Les derniers messages de <?= $user->getPseudoVisiteur() ?>:</h2>
 <?php 
 if ($messages != null)

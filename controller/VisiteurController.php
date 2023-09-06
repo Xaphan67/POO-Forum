@@ -115,6 +115,21 @@ class VisiteurController extends AbstractController implements ControllerInterfa
         $this->redirectTo("visiteur", "users"); // Redicection vers la gestion des visiteurs
     }
 
+    // Supprime un visiteur
+
+    public function delete($visitorId)
+    {
+        if (Session::getUser() && Session::getUser()->getId() == $visitorId) // Vérifie que l'utilisateur qui essaie de se supprimer est actuellement connecté
+        {
+            $VisitorManager = new VisiteurManager();
+
+            $VisitorManager->delete($visitorId);
+            session_destroy(); // Détruit la session en cours
+        }
+
+        $this->redirectTo("categoerie", "listCategories"); // Redicection vers la liste des catégories
+    }
+
     // Bannis un visiteur
     public function ban($visitorId)
     {
