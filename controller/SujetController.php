@@ -65,7 +65,7 @@ class SujetController extends AbstractController implements ControllerInterface
     {
         $topicManager = new SujetManager();
 
-        if (Session::getUser() && (Session::getUser()->getId() == $topicManager->findOneById($postId)->getVisiteur()->getId() || Session::isAdmin())) // Vérifie que le visiteur est connecté et qu'il est l'auteur du message
+        if (Session::getUser() && (Session::getUser()->getId() == $topicManager->findOneById($topicId)->getVisiteur()->getId() || Session::isAdmin())) // Vérifie que le visiteur est connecté et qu'il est l'auteur du message
         {
             if (isset($_POST['edit']) && isset($_POST["edit" . $topicId]) && !empty($_POST["edit" . $topicId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
            
@@ -88,7 +88,7 @@ class SujetController extends AbstractController implements ControllerInterface
     {
         $topicManager = new SujetManager();
 
-        if (Session::getUser() && (Session::getUser()->getId() == $topicManager->findOneById($postId)->getVisiteur()->getId() || Session::isAdmin())) // Vérifie que le visiteur est connecté et qu'il est l'auteur du message
+        if (Session::getUser() && (Session::getUser()->getId() == $topicManager->findOneById($topicId)->getVisiteur()->getId() || Session::isAdmin())) // Vérifie que le visiteur est connecté et qu'il est l'auteur du message
         {
             $topicManager->lockTopic($topicId); // Appelle la méthode du manager qui verrouille le sujet en BDD
             Session::addFlash("success", "Sujet verrouillé !");    
@@ -102,7 +102,7 @@ class SujetController extends AbstractController implements ControllerInterface
     {
         $topicManager = new SujetManager();
 
-        if (Session::getUser() && (Session::getUser()->getId() == $topicManager->findOneById($postId)->getVisiteur()->getId() || Session::isAdmin())) // Vérifie que le visiteur est connecté et qu'il est l'auteur du message
+        if (Session::getUser() && (Session::getUser()->getId() == $topicManager->findOneById($topicId)->getVisiteur()->getId() || Session::isAdmin())) // Vérifie que le visiteur est connecté et qu'il est l'auteur du message
         {
             $topicManager->unlockTopic($topicId); // Appelle la méthode du manager qui déverrouille le sujet en BDD
             Session::addFlash("success", "Sujet déverrouillé !");    
@@ -118,7 +118,7 @@ class SujetController extends AbstractController implements ControllerInterface
         $topic = $topicManager->findOneById(($topicId)); // Récupère les informations correspondantes au sujet
         $categoryId = $topic->getCategorie()->getId(); // Récupère l'id de la catégoriue du sujet
 
-        if (Session::getUser() && (Session::getUser()->getId() == $topicManager->findOneById($postId)->getVisiteur()->getId() || Session::isAdmin())) // Vérifie que le visiteur est connecté et qu'il est l'auteur du message
+        if (Session::getUser() && (Session::getUser()->getId() == $topicManager->findOneById($topicId)->getVisiteur()->getId() || Session::isAdmin())) // Vérifie que le visiteur est connecté et qu'il est l'auteur du message
         {
             $topicManager->delete($topicId); // Appelle la méthode du manager qui supprime le sujet en BDD
             Session::addFlash("success", "Sujet supprimé !");    
