@@ -50,7 +50,15 @@ if ($messages != null)
                     <td>Sujet : <?= $message->getSujet()->getTitreSujet() ?></td>
                 </tr>
                 <tr class="main-message">
-                    <td><?= $message->getDateCreationMessage() ?></td>
+                    <td>
+                        Créé le <?= $message->getDateCreationMessage() ?><br>
+                        <?php if ($message->getDateModificationMessage() != null) {
+                        ?>
+                            Modifié le <?= $message->getDateModificationMessage() ?>
+                        <?php
+                        }
+                        ?>
+                    </td>
                     <td><?= $message->getTexteMessage() ?></td>
                 </tr>
             <?php
