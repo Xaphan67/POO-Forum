@@ -55,6 +55,19 @@ class VisiteurManager extends Manager
         );
     }
 
+    // Modifie l'avatar d'un visiteur
+    public function editAvatar($id, $avatar)
+    {
+        $sql = "UPDATE visiteur v
+            SET v.avatarVisiteur = :avatar
+            WHERE v.id_visiteur = :id";
+
+        return $this->getOneOrNullResult(
+            DAO::select($sql, ["avatar" => $avatar, "id" => $id]),
+            $this->className
+        );
+    }
+
     // Modifie le rôle d'un visiteur
     public function edit($id, $role)
     {

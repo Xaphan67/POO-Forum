@@ -14,6 +14,7 @@ final class Visiteur extends Entity
         private $emailVisiteur;
         private $roleVisiteur;
         private $dateBanissementVisiteur;
+        private $avatarVisiteur;
 
         public function __construct($data)
         {
@@ -94,6 +95,16 @@ final class Visiteur extends Entity
         public function setDateBanissementVisiteur($dateBanissementVisiteur)
         {
                 $this->dateBanissementVisiteur = ($dateBanissementVisiteur == null ? null : new \DateTime($dateBanissementVisiteur));
+        }
+
+        public function getAvatarVisiteur()
+        {
+                return $this->avatarVisiteur;
+        }
+
+        public function setAvatarVisiteur($avatarVisiteur)
+        {
+                $this->avatarVisiteur = $avatarVisiteur;
         }
 
         public function __toString()

@@ -57,6 +57,43 @@ class VisiteurController extends AbstractController implements ControllerInterfa
         ];
     }
 
+    // Modifie l'avatar d'un utilisateur
+    public function editAvatar($visitorId)
+    {
+        $VisitorManager = new VisiteurManager();
+
+        if (isset($_POST['submit']) && isset($_FILES["avatar"]) && !empty($_FILES["avatar"])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+            $tmpName = $_FILES['avatar']['tmp_name'];
+            $filename = $_FILES['avatar']['name'];
+            $size = $_FILES['avatar']['size'];
+            $error = $_FILES['avatar']['error'];
+
+            $tabExtension = explode('.', $filename); // Sépare le nom du fichier et son extension
+            $extension = strtolower(end($tabExtension)); // Stock l'extension
+
+            //Tableau des extensions acceptées
+            $extensions = ['jpg', 'png', 'jpeg', 'gif'];
+
+            // Taille maximale acceptée (en bytes)
+            $maxSize = 400000;
+
+            // Vérifie que l'extension et la taille sont accepté
+            if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
+                $uniqueName = uniqid('', true);
+                $file = $uniqueName . "." . $extension;
+                $oldAvatar = $VisitorManager->findOneById($visitorId)->getAvatarVisiteur();
+                unlink(PUBLIC_DIR ."/img/avatars/" . $oldAvatar); // Supprime l'ancien avatar
+                $upload = move_uploaded_file($tmpName, PUBLIC_DIR ."/img/avatars/" . $file); // Upload le fichier dans le dossier upload
+                $VisitorManager->editAvatar($visitorId, $file); // Appelle la méthode du manager qui modifie le visiteur en BDD
+                Session::addFlash("success", "Avatar modifié !");
+                $this->redirectTo("visiteur", "viewProfile", $visitorId); // Redicection vers le profile du visiteur
+            }
+        }
+        Session::addFlash("error", "L'avatar est invalide !"); 
+
+        $this->redirectTo("visiteur", "viewProfile", $visitorId); // Redicection vers le profile du visiteur
+    }
+
     // Modifie le rôle d'un visiteur
     public function editRole($visitorId)
     {

@@ -75,3 +75,7 @@ tbody tr {
 .editForm {
     display: none;
 }
+
+.avatar-prf {
+    max-width: 150px;
+}
