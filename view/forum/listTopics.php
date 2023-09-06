@@ -36,7 +36,14 @@ if ($topics != null) {
                         ?>
                         <a href="index.php?ctrl=sujet&action=viewTopic&id=<?= $topic->getId() ?>"><?= $topic->getTitreSujet() ?></a>
                     </td>
-                    <td><a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $topic->getVisiteur()->getId() ?>"><?= $topic->getVisiteur() ?></a></td>
+                    <td class="no-padding">
+                        <div class="visiteur-display">
+                            <figure>
+                                <img class="avatar-msg" src="<?= PUBLIC_DIR ?>/img/<?= "avatars/" . $topic->getVisiteur()->getAvatarVisiteur() ?>" alt="Avatar de <?= $topic->getVisiteur() ?>" />
+                            </figure>
+                            <a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $topic->getVisiteur()->getId() ?>"><?= $topic->getVisiteur() ?></a>
+                        </div>
+                    </td>
                     <td class="cellCenter"><?= max(0, $topic->getNbMessages() - 1) ?></td> <!-- Nombre de messages dans le sujet, -1 pour ne compter que les réponses -->
                     <td><?= $topic->getDateMessageRecent() ?></td>
                 </tr>

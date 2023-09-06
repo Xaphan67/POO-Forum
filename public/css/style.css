@@ -79,3 +79,17 @@ tbody tr {
 .avatar-prf {
     max-width: 150px;
 }
+
+.avatar-msg {
+    max-width: 50px;
+    margin-right: 10px;
+}
+
+.visiteur-display {
+    display: flex;
+    align-items: center;
+}
+
+.no-padding {
+    padding: 0px;
+}

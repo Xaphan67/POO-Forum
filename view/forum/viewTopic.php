@@ -52,7 +52,14 @@ if ($messages != null) { // Normalement, il y a toujours un message : Celui de l
                 $numMessage++;
                 ?>
                 <tr>
-                    <td><a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $message->getVisiteur()->getId() ?>"><?= $message->getVisiteur() ?></a></td>
+                    <td class="no-padding">
+                        <div class="visiteur-display">
+                            <figure>
+                                <img class="avatar-msg" src="<?= PUBLIC_DIR ?>/img/<?= "avatars/" . $message->getVisiteur()->getAvatarVisiteur() ?>" alt="Avatar de <?= $message->getVisiteur() ?>" />
+                            </figure>
+                            <a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $message->getVisiteur()->getId() ?>"><?= $message->getVisiteur() ?></a>
+                        </div>
+                    </td>
                     <td>
                         Créé le <?= $message->getDateCreationMessage() ?>
                         <?php if ($message->getDateModificationMessage() != null) {
