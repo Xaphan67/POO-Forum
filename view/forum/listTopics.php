@@ -41,11 +41,34 @@ if ($topics != null) {
                             <figure>
                                 <img class="avatar-msg" src="<?= PUBLIC_DIR ?>/img/<?= "avatars/" . $topic->getVisiteur()->getAvatarVisiteur() ?>" alt="Avatar de <?= $topic->getVisiteur() ?>" />
                             </figure>
-                            <a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $topic->getVisiteur()->getId() ?>"><?= $topic->getVisiteur() ?></a>
+                            <?php
+                            if ($topic->getVisiteur()->getRoleVisiteur() != "ROLE_DELETED") {
+                            ?>
+                                <a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $topic->getVisiteur()->getId() ?>"><?= $topic->getVisiteur() ?></a>
+                            <?php
+                            } else {
+                            ?>
+                                <?= $topic->getVisiteur() ?>
+                            <?php
+                            }
+                            ?>
                         </div>
                     </td>
                     <td class="cellCenter"><?= max(0, $topic->getNbMessages() - 1) ?></td> <!-- Nombre de messages dans le sujet, -1 pour ne compter que les réponses -->
-                    <td>Par <a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $topic->getIdVisiteurRecent() ?>"><?= $topic->getPseudoVisiteurRecent() ?></a><br>Le <?= $topic->getDateMessageRecent() ?></td>
+                    <td>Par 
+                        <?php
+                        if ($topic->getRoleVisiteurRecent() != "ROLE_DELETED") {
+                        ?>
+                            <a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $topic->getIdVisiteurRecent() ?>"><?= $topic->getPseudoVisiteurRecent() ?></a>
+                        <?php
+                        } else {
+                        ?>
+                            <?= $topic->getPseudoVisiteurRecent() ?>
+                        <?php
+                        }
+                        ?>
+                        <br>Le <?= $topic->getDateMessageRecent() ?>
+                    </td>
                 </tr>
             <?php
             }

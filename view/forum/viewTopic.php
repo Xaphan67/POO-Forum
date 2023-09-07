@@ -57,7 +57,17 @@ if ($messages != null) { // Normalement, il y a toujours un message : Celui de l
                             <figure>
                                 <img class="avatar-msg" src="<?= PUBLIC_DIR ?>/img/<?= "avatars/" . $message->getVisiteur()->getAvatarVisiteur() ?>" alt="Avatar de <?= $message->getVisiteur() ?>" />
                             </figure>
-                            <a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $message->getVisiteur()->getId() ?>"><?= $message->getVisiteur() ?></a>
+                            <?php
+                            if ($message->getVisiteur()->getRoleVisiteur() != "ROLE_DELETED") {
+                            ?>
+                                <a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $message->getVisiteur()->getId() ?>"><?= $message->getVisiteur() ?></a>
+                            <?php
+                            } else {
+                            ?>
+                                <?= $message->getVisiteur() ?>
+                            <?php
+                            }
+                            ?>
                         </div>
                     </td>
                     <td>
@@ -86,7 +96,7 @@ if ($messages != null) { // Normalement, il y a toujours un message : Celui de l
                     </td>
                 </tr>
                 <tr class="main-message">
-                    <td>Inscrit le <?= $message->getVisiteur()->getDateInscriptionVisiteur() ?><br><?= $message->getVisiteur()->getRoleVisiteur() ?></td>
+                    <td>Inscrit le <?= $message->getVisiteur()->getDateInscriptionVisiteur() ?><br><?= $message->getVisiteur()->getRoleVisiteur() != "ROLE_DELETED" ? $message->getVisiteur()->getRoleVisiteur() : "" ?></td>
                     <td>
                         <p id="message<?= $message->getId() ?>"><?= $message->getTexteMessage() ?></p>
                         <form class ="editForm" id="editForm<?= $message->getId() ?>" action="index.php?ctrl=message&action=editPost&id=<?= $message->getId() ?>" method="post">

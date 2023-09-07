@@ -47,6 +47,13 @@ class CategorieManager extends Manager
                 INNER JOIN categorie c ON c.id_categorie = s.categorie_id
                 WHERE c.id_categorie = idCategorie
                 ORDER BY v.id_visiteur DESC LIMIT 1) AS pseudoVisiteurRecent,
+            (SELECT v.roleVisiteur
+                FROM message m
+                INNER JOIN visiteur v ON v.id_visiteur = m.visiteur_id
+                INNER JOIN sujet s ON s.id_sujet = m.sujet_id
+                INNER JOIN categorie c ON c.id_categorie = s.categorie_id
+                WHERE c.id_categorie = idCategorie
+                ORDER BY v.id_visiteur DESC LIMIT 1) AS roleVisiteurRecent,
             MAX(m.dateCreationMessage) AS dateMessageRecent
             FROM sujet s
             RIGHT JOIN categorie c ON c.id_categorie = s.categorie_id

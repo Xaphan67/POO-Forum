@@ -87,7 +87,7 @@ class VisiteurManager extends Manager
         $mdp = uniqid();
 
         $sql = "UPDATE visiteur v
-            SET v.pseudoVisiteur = 'Utilisateur supprimé', mdpVisiteur = :mdp, dateInscriptionvisiteur = '1900-01-01 00:00:00', emailVisiteur = 'deleted@no-mail.com', roleVisiteur = 'ROLE_MEMBER', avatarVisiteur = 'avatar.png'
+            SET v.pseudoVisiteur = 'Utilisateur supprimé', mdpVisiteur = :mdp, dateInscriptionvisiteur = '1900-01-01 00:00:00', emailVisiteur = 'deleted@no-mail.com', roleVisiteur = 'ROLE_DELETED', avatarVisiteur = 'avatar.png'
             WHERE v.id_visiteur = :id";
 
         return $this->getOneOrNullResult(

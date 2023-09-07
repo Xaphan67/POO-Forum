@@ -78,6 +78,9 @@ final class Visiteur extends Entity
 
         public function getRoleVisiteur()
         {
+                if ($this->roleVisiteur == "ROLE_DELETED") {
+                        return $this->roleVisiteur;
+                }
                 $role = ($this->roleVisiteur == "ROLE_ADMIN" ? "Administrateur" : ($this->roleVisiteur == "ROLE_MODERATOR" ? "Modérateur" : "Membre"));
                 return $role;
         }

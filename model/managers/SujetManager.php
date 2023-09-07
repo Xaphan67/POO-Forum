@@ -32,7 +32,12 @@ class SujetManager extends Manager
                     FROM message m
                     INNER JOIN visiteur v ON v.id_visiteur = m.visiteur_id
                     WHERE m.sujet_id = s.id_sujet
-                    ORDER BY m.id_message DESC LIMIT 1) AS pseudoVisiteurRecent
+                    ORDER BY m.id_message DESC LIMIT 1) AS pseudoVisiteurRecent,
+                (SELECT v.roleVisiteur
+                    FROM message m
+                    INNER JOIN visiteur v ON v.id_visiteur = m.visiteur_id
+                    WHERE m.sujet_id = s.id_sujet
+                    ORDER BY m.id_message DESC LIMIT 1) AS roleVisiteurRecent
                 FROM sujet s
                 LEFT JOIN message m ON m.sujet_id = s.id_sujet
                 WHERE s.categorie_id = :id

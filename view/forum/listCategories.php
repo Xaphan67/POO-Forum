@@ -65,7 +65,19 @@ if ($categories != null) {
                         <?php
                         } else {
                         ?>
-                            Par <a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $category->getIdVisiteurRecent() ?>"><?= $category->getPseudoVisiteurRecent() ?></a><br>Le <?= $category->getDateMessageRecent() ?>
+                            Par 
+                            <?php 
+                            if ($category->getRoleVisiteurRecent() != "ROLE_DELETED") {
+                            ?>
+                                <a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $category->getIdVisiteurRecent() ?>"><?= $category->getPseudoVisiteurRecent() ?></a>
+                            <?php
+                            } else {
+                            ?>
+                                <?= $category->getPseudoVisiteurRecent() ?>
+                            <?php
+                            }
+                            ?>
+                            <br>Le <?= $category->getDateMessageRecent() ?>
                         <?php
                         }
                         ?>

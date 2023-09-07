@@ -14,6 +14,7 @@
         private $dateMessageRecent;
         private $idVisiteurRecent;
         private $pseudoVisiteurRecent;
+        private $roleVisiteurRecent;
 
         public function __construct($data){         
                 $this->hydrate($data);        
@@ -105,6 +106,16 @@
         public function setPseudoVisiteurRecent($pseudoVisiteurRecent)
         {
                 $this->pseudoVisiteurRecent = $pseudoVisiteurRecent;
+        }
+
+        public function getRoleVisiteurRecent()
+        {
+                return $this->roleVisiteurRecent;
+        }
+
+        public function setRoleVisiteurRecent($roleVisiteurRecent)
+        {
+                $this->roleVisiteurRecent = $roleVisiteurRecent;
         }
 
         public function __toString()
