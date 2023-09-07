@@ -25,11 +25,11 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
             </form>
             <button onclick="hideAvatarEditForm()" type="submit" name="cancel">Annuler</button>
         </div>
+        <a href="index.php?ctrl=visiteur&action=delete&id=<?= $user->getId() ?>">Me désinscrire</a>
     <?php
     }
 }
 ?>
-<a href="index.php?ctrl=visiteur&action=delete&id=<?= $user->getId() ?>">Me désinscrire</a>
 <h2>Les derniers messages de <?= $user->getPseudoVisiteur() ?>:</h2>
 <?php 
 if ($messages != null)
