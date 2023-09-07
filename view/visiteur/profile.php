@@ -101,7 +101,7 @@ if ($messages != null)
             ?>
                 <tr>
                     <td><a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $message->getVisiteur()->getId() ?>"><?= $message->getVisiteur() ?></a></td>
-                    <td>Sujet : <?= $message->getSujet()->getTitreSujet() ?></td>
+                    <td>Sujet : <a href="index.php?ctrl=sujet&action=viewTopic&id=<?= $message->getSujet()->getId() ?>"><?= $message->getSujet()->getTitreSujet() ?></a></td>
                 </tr>
                 <tr class="main-message">
                     <td>
