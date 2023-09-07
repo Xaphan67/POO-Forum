@@ -69,6 +69,7 @@ class VisiteurController extends AbstractController implements ControllerInterfa
             {
                 $VisitorManager->editPseudo($visitorId, $pseudo);
                 Session::addFlash("success", 'Votre pseudonyme à bien été modifié en "' . $pseudo . '"');
+                Session::setUser($VisitorManager->findOneById($visitorId)); // Remplace le visiteur en session par un nouveau avec le bon pseudonyme
                 $this->redirectTo("visiteur", "viewProfile", $visitorId); // Redirige vers le profil de l'utilisateur
             }
             switch (true) { // Affiche une erreur via un message en fonction du probleme
