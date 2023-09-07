@@ -58,7 +58,7 @@ class SujetManager extends Manager
             WHERE s.id_sujet = :id";
 
         return $this->getOneOrNullResult(
-            DAO::select($sql, ["nom" => $nom, "id" => $id]),
+            DAO::update($sql, ["nom" => $nom, "id" => $id]),
             $this->className
         );
     }
@@ -71,7 +71,7 @@ class SujetManager extends Manager
             WHERE s.id_sujet = :id";
 
         return $this->getOneOrNullResult(
-            DAO::select($sql, ["id" => $id]),
+            DAO::update($sql, ["id" => $id]),
             $this->className
         );
     }
@@ -84,7 +84,7 @@ class SujetManager extends Manager
             WHERE s.id_sujet = :id";
 
         return $this->getOneOrNullResult(
-            DAO::select($sql, ["id" => $id]),
+            DAO::update($sql, ["id" => $id]),
             $this->className
         );
     }

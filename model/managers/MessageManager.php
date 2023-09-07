@@ -66,7 +66,7 @@ class MessageManager extends Manager
             WHERE m.id_message = :id";
 
         return $this->getOneOrNullResult(
-            DAO::select($sql, ["text" => $text, "id" => $id]),
+            DAO::update($sql, ["text" => $text, "id" => $id]),
             $this->className
         );
     }

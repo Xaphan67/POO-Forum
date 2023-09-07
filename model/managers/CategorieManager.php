@@ -74,12 +74,12 @@ class CategorieManager extends Manager
             WHERE c.id_categorie = :id";
 
         return $this->getOneOrNullResult(
-            DAO::select($sql, ["nom" => $nom, "id" => $id]),
+            DAO::update($sql, ["nom" => $nom, "id" => $id]),
             $this->className
         );
     }
 
-    //
+    // Modifie la description de la catégorie
     public function editDesc($id, $description)
     {
         $sql = "UPDATE categorie c
@@ -87,7 +87,7 @@ class CategorieManager extends Manager
             WHERE c.id_categorie = :id";
 
         return $this->getOneOrNullResult(
-            DAO::select($sql, ["description" => $description, "id" => $id]),
+            DAO::update($sql, ["description" => $description, "id" => $id]),
             $this->className
         );
     }

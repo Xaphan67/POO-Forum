@@ -63,7 +63,7 @@ class VisiteurManager extends Manager
             WHERE v.id_visiteur = :id";
 
         return $this->getOneOrNullResult(
-            DAO::select($sql, ["pseudo" => $pseudo, "id" => $id]),
+            DAO::update($sql, ["pseudo" => $pseudo, "id" => $id]),
             $this->className
         );
     }
@@ -76,7 +76,7 @@ class VisiteurManager extends Manager
             WHERE v.id_visiteur = :id";
 
         return $this->getOneOrNullResult(
-            DAO::select($sql, ["email" => $email, "id" => $id]),
+            DAO::update($sql, ["email" => $email, "id" => $id]),
             $this->className
         );
     }
@@ -89,7 +89,7 @@ class VisiteurManager extends Manager
             WHERE v.id_visiteur = :id";
 
         return $this->getOneOrNullResult(
-            DAO::select($sql, ["mdp" => $mdp, "id" => $id]),
+            DAO::update($sql, ["mdp" => $mdp, "id" => $id]),
             $this->className
         );
     }
@@ -102,7 +102,7 @@ class VisiteurManager extends Manager
             WHERE v.id_visiteur = :id";
 
         return $this->getOneOrNullResult(
-            DAO::select($sql, ["avatar" => $avatar, "id" => $id]),
+            DAO::update($sql, ["avatar" => $avatar, "id" => $id]),
             $this->className
         );
     }
@@ -115,7 +115,7 @@ class VisiteurManager extends Manager
             WHERE v.id_visiteur = :id";
 
         return $this->getOneOrNullResult(
-            DAO::select($sql, ["role" => $role, "id" => $id]),
+            DAO::update($sql, ["role" => $role, "id" => $id]),
             $this->className
         );
     }
@@ -130,7 +130,7 @@ class VisiteurManager extends Manager
             WHERE v.id_visiteur = :id";
 
         return $this->getOneOrNullResult(
-            DAO::select($sql, ["mdp" => $mdp, "id" => $id]),
+            DAO::update($sql, ["mdp" => $mdp, "id" => $id]),
             $this->className
         );
     }
@@ -143,7 +143,7 @@ class VisiteurManager extends Manager
             WHERE v.id_visiteur = :id";
 
         return $this->getOneOrNullResult(
-            DAO::select($sql, ["date" => $date, "id" => $id]),
+            DAO::update($sql, ["date" => $date, "id" => $id]),
             $this->className
         );
     }
@@ -156,7 +156,7 @@ class VisiteurManager extends Manager
             WHERE v.id_visiteur = :id";
 
         return $this->getOneOrNullResult(
-            DAO::select($sql, ["id" => $id]),
+            DAO::update($sql, ["id" => $id]),
             $this->className
         );
     }
