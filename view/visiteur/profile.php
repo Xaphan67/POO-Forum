@@ -31,7 +31,18 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
 if (App\Session::getUser()) {
     if (App\Session::getUser()->getId() == $user->getId()) {
         ?>
-            <div>Email : <?= $user->getEmailVisiteur() ?></div>
+            <div>
+                Email : <?= $user->getEmailVisiteur() ?>
+                <button id="emailEditBtn" onclick="showEmailEditForm()" type="submit" name="edit">Modifier mon email</button>
+                <div class="editForm" id="emailForm">
+                    <form action="index.php?ctrl=visiteur&action=editEmail&id=<?= $user->getId() ?>" method="post" enctype="multipart/form-data">
+                        <label for="email">Nouvel email : *</label>
+                        <input type="text" name="email" required>
+                        <button type="submit" name="submit">Modifier</button>
+                    </form>
+                    <button onclick="hideEmailEditForm()" type="submit" name="cancel">Annuler</button>
+                </div>
+            </div>
         <?php
     }
 }
@@ -98,6 +109,20 @@ else
 }
 ?>
 <script>
+    // Edition de l'email
+    function showEmailEditForm() {
+        const emailEditBtn = document.querySelector("#emailEditBtn");
+        const emailForm = document.querySelector("#emailForm");
+        emailForm.style.display = "unset";
+        emailEditBtn.style.display = "none";
+    }
+    function hideEmailEditForm() {
+        const emailEditBtn = document.querySelector("#emailEditBtn");
+        const emailForm = document.querySelector("#emailForm");
+        emailForm.style.display = "none";
+        emailEditBtn.style.display = "unset";
+    }
+
     // Edition du pseudo
     function showPseudoEditForm() {
         const pseudoEditBtn = document.querySelector("#pseudoEditBtn");

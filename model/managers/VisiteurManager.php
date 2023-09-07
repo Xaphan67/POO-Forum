@@ -68,6 +68,19 @@ class VisiteurManager extends Manager
         );
     }
 
+    // Modifie l'email d'un visiteur
+    public function editEmail($id, $email)
+    {
+        $sql = "UPDATE visiteur v
+            SET v.emailVisiteur = :email
+            WHERE v.id_visiteur = :id";
+
+        return $this->getOneOrNullResult(
+            DAO::select($sql, ["email" => $email, "id" => $id]),
+            $this->className
+        );
+    }
+
     // Modifie l'avatar d'un visiteur
     public function editAvatar($id, $avatar)
     {

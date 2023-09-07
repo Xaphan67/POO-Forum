@@ -83,6 +83,32 @@ class VisiteurController extends AbstractController implements ControllerInterfa
         }
     }
 
+    // Modifie l'email d'un visiteur
+    public function editEmail($visitorId)
+    {
+        $VisitorManager = new VisiteurManager();
+
+        if (isset($_POST['submit']) && isset($_POST["email"]) && !empty($_POST["email"])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+            $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
+
+            if ($email && !$VisitorManager->findOneByEmail($email))
+            {
+                $VisitorManager->editEmail($visitorId, $email);
+                Session::addFlash("success", 'Votre email à bien été modifié en "' . $email . '"');
+                $this->redirectTo("visiteur", "viewProfile", $visitorId); // Redirige vers le profil de l'utilisateur
+            }
+            switch (true) { // Affiche une erreur via un message en fonction du probleme
+                case !$email:
+                    Session::addFlash("error", "L'email est invalide !");
+                    break;
+                case $VisitorManager->findOneByEmail($email):
+                    Session::addFlash("error", "Cet email est déjà utilisé !");
+                    break;
+            }
+            $this->redirectTo("visiteur", "viewProfile", $visitorId); // Redirige vers le profil de l'utilisateur
+        }
+    }
+
     // Modifie l'avatar d'un utilisateur
     public function editAvatar($visitorId)
     {
