@@ -9,6 +9,15 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
 <h1>Profil de <?= $user->getPseudoVisiteur() ?></h1>
 
 <p>Pseudo : <?= $user->getPseudoVisiteur() ?></p>
+<?php
+if (App\Session::getUser()) {
+    if (App\Session::getUser()->getId() == $user->getId()) {
+        ?>
+            <p>Email : <?= $user->getEmailVisiteur() ?></p>
+        <?php
+    }
+}
+?>
 <p>Date d'inscription : <?= $user->getDateInscriptionVisiteur() ?></p>
 <p>Rôle : <?= $user->getRoleVisiteur() ?></p>
 <p>Messages : <?= $nbMessages ?></p>
