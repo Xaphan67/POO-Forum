@@ -57,6 +57,32 @@ class VisiteurController extends AbstractController implements ControllerInterfa
         ];
     }
 
+    // Modifie le pseudo d'un visiteur
+    public function editPseudo($visitorId)
+    {
+        $VisitorManager = new VisiteurManager();
+
+        if (isset($_POST['submit']) && isset($_POST["pseudo"]) && !empty($_POST["pseudo"])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+            $pseudo = filter_input(INPUT_POST, "pseudo", FILTER_SANITIZE_SPECIAL_CHARS);
+
+            if ($pseudo && !$VisitorManager->findOneByPseudo($pseudo))
+            {
+                $VisitorManager->editPseudo($visitorId, $pseudo);
+                Session::addFlash("success", 'Votre pseudonyme à bien été modifié en "' . $pseudo . '"');
+                $this->redirectTo("visiteur", "viewProfile", $visitorId); // Redirige vers le profil de l'utilisateur
+            }
+            switch (true) { // Affiche une erreur via un message en fonction du probleme
+                case !$pseudo:
+                    Session::addFlash("error", "Le pseudonyme est invalide !");
+                    break;
+                case $VisitorManager->findOneByPseudo($pseudo):
+                    Session::addFlash("error", "Ce pseudonyme est déjà utilisé !");
+                    break;
+            }
+            $this->redirectTo("visiteur", "viewProfile", $visitorId); // Redirige vers le profil de l'utilisateur
+        }
+    }
+
     // Modifie l'avatar d'un utilisateur
     public function editAvatar($visitorId)
     {
@@ -105,7 +131,7 @@ class VisiteurController extends AbstractController implements ControllerInterfa
             $role = filter_input(INPUT_POST, "edit" . $visitorId, FILTER_SANITIZE_SPECIAL_CHARS);
             if ($role)
             {
-                $VisitorManager->edit($visitorId, $role); // Appelle la méthode du manager qui modifie le visiteur en BDD
+                $VisitorManager->editRole($visitorId, $role); // Appelle la méthode du manager qui modifie le visiteur en BDD
                 Session::addFlash("success", "Rôle modifié !");
                 $this->redirectTo("visiteur", "users"); // Redicection vers la gestion des visiteurs
             }

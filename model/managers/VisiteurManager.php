@@ -55,6 +55,19 @@ class VisiteurManager extends Manager
         );
     }
 
+    // Modifie le pseudo d'un visiteur
+    public function editPseudo($id, $pseudo)
+    {
+        $sql = "UPDATE visiteur v
+            SET v.pseudoVisiteur = :pseudo
+            WHERE v.id_visiteur = :id";
+
+        return $this->getOneOrNullResult(
+            DAO::select($sql, ["pseudo" => $pseudo, "id" => $id]),
+            $this->className
+        );
+    }
+
     // Modifie l'avatar d'un visiteur
     public function editAvatar($id, $avatar)
     {
@@ -69,7 +82,7 @@ class VisiteurManager extends Manager
     }
 
     // Modifie le rôle d'un visiteur
-    public function edit($id, $role)
+    public function editRole($id, $role)
     {
         $sql = "UPDATE visiteur v
             SET v.roleVisiteur = :role

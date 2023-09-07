@@ -8,24 +8,42 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
 
 <h1>Profil de <?= $user->getPseudoVisiteur() ?></h1>
 
-<p>Pseudo : <?= $user->getPseudoVisiteur() ?></p>
+<div>
+    Pseudo : <?= $user->getPseudoVisiteur() ?>
+    <?php if (App\Session::getUser()) {
+    if (App\Session::getUser()->getId() == $user->getId() || App\Session::isAdmin()) {
+    ?>
+        <button id="pseudoEditBtn" onclick="showPseudoEditForm()" type="submit" name="edit">Modifier mon pseudo</button>
+        <div class="editForm" id="pseudoForm">
+            <form action="index.php?ctrl=visiteur&action=editPseudo&id=<?= $user->getId() ?>" method="post" enctype="multipart/form-data">
+                <label for="pseudo">Nouveau pseudo : *</label>
+                <input type="text" name="pseudo" required>
+                <button type="submit" name="submit">Modifier</button>
+            </form>
+            <button onclick="hidePseudoEditForm()" type="submit" name="cancel">Annuler</button>
+        </div>
+    <?php
+    }
+}
+?>
+</div>
 <?php
 if (App\Session::getUser()) {
     if (App\Session::getUser()->getId() == $user->getId()) {
         ?>
-            <p>Email : <?= $user->getEmailVisiteur() ?></p>
+            <div>Email : <?= $user->getEmailVisiteur() ?></div>
         <?php
     }
 }
 ?>
-<p>Date d'inscription : <?= $user->getDateInscriptionVisiteur() ?></p>
-<p>Rôle : <?= $user->getRoleVisiteur() ?></p>
-<p>Messages : <?= $nbMessages ?></p>
+<div>Date d'inscription : <?= $user->getDateInscriptionVisiteur() ?></div>
+<div>Rôle : <?= $user->getRoleVisiteur() ?></div>
+<div>Messages : <?= $nbMessages ?></div>
 <img class="avatar-prf" src="<?= PUBLIC_DIR ?>/img/<?= "avatars/" . $user->getAvatarVisiteur() ?>" alt="Avatar de <?= $user->getPseudoVisiteur() ?>" /><br>
 <?php if (App\Session::getUser()) {
     if (App\Session::getUser()->getId() == $user->getId() || App\Session::isAdmin()) {
     ?>
-        <button id="avatarEditBtn" onclick="showAvatarEditForm()" type="submit" name="edit">Modifier l'avatar</button>
+        <button id="avatarEditBtn" onclick="showAvatarEditForm()" type="submit" name="edit">Modifier mon avatar</button>
         <div class="editForm" id="avatarForm">
             <form action="index.php?ctrl=visiteur&action=editAvatar&id=<?= $user->getId() ?>" method="post" enctype="multipart/form-data">
                 <label for="avatar">Nouvel avatar : *</label>
@@ -80,7 +98,21 @@ else
 }
 ?>
 <script>
-    // Affiche le formulaire d'edition de l'avatar
+    // Edition du pseudo
+    function showPseudoEditForm() {
+        const pseudoEditBtn = document.querySelector("#pseudoEditBtn");
+        const pseudoForm = document.querySelector("#pseudoForm");
+        pseudoForm.style.display = "unset";
+        pseudoEditBtn.style.display = "none";
+    }
+    function hidePseudoEditForm() {
+        const pseudoEditBtn = document.querySelector("#pseudoEditBtn");
+        const pseudoForm = document.querySelector("#pseudoForm");
+        pseudoForm.style.display = "none";
+        pseudoEditBtn.style.display = "unset";
+    }
+
+    // Edition de l'avatar
     function showAvatarEditForm() {
         const avatarEditBtn = document.querySelector("#avatarEditBtn");
         const avatarForm = document.querySelector("#avatarForm");
