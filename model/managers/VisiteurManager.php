@@ -81,6 +81,19 @@ class VisiteurManager extends Manager
         );
     }
 
+    // Modifie le mot de passe d'un visiteur
+    public function editMdp($id, $mdp)
+    {
+        $sql = "UPDATE visiteur v
+            SET v.mdpVisiteur = :mdp
+            WHERE v.id_visiteur = :id";
+
+        return $this->getOneOrNullResult(
+            DAO::select($sql, ["mdp" => $mdp, "id" => $id]),
+            $this->className
+        );
+    }
+
     // Modifie l'avatar d'un visiteur
     public function editAvatar($id, $avatar)
     {

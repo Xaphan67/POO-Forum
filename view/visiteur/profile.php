@@ -30,20 +30,41 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
 <?php
 if (App\Session::getUser()) {
     if (App\Session::getUser()->getId() == $user->getId()) {
-        ?>
-            <div>
-                Email : <?= $user->getEmailVisiteur() ?>
-                <button id="emailEditBtn" onclick="showEmailEditForm()" type="submit" name="edit">Modifier mon email</button>
-                <div class="editForm" id="emailForm">
-                    <form action="index.php?ctrl=visiteur&action=editEmail&id=<?= $user->getId() ?>" method="post" enctype="multipart/form-data">
-                        <label for="email">Nouvel email : *</label>
-                        <input type="text" name="email" required>
-                        <button type="submit" name="submit">Modifier</button>
-                    </form>
-                    <button onclick="hideEmailEditForm()" type="submit" name="cancel">Annuler</button>
-                </div>
+    ?>
+        <div>
+            Email : <?= $user->getEmailVisiteur() ?>
+            <button id="emailEditBtn" onclick="showEmailEditForm()" type="submit" name="edit">Modifier mon email</button>
+            <div class="editForm" id="emailForm">
+                <form action="index.php?ctrl=visiteur&action=editEmail&id=<?= $user->getId() ?>" method="post" enctype="multipart/form-data">
+                    <label for="email">Nouvel email : *</label>
+                    <input type="text" name="email" required>
+                    <button type="submit" name="submit">Modifier</button>
+                </form>
+                <button onclick="hideEmailEditForm()" type="submit" name="cancel">Annuler</button>
             </div>
-        <?php
+        </div>
+    <?php
+    }
+}
+?>
+<?php
+if (App\Session::getuser()) {
+    if (App\Session::getUser()->getId() == $user->getId()) {
+    ?>
+        <button id="mdpEditBtn" onclick="showMdpEditForm()" type="submit" name="edit">Modifier mon mot de passe</button>
+        <div class="editForm" id="mdpForm">
+            <form action="index.php?ctrl=visiteur&action=editMdp&id=<?= $user->getId() ?>" method="post" enctype="multipart/form-data">
+                <label for="oldMdp">Ancien mot de passe : *</label>
+                <input type="password" name="oldMdp" required>
+                <label for="newMdp">Nouveau mot de passe : *</label>
+                <input type="password" name="newMdp" required>
+                <label for="newMdpCheck">Confirmer le nouveau mot de passe : *</label>
+                <input type="password" name="newMdpCheck" required>
+                <button type="submit" name="submit">Modifier</button>
+            </form>
+            <button onclick="hideMdpEditForm()" type="submit" name="cancel">Annuler</button>
+        </div>
+    <?php
     }
 }
 ?>
@@ -109,6 +130,20 @@ else
 }
 ?>
 <script>
+    // Edition du pseudo
+    function showPseudoEditForm() {
+        const pseudoEditBtn = document.querySelector("#pseudoEditBtn");
+        const pseudoForm = document.querySelector("#pseudoForm");
+        pseudoForm.style.display = "unset";
+        pseudoEditBtn.style.display = "none";
+    }
+    function hidePseudoEditForm() {
+        const pseudoEditBtn = document.querySelector("#pseudoEditBtn");
+        const pseudoForm = document.querySelector("#pseudoForm");
+        pseudoForm.style.display = "none";
+        pseudoEditBtn.style.display = "unset";
+    }
+
     // Edition de l'email
     function showEmailEditForm() {
         const emailEditBtn = document.querySelector("#emailEditBtn");
@@ -123,18 +158,18 @@ else
         emailEditBtn.style.display = "unset";
     }
 
-    // Edition du pseudo
-    function showPseudoEditForm() {
-        const pseudoEditBtn = document.querySelector("#pseudoEditBtn");
-        const pseudoForm = document.querySelector("#pseudoForm");
-        pseudoForm.style.display = "unset";
-        pseudoEditBtn.style.display = "none";
+    // Edition du motde passe
+    function showMdpEditForm() {
+        const mdpEditBtn = document.querySelector("#mdpEditBtn");
+        const mdpForm = document.querySelector("#mdpForm");
+        mdpForm.style.display = "unset";
+        mdpEditBtn.style.display = "none";
     }
-    function hidePseudoEditForm() {
-        const pseudoEditBtn = document.querySelector("#pseudoEditBtn");
-        const pseudoForm = document.querySelector("#pseudoForm");
-        pseudoForm.style.display = "none";
-        pseudoEditBtn.style.display = "unset";
+    function hideMdpEditForm() {
+        const mdpEditBtn = document.querySelector("#mdpEditBtn");
+        const mdpForm = document.querySelector("#mdpForm");
+        mdpForm.style.display = "none";
+        mdpEditBtn.style.display = "unset";
     }
 
     // Edition de l'avatar

@@ -62,7 +62,7 @@ class VisiteurController extends AbstractController implements ControllerInterfa
     {
         $VisitorManager = new VisiteurManager();
 
-        if (isset($_POST['submit']) && isset($_POST["pseudo"]) && !empty($_POST["pseudo"])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+        if (isset($_POST['submit']) && isset($_POST["pseudo"]) && !empty($_POST["pseudo"])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne sont pas vides
             $pseudo = filter_input(INPUT_POST, "pseudo", FILTER_SANITIZE_SPECIAL_CHARS);
 
             if ($pseudo && !$VisitorManager->findOneByPseudo($pseudo))
@@ -88,7 +88,7 @@ class VisiteurController extends AbstractController implements ControllerInterfa
     {
         $VisitorManager = new VisiteurManager();
 
-        if (isset($_POST['submit']) && isset($_POST["email"]) && !empty($_POST["email"])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+        if (isset($_POST['submit']) && isset($_POST["email"]) && !empty($_POST["email"])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne sont pas vides
             $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
 
             if ($email && !$VisitorManager->findOneByEmail($email))
@@ -109,12 +109,52 @@ class VisiteurController extends AbstractController implements ControllerInterfa
         }
     }
 
+    // modifie le mot de passe d'un visiteur
+    public function editMdp($visitorId)
+    {
+        $VisitorManager = new VisiteurManager();
+
+        if (isset($_POST['submit']) && isset($_POST["oldMdp"]) && isset($_POST["newMdp"]) && isset($_POST["newMdpCheck"]) && !empty($_POST["oldMdp"]) && !empty($_POST["newMdp"]) && !empty($_POST["newMdpCheck"])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne sont pas vides
+            $oldMdp = filter_input(INPUT_POST, "oldMdp", FILTER_SANITIZE_SPECIAL_CHARS);
+            $newMdp = filter_input(INPUT_POST, "newMdp", FILTER_SANITIZE_SPECIAL_CHARS);
+            $newMdpCheck = filter_input(INPUT_POST, "newMdpCheck", FILTER_SANITIZE_SPECIAL_CHARS);
+
+            $email = $VisitorManager->findOneById($visitorId)->getEmailVisiteur();
+            $passwordHash = $VisitorManager->getPasswordHash($email)["mdpVisiteur"];
+
+            if ($oldMdp && $newMdp && $newMdpCheck && $newMdp == $newMdpCheck && password_verify($oldMdp, $passwordHash))
+            {
+                $VisitorManager->editMdp($visitorId, password_hash($newMdp, PASSWORD_DEFAULT));
+                Session::addFlash("success", "Votre mot de passe à bien été modifié");
+                $this->redirectTo("visiteur", "viewProfile", $visitorId); // Redirige vers le profil de l'utilisateur
+            }
+            switch (true) { // Affiche une erreur via un message en fonction du probleme
+                case !$oldMdp:
+                    Session::addFlash("error", "L'ancien mot de passe est invalide !");
+                    break;
+                case !$newMdp:
+                    Session::addFlash("error", "Le nouveau mot de passe est invalide !");
+                    break;
+                case !$newMdpCheck:
+                    Session::addFlash("error", "La confirmation du nouveau mot de passe est invalide !");
+                    break;
+                case $newMdp != $newMdpCheck:
+                    Session::addFlash("error", "Les mots de passe ne correspondent pas !");
+                    break;
+                case !password_verify($oldMdp, $passwordHash):
+                    Session::addFlash("error", "L'ancien mot de passe est incorrect !");
+                    break;
+            }
+            $this->redirectTo("visiteur", "viewProfile", $visitorId); // Redirige vers le profil de l'utilisateur
+        }
+    }
+
     // Modifie l'avatar d'un utilisateur
     public function editAvatar($visitorId)
     {
         $VisitorManager = new VisiteurManager();
 
-        if (isset($_POST['submit']) && isset($_FILES["avatar"]) && !empty($_FILES["avatar"])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+        if (isset($_POST['submit']) && isset($_FILES["avatar"]) && !empty($_FILES["avatar"])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne sont pas vides
             $tmpName = $_FILES['avatar']['tmp_name'];
             $filename = $_FILES['avatar']['name'];
             $size = $_FILES['avatar']['size'];
@@ -153,7 +193,7 @@ class VisiteurController extends AbstractController implements ControllerInterfa
 
         $VisitorManager = new VisiteurManager();
 
-        if (isset($_POST['edit']) && isset($_POST["edit" . $visitorId]) && !empty($_POST["edit" . $visitorId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+        if (isset($_POST['edit']) && isset($_POST["edit" . $visitorId]) && !empty($_POST["edit" . $visitorId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne sont pas vides
             $role = filter_input(INPUT_POST, "edit" . $visitorId, FILTER_SANITIZE_SPECIAL_CHARS);
             if ($role)
             {
@@ -189,7 +229,7 @@ class VisiteurController extends AbstractController implements ControllerInterfa
 
         $VisitorManager = new VisiteurManager();
 
-        if (isset($_POST['ban']) && isset($_POST["ban" . $visitorId]) && !empty($_POST["ban" . $visitorId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+        if (isset($_POST['ban']) && isset($_POST["ban" . $visitorId]) && !empty($_POST["ban" . $visitorId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne sont pas vides
             $date = new \DateTime($_POST["ban" . $visitorId]);
             $today = new \DateTime();
             if ($date > $today)
