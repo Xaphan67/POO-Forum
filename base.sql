@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `message` (
   CONSTRAINT `message_fk2` FOREIGN KEY (`visiteur_id`) REFERENCES `visiteur` (`id_visiteur`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table forum.message : ~8 rows (environ)
+-- Listage des données de la table forum.message : ~9 rows (environ)
 INSERT INTO `message` (`id_message`, `texteMessage`, `dateCreationMessage`, `dateModificationMessage`, `visiteur_id`, `sujet_id`) VALUES
 	(3, 'Test en tant que cédric', '2023-08-30 16:36:15', NULL, 3, 5),
 	(4, 'Pas mal, je peux même me répondre à moi-même !', '2023-08-30 16:37:59', NULL, 3, 5),
@@ -94,12 +94,10 @@ CREATE TABLE IF NOT EXISTS `visiteur` (
   `roleVisiteur` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'ROLE_MEMBER',
   `avatarVisiteur` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'avatar.png',
   `dateBanissementVisiteur` datetime DEFAULT NULL,
-  PRIMARY KEY (`id_visiteur`) USING BTREE,
-  UNIQUE KEY `pseudoVisiteur` (`pseudoVisiteur`),
-  UNIQUE KEY `emailVisiteur` (`emailVisiteur`)
+  PRIMARY KEY (`id_visiteur`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table forum.visiteur : ~3 rows (environ)
+-- Listage des données de la table forum.visiteur : ~4 rows (environ)
 INSERT INTO `visiteur` (`id_visiteur`, `pseudoVisiteur`, `mdpVisiteur`, `dateInscriptionVisiteur`, `emailVisiteur`, `roleVisiteur`, `avatarVisiteur`, `dateBanissementVisiteur`) VALUES
 	(3, 'Cedric', '$2y$10$0wFOMcDZPiuoPpUcKRGbP.w25ArEZSndE9vuGiX23bA.wyDL72a86', '2023-08-30 16:17:38', 'cedric.falda@gmail.com', 'ROLE_ADMIN', '64f8446db9acf7.02056841.png', NULL),
 	(4, 'Aliev', '$2y$10$9iKWfSdOxCKSPlwMGS4pLu4RnRXGIs1ttwKinRqWdT0LRKlI/eeMG', '2023-08-30 16:46:50', 'aliev@jesaispas.com', 'ROLE_MEMBER', 'avatar.png', NULL),
