@@ -2,6 +2,7 @@
 
 $messages = $result["data"]['posts'];
 $topic = $result["data"]['topic'];
+$firstId = $result["data"]['firstId'];
 
 ?>
 <!-- Fil d'ariane -->
@@ -9,33 +10,30 @@ $topic = $result["data"]['topic'];
 
 <div> <!-- Boutons de verouillage / déverrouillage du sujet -->
     <?php
-    if (App\Session::getUser())
-    {
-        if(App\Session::isAdmin())
-        {
+    if (App\Session::getUser()) {
+        if (App\Session::isAdmin()) {
             if ($topic->getVerouilleSujet()) {
-                ?>
-                    <a href="index.php?ctrl=sujet&action=unlockTopic&id=<?= $topic->getId() ?>">Déverouiller</a>
-                <?php
-                } else {
-                ?>
-                    <a href="index.php?ctrl=sujet&action=lockTopic&id=<?= $topic->getId() ?>">Verouiller</a>
-                <?php
-                }
-                ?>
+    ?>
+                <a href="index.php?ctrl=sujet&action=unlockTopic&id=<?= $topic->getId() ?>">Déverouiller</a>
+            <?php
+            } else {
+            ?>
+                <a href="index.php?ctrl=sujet&action=lockTopic&id=<?= $topic->getId() ?>">Verouiller</a>
+            <?php
+            }
+            ?>
             <a href="index.php?ctrl=sujet&action=deleteTopic&id=<?= $topic->getId() ?>">Supprimer</a>
         <?php
         }
-        if (!$topic->getVerouilleSujet() && (App\Session::getUser()->getId() == $topic->getVisiteur()->getId() || App\Session::isAdmin()))
-        {
+        if (!$topic->getVerouilleSujet() && (App\Session::getUser()->getId() == $topic->getVisiteur()->getId() || App\Session::isAdmin())) {
         ?>
             <button onclick="showTopicEditForm(<?= $topic->getId() ?>)" type="submit" name="edit">Modifier le nom du sujet</button>
-            <form class ="editForm" id="editTopicForm<?= $topic->getId() ?>" action="index.php?ctrl=sujet&action=editTopic&id=<?= $topic->getId() ?>" style="display: none" method="post">
+            <form class="editForm" id="editTopicForm<?= $topic->getId() ?>" action="index.php?ctrl=sujet&action=editTopic&id=<?= $topic->getId() ?>" style="display: none" method="post">
                 <input id="edit<?= $topic->getId() ?>" name="edit<?= $topic->getId() ?>" type="text" value="<?= $topic->getTitreSujet() ?>" required></input>
                 <button type="submit" name="edit">Modifier</button>
             </form>
-        <?php
-        }   
+    <?php
+        }
     }
     ?>
 </div>
@@ -47,10 +45,8 @@ if ($messages != null) { // Normalement, il y a toujours un message : Celui de l
     <table>
         <tbody>
             <?php
-            $numMessage = 0;
             foreach ($messages as $message) {
-                $numMessage++;
-                ?>
+            ?>
                 <tr>
                     <td class="no-padding">
                         <div class="visiteur-display">
@@ -74,32 +70,30 @@ if ($messages != null) { // Normalement, il y a toujours un message : Celui de l
                         Créé le <?= $message->getDateCreationMessage() ?>
                         <?php if ($message->getDateModificationMessage() != null) {
                         ?>
-                             - Modifié le <?= $message->getDateModificationMessage() ?>
-                        <?php
+                            - Modifié le <?= $message->getDateModificationMessage() ?>
+                            <?php
                         }
-                        if (App\Session::getUser())
-                        {
-                            if (App\Session::getUser()->getId() == $message->getVisiteur()->getId() || App\Session::isAdmin())
-                            {
+                        if (App\Session::getUser()) {
+                            if (App\Session::getUser()->getId() == $message->getVisiteur()->getId() || App\Session::isAdmin()) {
                             ?>
                                 <button onclick="showPostEditForm(<?= $message->getId() ?>)" type="submit" name="edit">Modifier</button>
                                 <?php
-                                if ($numMessage > 1) // Empèche la supression du premier post
+                                if ($firstId["id_message"] != $message->getId()) // Empèche la supression du premier post
                                 {
                                 ?>
                                     <a href="index.php?ctrl=message&action=deletePost&id=<?= $message->getId() ?>">Supprimer</a>
-                                <?php
+                        <?php
                                 }
                             }
                         }
-                        ?> 
+                        ?>
                     </td>
                 </tr>
                 <tr class="main-message">
                     <td>Inscrit le <?= $message->getVisiteur()->getDateInscriptionVisiteur() ?><br><?= $message->getVisiteur()->getRoleVisiteur() != "ROLE_DELETED" ? $message->getVisiteur()->getRoleVisiteur() : "" ?></td>
                     <td>
                         <p id="message<?= $message->getId() ?>"><?= $message->getTexteMessage() ?></p>
-                        <form class ="editForm" id="editForm<?= $message->getId() ?>" action="index.php?ctrl=message&action=editPost&id=<?= $message->getId() ?>" method="post">
+                        <form class="editForm" id="editForm<?= $message->getId() ?>" action="index.php?ctrl=message&action=editPost&id=<?= $message->getId() ?>" method="post">
                             <textarea id="edit<?= $message->getId() ?>" name="edit<?= $message->getId() ?>" rows="5" required><?= $message->getTexteMessage() ?></textarea>
                             <button type="submit" name="edit">Modifier</button>
                         </form>
@@ -114,14 +108,14 @@ if ($messages != null) { // Normalement, il y a toujours un message : Celui de l
 } else {
 ?>
     <p>Aucun message !</p>
-<?php
+    <?php
 }
 
 // Formulaire de réponse au sujet, uniquement s'il n'est pas verrouillé et qu'un visiteur est connecté et non banni
 if (App\Session::getUser()) {
     if (!App\Session::getUser()->isBanned()) {
         if (!$topic->getVerouilleSujet()) {
-        ?>
+    ?>
             <form action="index.php?ctrl=message&action=submitPost&id=<?= $topic->getId() ?>" method="post">
                 <label for="reponse">Répondre : *</label>
                 <textarea id="reponse" name="reponse" rows="5" required></textarea>
@@ -134,14 +128,14 @@ if (App\Session::getUser()) {
         <?php
         }
     } else {
-    ?>
+        ?>
         <p>Vous ne pouvez pas répondre à ce sujet car vous êtes banni jusqu'au <?= App\Session::getUser()->getDateBanissementVisiteur()->format("d/m/Y") ?></p>
     <?php
     }
 } else {
     ?>
     <p>Connectez vous pour pouvoir répondre</p>
-    <?php
+<?php
 }
 ?>
 <script>
@@ -149,21 +143,19 @@ if (App\Session::getUser()) {
     function showPostEditForm(id) {
         const message = document.querySelector("#message" + id);
         const editForm = document.querySelector("#editForm" + id);
-        if (message.style.display != "none") 
-        {
+        if (message.style.display != "none") {
             message.style.display = "none";
             editForm.style.display = "unset";
         } else {
             message.style.display = "unset";
             editForm.style.display = "none";
         }
-    } 
+    }
 
     // Affiche le formulaire d'edition du titre du sujet
     function showTopicEditForm(id) {
         const editForm = document.querySelector("#editTopicForm" + id);
-        if (editForm.style.display == "none") 
-        {
+        if (editForm.style.display == "none") {
             editForm.style.display = "unset";
         } else {
             editForm.style.display = "none";

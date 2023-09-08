@@ -29,7 +29,8 @@ class SujetController extends AbstractController implements ControllerInterface
             "view" => VIEW_DIR . "forum/viewTopic.php",
             "data" => [
                 "topic" => $topicManager->findOneById($topicId), // Informations du sujet
-                "posts" => $postManager->getAllPostsFromTopic($topicId) // liste des messages du sujet
+                "posts" => $postManager->getAllPostsFromTopic($topicId), // liste des messages du sujet
+                "firstId" => $topicManager->getFirstPostId($topicId) // Id du premier message du sujet
             ]
         ];
     }
@@ -40,13 +41,11 @@ class SujetController extends AbstractController implements ControllerInterface
         $topicManager = new SujetManager();
         $postManager = new MessageManager();
 
-        if (Session::getUser())
-        {
+        if (Session::getUser()) {
             if (isset($_POST['submit']) && isset($_POST["nom"]) && !empty($_POST['nom']) && isset($_POST["message"]) && !empty($_POST['message'])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
                 $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_SPECIAL_CHARS);
                 $message = filter_input(INPUT_POST, "message", FILTER_SANITIZE_SPECIAL_CHARS);
-                if ($nom && $message)
-                {
+                if ($nom && $message) {
                     $userId = Session::getUser()->getId(); // Récupère l'ID du visiteur actuellement connecté
                     $newTopicId = $topicManager->add(['titreSujet' => $nom, 'visiteur_id' => $userId, 'categorie_id' => $categoryId]); // Ajoute les informations du formulaire pour le sujet en BDD, retourne l'id du sujet ajouté
                     $postManager->add(['texteMessage' => $message, 'visiteur_id' => $userId, 'sujet_id' => $newTopicId]); // Ajoute les informations du formulaire pour le 1er message du sujet    
@@ -54,7 +53,7 @@ class SujetController extends AbstractController implements ControllerInterface
                     $this->redirectTo("sujet", "viewTopic", $newTopicId); // Redicection vers la vue du sujet
                 }
             }
-            Session::addFlash("error", "Le " . (!$nom ? "nom du sujet" : "message") . " est invalide !");    
+            Session::addFlash("error", "Le " . (!$nom ? "nom du sujet" : "message") . " est invalide !");
         }
 
         $this->redirectTo("categorie", "listTopics", $categoryId); // Redicection vers la liste des sujets de la catégorie
@@ -68,16 +67,15 @@ class SujetController extends AbstractController implements ControllerInterface
         if (Session::getUser() && (Session::getUser()->getId() == $topicManager->findOneById($topicId)->getVisiteur()->getId() || Session::isAdmin())) // Vérifie que le visiteur est connecté et qu'il est l'auteur du message
         {
             if (isset($_POST['edit']) && isset($_POST["edit" . $topicId]) && !empty($_POST["edit" . $topicId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
-           
+
                 $title = filter_input(INPUT_POST, "edit" . $topicId, FILTER_SANITIZE_SPECIAL_CHARS);
-                if ($title)
-                {
+                if ($title) {
                     $topicManager->edit($topicId, $title); // Ajoute les informations du formulaire pour le 1er message du sujet
                     Session::addFlash("success", "Titre du sujet modifié !");
                     $this->redirectTo("sujet", "viewTopic", $topicId); // Redicection vers la vue du sujet
                 }
                 Session::addFlash("error", "Le titre du sujet est invalide !");
-            }    
+            }
         }
 
         $this->redirectTo("sujet", "viewTopic", $topicId); // Redicection vers la vue du sujet
@@ -91,7 +89,7 @@ class SujetController extends AbstractController implements ControllerInterface
         if (Session::getUser() && (Session::getUser()->getId() == $topicManager->findOneById($topicId)->getVisiteur()->getId() || Session::isAdmin())) // Vérifie que le visiteur est connecté et qu'il est l'auteur du message
         {
             $topicManager->lockTopic($topicId); // Appelle la méthode du manager qui verrouille le sujet en BDD
-            Session::addFlash("success", "Sujet verrouillé !");    
+            Session::addFlash("success", "Sujet verrouillé !");
         }
 
         $this->redirectTo("sujet", "viewTopic", $topicId); // Redirection vers la vue su sujet
@@ -105,7 +103,7 @@ class SujetController extends AbstractController implements ControllerInterface
         if (Session::getUser() && (Session::getUser()->getId() == $topicManager->findOneById($topicId)->getVisiteur()->getId() || Session::isAdmin())) // Vérifie que le visiteur est connecté et qu'il est l'auteur du message
         {
             $topicManager->unlockTopic($topicId); // Appelle la méthode du manager qui déverrouille le sujet en BDD
-            Session::addFlash("success", "Sujet déverrouillé !");    
+            Session::addFlash("success", "Sujet déverrouillé !");
         }
 
         $this->redirectTo("sujet", "viewTopic", $topicId); // Redirection vers la vue su sujet
@@ -121,7 +119,7 @@ class SujetController extends AbstractController implements ControllerInterface
         if (Session::getUser() && (Session::getUser()->getId() == $topicManager->findOneById($topicId)->getVisiteur()->getId() || Session::isAdmin())) // Vérifie que le visiteur est connecté et qu'il est l'auteur du message
         {
             $topicManager->delete($topicId); // Appelle la méthode du manager qui supprime le sujet en BDD
-            Session::addFlash("success", "Sujet supprimé !");    
+            Session::addFlash("success", "Sujet supprimé !");
         }
 
         $this->redirectTo("categorie", "listTopics", $categoryId); // Redirection vers la catégorie qui contenait le sujet

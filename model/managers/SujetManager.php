@@ -50,6 +50,21 @@ class SujetManager extends Manager
         );
     }
 
+    // Retourne l'id du premier message d'un sujet
+    public function getFirstPostId($id)
+    {
+        $sql = "SELECT m.id_message
+            FROM message m
+            INNER JOIN sujet s ON s.id_sujet = m.sujet_id
+            WHERE s.id_sujet = :id
+            LIMIT 1";
+
+        return $this->getSingleScalarResult(
+            DAO::select($sql, ["id" => $id]),
+            $this->className
+        );
+    }
+
     // Modifie le nom du sujet
     public function edit($id, $nom)
     {
