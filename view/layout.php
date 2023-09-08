@@ -68,7 +68,7 @@
                     </div>
                 </nav>
             </header>
-            <main id="forum">
+            <main>
                 <?= $page ?>
             </main>
         </div>
