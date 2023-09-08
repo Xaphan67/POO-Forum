@@ -7,21 +7,37 @@
     font-family: sans-serif;
 }
 
-/* -- Header -- */
+
+
+:root{
+    --icoColor : #FFE4D0; 
+    --headbgColor : #602C2C;
+}
+
+/* -- Layout -- */
 
 header {
-    background-color: #602C2C;
+    background-color: var(--headbgColor);
     box-shadow: 0px 5px 5px rgba(0, 0, 0, .25);
     padding: 15px;
 }
 
-header a {
+footer {
+    background-color: var(--headbgColor);
+    box-shadow: 0px -5px 5px rgba(0, 0, 0, .25);
+    padding: 15px;
+    color: white;
+}
+
+header a,
+footer a {
     color: white;
     text-decoration: none;
 }
 
-header svg {
-    fill: #FFE4D0;
+header svg,
+footer svg {
+    fill: var(--icoColor);
 }
 
 nav {
@@ -31,6 +47,17 @@ nav {
     align-items: center;
     margin-inline: auto;
     row-gap: 10px;
+    max-width: 1240px;
+    height: 100%;
+}
+
+footer ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-inline: auto;
+    gap: 10px 30px;
     max-width: 1240px;
     height: 100%;
 }
@@ -47,14 +74,28 @@ nav {
     gap: 10px 20px;
 }
 
+li,
+li a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    height: 32px;
+}
+
 .gestionUsers {
     order: 3;
+}
+
+.socials {
+    display: flex;
+    gap: 15px;
+    padding-left: 10px;
 }
 
 /* Tablettes et ordinateurs */
 @media only screen and (min-width: 768px) {
 
-    /* -- Header -- */
+    /* -- Layout -- */
 
     header {
         height: 50px;
@@ -62,6 +103,10 @@ nav {
 
     nav {
         flex-direction: row;
+    }
+
+    footer ul {
+        gap: 10px 100px;
     }
 
     #nav-right {
