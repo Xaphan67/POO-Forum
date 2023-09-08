@@ -74,8 +74,10 @@ footer ul {
     gap: 10px 20px;
 }
 
+#nav-right a ,
 li,
-li a {
+li a
+{
     display: flex;
     align-items: center;
     gap: 5px;
