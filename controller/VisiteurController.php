@@ -65,8 +65,7 @@ class VisiteurController extends AbstractController implements ControllerInterfa
         if (isset($_POST['submit']) && isset($_POST["pseudo"]) && !empty($_POST["pseudo"])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne sont pas vides
             $pseudo = filter_input(INPUT_POST, "pseudo", FILTER_SANITIZE_SPECIAL_CHARS);
 
-            if ($pseudo && !$VisitorManager->findOneByPseudo($pseudo))
-            {
+            if ($pseudo && !$VisitorManager->findOneByPseudo($pseudo)) {
                 $VisitorManager->editPseudo($visitorId, $pseudo);
                 Session::addFlash("success", 'Votre pseudonyme à bien été modifié en "' . $pseudo . '"');
                 Session::setUser($VisitorManager->findOneById($visitorId)); // Remplace le visiteur en session par un nouveau avec le bon pseudonyme
@@ -92,8 +91,7 @@ class VisiteurController extends AbstractController implements ControllerInterfa
         if (isset($_POST['submit']) && isset($_POST["email"]) && !empty($_POST["email"])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne sont pas vides
             $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
 
-            if ($email && !$VisitorManager->findOneByEmail($email))
-            {
+            if ($email && !$VisitorManager->findOneByEmail($email)) {
                 $VisitorManager->editEmail($visitorId, $email);
                 Session::addFlash("success", 'Votre email à bien été modifié en "' . $email . '"');
                 $this->redirectTo("visiteur", "viewProfile", $visitorId); // Redirige vers le profil de l'utilisateur
@@ -123,8 +121,7 @@ class VisiteurController extends AbstractController implements ControllerInterfa
             $email = $VisitorManager->findOneById($visitorId)->getEmailVisiteur();
             $passwordHash = $VisitorManager->getPasswordHash($email)["mdpVisiteur"];
 
-            if ($oldMdp && $newMdp && $newMdpCheck && $newMdp == $newMdpCheck && password_verify($oldMdp, $passwordHash))
-            {
+            if ($oldMdp && $newMdp && $newMdpCheck && $newMdp == $newMdpCheck && password_verify($oldMdp, $passwordHash)) {
                 $VisitorManager->editMdp($visitorId, password_hash($newMdp, PASSWORD_DEFAULT));
                 Session::addFlash("success", "Votre mot de passe à bien été modifié");
                 $this->redirectTo("visiteur", "viewProfile", $visitorId); // Redirige vers le profil de l'utilisateur
@@ -175,14 +172,14 @@ class VisiteurController extends AbstractController implements ControllerInterfa
                 $uniqueName = uniqid('', true);
                 $file = $uniqueName . "." . $extension;
                 $oldAvatar = $VisitorManager->findOneById($visitorId)->getAvatarVisiteur();
-                unlink(PUBLIC_DIR ."/img/avatars/" . $oldAvatar); // Supprime l'ancien avatar
-                $upload = move_uploaded_file($tmpName, PUBLIC_DIR ."/img/avatars/" . $file); // Upload le fichier dans le dossier upload
+                unlink(PUBLIC_DIR . "/img/avatars/" . $oldAvatar); // Supprime l'ancien avatar
+                $upload = move_uploaded_file($tmpName, PUBLIC_DIR . "/img/avatars/" . $file); // Upload le fichier dans le dossier upload
                 $VisitorManager->editAvatar($visitorId, $file); // Appelle la méthode du manager qui modifie le visiteur en BDD
                 Session::addFlash("success", "Avatar modifié !");
                 $this->redirectTo("visiteur", "viewProfile", $visitorId); // Redicection vers le profile du visiteur
             }
         }
-        Session::addFlash("error", "L'avatar est invalide !"); 
+        Session::addFlash("error", "L'avatar est invalide !");
 
         $this->redirectTo("visiteur", "viewProfile", $visitorId); // Redicection vers le profile du visiteur
     }
@@ -196,14 +193,13 @@ class VisiteurController extends AbstractController implements ControllerInterfa
 
         if (isset($_POST['edit']) && isset($_POST["edit" . $visitorId]) && !empty($_POST["edit" . $visitorId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne sont pas vides
             $role = filter_input(INPUT_POST, "edit" . $visitorId, FILTER_SANITIZE_SPECIAL_CHARS);
-            if ($role)
-            {
+            if ($role) {
                 $VisitorManager->editRole($visitorId, $role); // Appelle la méthode du manager qui modifie le visiteur en BDD
                 Session::addFlash("success", "Rôle modifié !");
                 $this->redirectTo("visiteur", "users"); // Redicection vers la gestion des visiteurs
             }
         }
-        Session::addFlash("error", "Le rôle est invalide !"); 
+        Session::addFlash("error", "Le rôle est invalide !");
 
         $this->redirectTo("visiteur", "users"); // Redicection vers la gestion des visiteurs
     }
@@ -233,20 +229,18 @@ class VisiteurController extends AbstractController implements ControllerInterfa
         if (isset($_POST['ban']) && isset($_POST["ban" . $visitorId]) && !empty($_POST["ban" . $visitorId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne sont pas vides
             $date = new \DateTime($_POST["ban" . $visitorId]);
             $today = new \DateTime();
-            if ($date > $today)
-            {
+            if ($date > $today) {
                 $date = $date->format("Y-m-d H:i:s");
-                if ($date)
-                {
+                if ($date) {
                     $VisitorManager->ban($visitorId, $date); // Appelle la méthode du manager qui modifie le visiteur en BDD
-                    Session::addFlash("success", "Visiteur banni jusqu'au $date !");  
+                    Session::addFlash("success", "Visiteur banni jusqu'au $date !");
                     $this->redirectTo("visiteur", "users"); // Redicection vers la gestion des visiteurs  
                 }
-                Session::addFlash("error", "La date est invalide !"); 
+                Session::addFlash("error", "La date est invalide !");
                 $this->redirectTo("visiteur", "users"); // Redicection vers la gestion des visiteurs
             }
         }
-        Session::addFlash("error", "La date doit être supérieure à la date actuelle !"); 
+        Session::addFlash("error", "La date doit être supérieure à la date actuelle !");
 
         $this->redirectTo("visiteur", "users"); // Redicection vers la gestion des visiteurs
     }
@@ -259,7 +253,7 @@ class VisiteurController extends AbstractController implements ControllerInterfa
         $VisitorManager = new VisiteurManager();
 
         $VisitorManager->unban($visitorId); // Appelle la méthode du manager qui modifie le visiteur en BDD
-        Session::addFlash("success", "l'utilisateur n'est plus banni !");  
+        Session::addFlash("success", "l'utilisateur n'est plus banni !");
 
         $this->redirectTo("visiteur", "users"); // Redicection vers la gestion des visiteurs
     }

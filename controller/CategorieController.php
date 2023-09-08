@@ -27,28 +27,25 @@ class CategorieController extends AbstractController implements ControllerInterf
         if (isset($_POST['submit'])) { // Vérifie qu'un formulaire à été soumis
 
             $this->restrictTo("ROLE_ADMIN"); // Seul l'admin peut avoir accès -> redirige vers le formulaire de login sinon
-            
+
             if (isset($_POST["nom"]) && !empty($_POST['nom'])) { // Vérifie que les champs du formulaires existent et ne sont pas vides
                 $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_SPECIAL_CHARS);
                 $description = filter_input(INPUT_POST, "description", FILTER_SANITIZE_SPECIAL_CHARS);
-                if ($nom && $description !== false)
-                {
+                if ($nom && $description !== false) {
                     $categoryManager->add(['nomCategorie' => $nom, "descriptionCategorie" => $description]); // Ajoute les informations du formulaire pour la catégorie en BDD 
                     Session::addFlash("success", "Catégorie ajoutée !");
                 }
-            }
-            else
-            {
+            } else {
                 Session::addFlash("error", "Le nom est invalide !");
             }
         }
-        
+
         return [
             "view" => VIEW_DIR . "forum/listCategories.php",
             "data" => [
                 "categories" => $categoryManager->getAllCategories() // Informations relatives aux catégories (Noms, nombre sujets et réponses etc...)
             ]
-        ]; 
+        ];
     }
 
     // Traite les informations et modifie le nom d'une catégorie via le formulaire
@@ -60,8 +57,7 @@ class CategorieController extends AbstractController implements ControllerInterf
 
         if (isset($_POST['edit']) && isset($_POST['edit' . $categoryId]) && !empty($_POST['edit' . $categoryId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
             $nom = filter_input(INPUT_POST, "edit" . $categoryId, FILTER_SANITIZE_SPECIAL_CHARS);
-            if ($nom)
-            {
+            if ($nom) {
                 $categoryManager->edit($categoryId, $nom); // Ajoute les informations du formulaire en BDD
                 Session::addFlash("success", "Nom de la catégorie modifié !");
                 $this->redirectTo("categorie", "listCategories"); // Redirection vers la liste des catégories
@@ -81,8 +77,7 @@ class CategorieController extends AbstractController implements ControllerInterf
 
         if (isset($_POST['editDesc'])) { // Vérifie qu'un formulaire à été soumis et que les champs existent
             $description = filter_input(INPUT_POST, "editDesc" . $categoryId, FILTER_SANITIZE_SPECIAL_CHARS);
-            if ($description !== false)
-            {
+            if ($description !== false) {
                 $categoryManager->editDesc($categoryId, $description); // Ajoute les informations du formulaire en BDD
                 Session::addFlash("success", "Description de la catégorie modifiée !");
                 $this->redirectTo("categorie", "listCategories"); // Redirection vers la liste des catégories

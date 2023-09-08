@@ -1,9 +1,11 @@
 <?php
-    namespace Model\Entities;
 
-    use App\Entity;
+namespace Model\Entities;
 
-    final class Sujet extends Entity{
+use App\Entity;
+
+final class Sujet extends Entity
+{
 
         private $id;
         private $titreSujet;
@@ -18,10 +20,11 @@
         private $pseudoVisiteurRecent;
         private $roleVisiteurRecent;
 
-        public function __construct($data){         
-            $this->hydrate($data);        
+        public function __construct($data)
+        {
+                $this->hydrate($data);
         }
- 
+
         public function getId()
         {
                 return $this->id;
@@ -42,13 +45,15 @@
                 $this->titreSujet = $titreSujet;
         }
 
-        public function getDateCreationSujet(){
-            $formattedDate = $this->dateCreationSujet->format("d/m/Y à H:i");
-            return $formattedDate;
+        public function getDateCreationSujet()
+        {
+                $formattedDate = $this->dateCreationSujet->format("d/m/Y à H:i");
+                return $formattedDate;
         }
 
-        public function setDateCreationSujet($dateSujet){
-            $this->dateCreationSujet = new \DateTime($dateSujet);
+        public function setDateCreationSujet($dateSujet)
+        {
+                $this->dateCreationSujet = new \DateTime($dateSujet);
         }
 
         public function getVerouilleSujet()
@@ -93,8 +98,7 @@
 
         public function getDateMessageRecent()
         {
-                if ($this->dateMessageRecent != null)
-                {
+                if ($this->dateMessageRecent != null) {
                         $formattedDate = $this->dateMessageRecent->format("d/m/Y à H:i");
                         return $formattedDate;
                 }
@@ -103,8 +107,7 @@
 
         public function setDateMessageRecent($dateMessageRecent)
         {
-                if ($dateMessageRecent != null)
-                {
+                if ($dateMessageRecent != null) {
                         $this->dateMessageRecent = new \DateTime($dateMessageRecent);
                 }
         }
@@ -143,4 +146,4 @@
         {
                 return $this->titreSujet;
         }
-    }
+}

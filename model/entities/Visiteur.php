@@ -53,8 +53,7 @@ final class Visiteur extends Entity
 
         public function getDateInscriptionVisiteur()
         {
-                if ($this->dateInscriptionVisiteur != null)
-                {
+                if ($this->dateInscriptionVisiteur != null) {
                         $formattedDate = $this->dateInscriptionVisiteur->format("d/m/Y à H:i");
                         return $formattedDate;
                 }

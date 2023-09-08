@@ -1,9 +1,11 @@
 <?php
-    namespace Model\Entities;
 
-    use App\Entity;
+namespace Model\Entities;
 
-    final class Categorie extends Entity{
+use App\Entity;
+
+final class Categorie extends Entity
+{
 
         private $id;
         private $nomCategorie;
@@ -16,10 +18,11 @@
         private $pseudoVisiteurRecent;
         private $roleVisiteurRecent;
 
-        public function __construct($data){         
-                $this->hydrate($data);        
+        public function __construct($data)
+        {
+                $this->hydrate($data);
         }
- 
+
         public function getId()
         {
                 return $this->id;
@@ -72,8 +75,7 @@
 
         public function getDateMessageRecent()
         {
-                if ($this->dateMessageRecent != null)
-                {
+                if ($this->dateMessageRecent != null) {
                         $formattedDate = $this->dateMessageRecent->format("d/m/Y à H:i");
                         return $formattedDate;
                 }
@@ -82,8 +84,7 @@
 
         public function setDateMessageRecent($dateMessageRecent)
         {
-                if ($dateMessageRecent != null)
-                {
+                if ($dateMessageRecent != null) {
                         $this->dateMessageRecent = new \DateTime($dateMessageRecent);
                 }
         }
@@ -122,4 +123,4 @@
         {
                 return $this->nomCategorie;
         }
-    }
+}

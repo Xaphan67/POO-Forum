@@ -28,9 +28,8 @@ class SecurityController extends AbstractController implements ControllerInterfa
                 $mdp = filter_input(INPUT_POST, "mdp", FILTER_SANITIZE_SPECIAL_CHARS);
                 $mdpCheck = filter_input(INPUT_POST, "mdpCheck", FILTER_SANITIZE_SPECIAL_CHARS);
 
-                if ($pseudo && $email && $mdp && $mdpCheck && !$visitorManager->findOneByEmail($email) && !$visitorManager->findOneByPseudo($pseudo) && ($mdp == $mdpCheck))
-                {
-                    $visitorManager->add(['pseudoVisiteur' => $pseudo , 'mdpVisiteur' => password_hash($mdp, PASSWORD_DEFAULT), 'emailVisiteur' => $email]); // Hashe le mdp et ajoute les informations du formulaire en BDD
+                if ($pseudo && $email && $mdp && $mdpCheck && !$visitorManager->findOneByEmail($email) && !$visitorManager->findOneByPseudo($pseudo) && ($mdp == $mdpCheck)) {
+                    $visitorManager->add(['pseudoVisiteur' => $pseudo, 'mdpVisiteur' => password_hash($mdp, PASSWORD_DEFAULT), 'emailVisiteur' => $email]); // Hashe le mdp et ajoute les informations du formulaire en BDD
                     Session::addFlash("success", 'Merci ! Vous êtes désormais inscrit en tant que "' . $pseudo . '"');
                     $this->redirectTo("categorie", "listCategories"); // Redirige vers la liste des catégories
                 }
