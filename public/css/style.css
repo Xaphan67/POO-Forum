@@ -7,6 +7,75 @@
     font-family: sans-serif;
 }
 
+/* -- Header -- */
+
+header {
+    background-color: #602C2C;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, .25);
+    padding: 15px;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+}
+
+header svg {
+    fill: #FFE4D0;
+}
+
+nav {
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between;
+    align-items: center;
+    margin-inline: auto;
+    row-gap: 10px;
+    max-width: 1240px;
+    height: 100%;
+}
+
+#nav-left {
+    font-size: 40px;
+}
+
+#nav-right {
+    font-size: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 20px;
+}
+
+.gestionUsers {
+    order: 3;
+}
+
+/* Tablettes et ordinateurs */
+@media only screen and (min-width: 768px) {
+
+    /* -- Header -- */
+
+    header {
+        height: 50px;
+    }
+
+    nav {
+        flex-direction: row;
+    }
+
+    #nav-right {
+        justify-content:baseline;
+    }
+}
+
+/* Odinateurs */
+@media only screen and (min-width: 1024px) {
+
+}
+
+/* --- */
+
 h1 {
     text-transform: uppercase;
 }
