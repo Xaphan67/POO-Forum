@@ -127,6 +127,10 @@ main {
     text-decoration: none;
 }
 
+.alerts {
+    margin-inline: 20px;
+}
+
 .main-content {
     padding: 20px;
 }
