@@ -19,6 +19,10 @@ $categories = $result["data"]['categories'];
     if ($categories != null) {
     ?>
         <table>
+            <col id="cat-main">
+            <col id="cat-sujets">
+            <col id="cat-reponses">
+            <col id="cat-dernier">
             <thead>
                 <tr>
                     <th class="width60">Catégorie</th>
@@ -37,62 +41,65 @@ $categories = $result["data"]['categories'];
                                 <svg width="50px" height="50px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M6 8h12v1H6zm0 4h9v-1H6zm16-6.25v8.5A2.753 2.753 0 0 1 19.25 17h-7.087L6 21.481V17H4.75A2.753 2.753 0 0 1 2 14.25v-8.5A2.753 2.753 0 0 1 4.75 3h14.5A2.753 2.753 0 0 1 22 5.75zm-1 0A1.752 1.752 0 0 0 19.25 4H4.75A1.752 1.752 0 0 0 3 5.75v8.5A1.752 1.752 0 0 0 4.75 16H7v3.519L11.837 16h7.413A1.752 1.752 0 0 0 21 14.25z"/><path fill="none" d="M0 0h24v24H0z"/>
                                 </svg>
-                                <div>
-                                    <a id="category<?= $category->getID() ?>" href="index.php?ctrl=categorie&action=listTopics&id=<?= $category->getId() ?>"><?= $category->getNomCategorie() ?></a>
-                                    <?php if (App\Session::getUser() && App\Session::isAdmin()) {
-                                    ?>
-                                        <div class="editForm" id="editForm<?= $category->getID() ?>">
-                                            <form action="index.php?ctrl=categorie&action=editCategory&id=<?= $category->getId() ?>" method="post">
-                                                <input id="edit<?= $category->getId() ?>" name="edit<?= $category->getId() ?>" type="text" value="<?= $category->getNomCategorie() ?>" required></input>
-                                                <button type="submit" name="edit">Valider</button>
-                                            </form>
-                                            <button onclick="showEditForm(<?= $category->getId() ?>)" type="submit" name="cancel">Annuler</button>
-                                        </div>
+                                <div class="cat-infos">
+                                    <div>
+                                        <a id="category<?= $category->getID() ?>" href="index.php?ctrl=categorie&action=listTopics&id=<?= $category->getId() ?>"><?= $category->getNomCategorie() ?></a>
+                                        <?php if (App\Session::getUser() && App\Session::isAdmin()) {
+                                        ?>
+                                            <div class="editForm" id="editForm<?= $category->getID() ?>">
+                                                <form action="index.php?ctrl=categorie&action=editCategory&id=<?= $category->getId() ?>" method="post">
+                                                    <input id="edit<?= $category->getId() ?>" name="edit<?= $category->getId() ?>" type="text" value="<?= $category->getNomCategorie() ?>" required></input>
+                                                    <button type="submit" name="edit">Valider</button>
+                                                </form>
+                                                <button onclick="showEditForm(<?= $category->getId() ?>)" type="submit" name="cancel">Annuler</button>
+                                            </div>
+                                        <?php
+                                        }
+                                        ?>
+                                        <br>
+                                        <span id="categoryDesc<?= $category->getID() ?>" class="cat-description"><?= $category->getDescriptionCategorie() ?></span>
+                                        <?php if (App\Session::getUser() && App\Session::isAdmin()) {
+                                        ?>
+                                            <div class="editForm" id="editDescForm<?= $category->getID() ?>">
+                                                <form action="index.php?ctrl=categorie&action=editDescCategoryDesc&id=<?= $category->getId() ?>" method="post">
+                                                    <textarea id="editDesc<?= $category->getId() ?>" name="editDesc<?= $category->getId() ?>" rows="2"><?= $category->getDescriptionCategorie() ?></textarea>
+                                                    <button type="submit" name="editDesc">Valider</button>
+                                                </form>
+                                                <button onclick="showEditDescForm(<?= $category->getId() ?>)" type="submit" name="cancel">Annuler</button>
+                                            </div>
+                                        <?php
+                                        }
+                                        ?>
+                                    </div>
                                     <?php
-                                    }
+                                    if (App\Session::getUser() && App\Session::isAdmin()) {
                                     ?>
-                                    <br>
-                                    <span id="categoryDesc<?= $category->getID() ?>" class="cat-description"><?= $category->getDescriptionCategorie() ?></span>
-                                    <?php if (App\Session::getUser() && App\Session::isAdmin()) {
-                                    ?>
-                                        <div class="editForm" id="editDescForm<?= $category->getID() ?>">
-                                            <form action="index.php?ctrl=categorie&action=editDescCategoryDesc&id=<?= $category->getId() ?>" method="post">
-                                                <textarea id="editDesc<?= $category->getId() ?>" name="editDesc<?= $category->getId() ?>" rows="2"><?= $category->getDescriptionCategorie() ?></textarea>
-                                                <button type="submit" name="editDesc">Valider</button>
-                                            </form>
-                                            <button onclick="showEditDescForm(<?= $category->getId() ?>)" type="submit" name="cancel">Annuler</button>
+                                    <div class="actions">
+                                        <button class="btn" id="editBtn<?= $category->getID() ?>" onclick="showEditForm(<?= $category->getId() ?>)" type="submit" name="edit" title="Modifier le nom de la catégorie">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="1.9em" viewBox="0 0 448 512">
+                                                <path d="M0 80V229.5c0 17 6.7 33.3 18.7 45.3l176 176c25 25 65.5 25 90.5 0L418.7 317.3c25-25 25-65.5 0-90.5l-176-176c-12-12-28.3-18.7-45.3-18.7H48C21.5 32 0 53.5 0 80zm112 32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
+                                            </svg>
+                                        </button>
+                                        <button class="btn" id="editDescBtn<?= $category->getID() ?>" onclick="showEditDescForm(<?= $category->getId() ?>)" type="submit" name="edit" title="Modifier la description de la catégorie">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="1.7em" viewBox="0 0 512 512">
+                                                <path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/>
+                                            </svg>
+                                        </button>
+                                        <a class="btn" href="index.php?ctrl=categorie&action=deleteCategory&id=<?= $category->getID() ?>" title="Supprimer la catégorie">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 448 512">
+                                                <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/>
+                                            </svg>
+                                        </a>
                                     </div>
                                     <?php
                                     }
                                     ?>
                                 </div>
-                                <?php if (App\Session::getUser() && App\Session::isAdmin()) {
-                                ?>
-                                <div class="actions">
-                                    <button class="btn" id="editBtn<?= $category->getID() ?>" onclick="showEditForm(<?= $category->getId() ?>)" type="submit" name="edit" title="Modifier le nom de la catégorie">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="1.9em" viewBox="0 0 448 512">
-                                            <path d="M0 80V229.5c0 17 6.7 33.3 18.7 45.3l176 176c25 25 65.5 25 90.5 0L418.7 317.3c25-25 25-65.5 0-90.5l-176-176c-12-12-28.3-18.7-45.3-18.7H48C21.5 32 0 53.5 0 80zm112 32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
-                                        </svg>
-                                    </button>
-                                    <button class="btn" id="editDescBtn<?= $category->getID() ?>" onclick="showEditDescForm(<?= $category->getId() ?>)" type="submit" name="edit" title="Modifier la description de la catégorie">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="1.7em" viewBox="0 0 512 512">
-                                            <path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/>
-                                        </svg>
-                                    </button>
-                                    <a class="btn" href="index.php?ctrl=categorie&action=deleteCategory&id=<?= $category->getID() ?>" title="Supprimer la catégorie">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 448 512">
-                                            <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/>
-                                        </svg>
-                                    </a>
-                                </div>
-                                <?php
-                                }
-                                ?>
                             </div>
                         </td>
-                        <td class="cellCenter"><?= $category->getNbSujets() ?></td> <!-- Nombre de sujets de la catégorie -->
-                        <td class="cellCenter"><?= $category->getNbMessages() - $category->getNbSujets() ?></td> <!-- Nombre de messages - nombres de sujets pour obtenir uniquement le nombre de réponses -->
-                        <td><?php if ($category->getDateMessageRecent() == null) {
+                        <td class="cellCenter responsive-hide"><?= $category->getNbSujets() ?></td> <!-- Nombre de sujets de la catégorie -->
+                        <td class="cellCenter responsive-hide"><?= $category->getNbMessages() - $category->getNbSujets() ?></td> <!-- Nombre de messages - nombres de sujets pour obtenir uniquement le nombre de réponses -->
+                        <td class="responsive-hide"><?php if ($category->getDateMessageRecent() == null) {
                             ?>
                                 Aucun message
                             <?php

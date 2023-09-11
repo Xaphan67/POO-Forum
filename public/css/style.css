@@ -25,7 +25,7 @@ header {
     background-color: var(--headbgColor);
     box-shadow: 0px 5px 5px rgba(0, 0, 0, .25);
     padding: 15px;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
 }
 
 footer {
@@ -33,7 +33,7 @@ footer {
     color: white;
     box-shadow: 0px -5px 5px rgba(0, 0, 0, .25);
     padding: 15px;
-    margin-top: 50px;
+    margin-top: 25px;
 }
 
 header a,
@@ -113,9 +113,9 @@ main {
 /* --- Main Content --- */
 
 table {
-    width: 85%;
-    margin-inline: auto;
     border-spacing: 0px;
+    border-radius: 5px;
+    border-top: 1px solid var(--arianebgColor);
 }
 
 table tr:nth-child(even) {
@@ -134,12 +134,8 @@ th,
     font-weight: initial;
 }
 
-th:first-child {
-    border-radius: 5px 0px 0px 0px;
-}
-
-th:last-child {
-    border-radius: 0px 5px 0px 0px;
+thead {
+    display: none;
 }
 
 td {
@@ -153,6 +149,7 @@ td svg {
 
 tbody {
     box-shadow: 0px 5px 5px rgba(0, 0, 0, .25);
+    border-radius: 5px;;
 }
 
 form {
@@ -176,7 +173,7 @@ textarea {
 }
 
 input[type=text] {
-    width: 266px;
+    width: 100%;
     height: 30px;
 }
 
@@ -216,9 +213,15 @@ a,
 
 .table-cat {
     display: flex;
-    gap: 20px;;
     align-items: center;
     min-height: 86px;
+    gap: 10px;
+}
+
+.cat-infos {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .cat-description {
@@ -228,7 +231,6 @@ a,
 .actions {
     display: flex;
     gap: 10px;
-    margin-left: auto;
 }
 
 .btn {
@@ -254,7 +256,6 @@ a,
 }
 
 .form {
-    width: 85%;
     margin-inline: auto;
     background-color:  white;
     border-radius: 0px 0px 5px 5px;
@@ -266,6 +267,10 @@ a,
     border-radius: 5px 5px 0px 0px;
 }
 
+.responsive-hide {
+    display: none;
+}
+
 /* Tablettes et ordinateurs */
 @media only screen and (min-width: 768px) {
 
@@ -273,10 +278,15 @@ a,
 
     header {
         height: 50px;
+        margin-bottom: 50px;
     }
 
     nav {
         flex-direction: row;
+    }
+
+    footer {
+        margin-top: 50px;
     }
 
     footer ul {
@@ -285,6 +295,50 @@ a,
 
     #nav-right {
         justify-content: baseline;
+    }
+
+    /* --- Main content --- */
+
+    input[type=text] {
+        width: 266px;
+    }
+
+    table {
+        width: 85%;
+        margin-inline: auto;
+    }
+
+    th:first-child {
+        border-radius: 5px 0px 0px 0px;
+    }
+    
+    th:last-child {
+        border-radius: 0px 5px 0px 0px;
+    }
+
+    thead {
+        display: contents;
+    }
+
+    .responsive-hide {
+        display: table-cell;
+    }
+
+    .table-cat {
+        flex-wrap: nowrap;
+    }
+
+    .cat-infos {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .form {
+        width: 85%;
+    }
+
+    .actions {
+        margin-left: auto;
     }
 }
 
