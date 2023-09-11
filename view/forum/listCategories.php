@@ -19,10 +19,6 @@ $categories = $result["data"]['categories'];
     if ($categories != null) {
     ?>
         <table>
-            <col id="cat-main">
-            <col id="cat-sujets">
-            <col id="cat-reponses">
-            <col id="cat-dernier">
             <thead>
                 <tr>
                     <th class="width60">Catégorie</th>
@@ -70,6 +66,7 @@ $categories = $result["data"]['categories'];
                                         <?php
                                         }
                                         ?>
+                                        <div class="responsive-msg">Messages : <?= $category->getNbSujets() ?></div>
                                     </div>
                                     <?php
                                     if (App\Session::getUser() && App\Session::isAdmin()) {
@@ -97,9 +94,9 @@ $categories = $result["data"]['categories'];
                                 </div>
                             </div>
                         </td>
-                        <td class="cellCenter responsive-hide"><?= $category->getNbSujets() ?></td> <!-- Nombre de sujets de la catégorie -->
-                        <td class="cellCenter responsive-hide"><?= $category->getNbMessages() - $category->getNbSujets() ?></td> <!-- Nombre de messages - nombres de sujets pour obtenir uniquement le nombre de réponses -->
-                        <td class="responsive-hide"><?php if ($category->getDateMessageRecent() == null) {
+                        <td class="cellCenter responsive-table-hide"><?= $category->getNbSujets() ?></td> <!-- Nombre de sujets de la catégorie -->
+                        <td class="cellCenter responsive-table-hide"><?= $category->getNbMessages() - $category->getNbSujets() ?></td> <!-- Nombre de messages - nombres de sujets pour obtenir uniquement le nombre de réponses -->
+                        <td class="responsive-table-hide"><?php if ($category->getDateMessageRecent() == null) {
                             ?>
                                 Aucun message
                             <?php

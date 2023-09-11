@@ -255,6 +255,10 @@ a,
     align-self: flex-end;
 }
 
+.btn-small {
+    width: 110px;
+}
+
 .form {
     margin-inline: auto;
     background-color:  white;
@@ -267,8 +271,23 @@ a,
     border-radius: 5px 5px 0px 0px;
 }
 
+.responsive-table-hide,
 .responsive-hide {
     display: none;
+}
+
+.responsive-show {
+    display: block;
+}
+
+.responsive-msg {
+    padding: 5px 0px;
+}
+
+.roleForm {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 /* Tablettes et ordinateurs */
@@ -320,8 +339,16 @@ a,
         display: contents;
     }
 
-    .responsive-hide {
+    .responsive-table-hide {
         display: table-cell;
+    }
+
+    .responsive-hide {
+        display: block;
+    }
+
+    .responsive-show {
+        display: none;
     }
 
     .table-cat {
@@ -339,6 +366,10 @@ a,
 
     .actions {
         margin-left: auto;
+    }
+    
+    .responsive-msg {
+        display: none;
     }
 }
 
