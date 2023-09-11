@@ -130,14 +130,16 @@ $categories = $result["data"]['categories'];
 
     if (App\Session::getUser() && App\Session::isAdmin()) {
     ?>
-        <p>Créer une nouvelle catégorie :</p>
-        <form action="index.php?ctrl=categorie&action=listCategories" method="post">
-            <label for="nom">Nom de la catégorie : *</label>
-            <input type=text name="nom" required>
-            <label for="description">Description :</label>
-            <textarea id="description" name="description" rows="5"></textarea>
-            <button type="submit" name="submit">Créer</button>
-        </form>
+        <div class="form">
+            <div class="form-head">Ajouter une catégorie :</div>
+            <form action="index.php?ctrl=categorie&action=listCategories" method="post">
+                <label for="nom">Nom de la catégorie : *</label>
+                <input type=text name="nom" required>
+                <label for="description">Description :</label>
+                <textarea id="description" name="description" rows="5"></textarea>
+                <button class="btn btn-form" type="submit" name="submit">Créer la catégorie</button>
+            </form>
+        </div>
     <?php
     }
     ?>
