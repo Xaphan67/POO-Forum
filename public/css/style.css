@@ -7,14 +7,13 @@
     font-family: sans-serif;
 }
 
-
-
 :root {
     --icoColor: #FFE4D0;
     --headbgColor: #602C2C;
     --mainbgColor: #FAFAFA;
     --arianebgColor: #E8E8E8;
     --linksColor: #EB3811;
+    --infosColor: #FFE4D0;
 }
 
 /* -- Layout -- */
@@ -109,6 +108,31 @@ main {
 
 /* --- Main Content --- */
 
+table {
+    width: 85%;
+    margin-inline: auto;
+    border-spacing: 0px;
+}
+
+th {
+    text-transform: uppercase;
+    line-height: 53px;
+    text-align: left;
+    padding-left: 20px;
+    background-color: var(--headbgColor);
+    color: white;;
+    font-size: 16px;
+    font-weight: initial;
+}
+
+th:first-child {
+    border-radius: 5px 0px 0px 0px;
+}
+
+th:last-child {
+    border-radius: 0px 5px 0px 0px;
+}
+
 .ariane {
     background-color: var(--arianebgColor);
     display: flex;
@@ -133,6 +157,10 @@ main {
 
 .main-content {
     padding: 20px;
+}
+
+.th-infos {
+    color: var(--infosColor)
 }
 
 /* Tablettes et ordinateurs */
@@ -162,27 +190,8 @@ main {
 
 /* --- */
 
-h1 {
-    text-transform: uppercase;
-}
-
-table {
-    width: 83.3%;
-    margin-inline: auto;
-    border: 1px solid black;
-}
-
 table tr:nth-child(even) {
     background-color: lightgrey;
-}
-
-th {
-    text-transform: uppercase;
-    line-height: 25px;
-    text-align: left;
-    padding-left: 20px;
-    background-color: lightgrey;
-    border: 1px solid black;
 }
 
 td {

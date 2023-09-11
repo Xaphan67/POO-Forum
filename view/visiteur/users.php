@@ -21,9 +21,9 @@ $users = $result["data"]['users'];
         <thead>
             <tr>
                 <th class="width20">Pseudo</th>
-                <th class="width20">Date d'inscription</th>
-                <th class="width30">Rôle</th>
-                <th class="width30">Banissement</th>
+                <th class="width20 th-infos">Date d'inscription</th>
+                <th class="width30 th-infos">Rôle</th>
+                <th class="width30 th-infos">Banissement</th>
             </tr>
         </thead>
         <tbody>

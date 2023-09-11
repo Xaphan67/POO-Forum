@@ -22,9 +22,9 @@ $categories = $result["data"]['categories'];
             <thead>
                 <tr>
                     <th class="width60">Catégorie</th>
-                    <th class="width10 cellCenter">Sujets</th>
-                    <th class="width10 cellCenter">Réponses</th>
-                    <th class="width20">Dernier Message</th>
+                    <th class="width10 cellCenter th-infos">Sujets</th>
+                    <th class="width10 cellCenter th-infos">Réponses</th>
+                    <th class="width20 th-infos">Dernier Message</th>
                 </tr>
             </thead>
             <tbody>
