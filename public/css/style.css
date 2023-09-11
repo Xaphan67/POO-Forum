@@ -14,6 +14,8 @@
     --arianebgColor: #E8E8E8;
     --linksColor: #EB3811;
     --infosColor: #FFE4D0;
+    --cattopicoColor: #D7D1E5;
+    --textColor: #5C7488;
 }
 
 /* -- Layout -- */
@@ -94,6 +96,7 @@ main {
     border: 1px solid var(--arianebgColor);
     border-radius: 10px;
     box-shadow: 0px 5px 5px rgba(0, 0, 0, .25);
+    color: var(--textColor);
 }
 
 .gestionUsers {
@@ -112,6 +115,10 @@ table {
     width: 85%;
     margin-inline: auto;
     border-spacing: 0px;
+}
+
+table tr:nth-child(even) {
+    background-color: white;
 }
 
 th {
@@ -133,6 +140,19 @@ th:last-child {
     border-radius: 0px 5px 0px 0px;
 }
 
+td {
+    padding: 10px 0px 10px 20px;
+}
+
+td svg {
+    min-width: 50px;
+    fill: var(--cattopicoColor);
+}
+
+tbody {
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, .25);
+}
+
 .ariane {
     background-color: var(--arianebgColor);
     display: flex;
@@ -144,7 +164,7 @@ th:last-child {
     border-radius: 10px 10px 0px 0px;
 }
 
-.ariane a,
+a,
 .ariane svg {
     color: var(--linksColor);
     fill: var(--linksColor);
@@ -161,6 +181,17 @@ th:last-child {
 
 .th-infos {
     color: var(--infosColor)
+}
+
+.table-cat {
+    display: flex;
+    gap: 20px;;
+    align-items: center;
+    min-height: 86px;
+}
+
+.cat-description {
+    font-size: 12px;
 }
 
 /* Tablettes et ordinateurs */
@@ -190,21 +221,9 @@ th:last-child {
 
 /* --- */
 
-table tr:nth-child(even) {
-    background-color: lightgrey;
-}
-
-td {
-    padding-left: 20px;
-}
-
 .main-message td {
     vertical-align: top;
     padding-top: 10px;
-}
-
-tbody tr {
-    height: 50px;
 }
 
 .width60 {

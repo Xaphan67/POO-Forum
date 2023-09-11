@@ -33,36 +33,43 @@ $categories = $result["data"]['categories'];
                 ?>
                     <tr>
                         <td>
-                            <a id="category<?= $category->getID() ?>" href="index.php?ctrl=categorie&action=listTopics&id=<?= $category->getId() ?>"><?= $category->getNomCategorie() ?></a>
-                            <?php if (App\Session::getUser() && App\Session::isAdmin()) {
-                            ?>
-                                <div class="editForm" id="editForm<?= $category->getID() ?>">
-                                    <form action="index.php?ctrl=categorie&action=editCategory&id=<?= $category->getId() ?>" method="post">
-                                        <input id="edit<?= $category->getId() ?>" name="edit<?= $category->getId() ?>" type="text" value="<?= $category->getNomCategorie() ?>" required></input>
-                                        <button type="submit" name="edit">Valider</button>
-                                    </form>
-                                    <button onclick="showEditForm(<?= $category->getId() ?>)" type="submit" name="cancel">Annuler</button>
+                            <div class="table-cat">
+                                <svg width="50px" height="50px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 8h12v1H6zm0 4h9v-1H6zm16-6.25v8.5A2.753 2.753 0 0 1 19.25 17h-7.087L6 21.481V17H4.75A2.753 2.753 0 0 1 2 14.25v-8.5A2.753 2.753 0 0 1 4.75 3h14.5A2.753 2.753 0 0 1 22 5.75zm-1 0A1.752 1.752 0 0 0 19.25 4H4.75A1.752 1.752 0 0 0 3 5.75v8.5A1.752 1.752 0 0 0 4.75 16H7v3.519L11.837 16h7.413A1.752 1.752 0 0 0 21 14.25z"/><path fill="none" d="M0 0h24v24H0z"/>
+                                </svg>
+                                <div>
+                                    <a id="category<?= $category->getID() ?>" href="index.php?ctrl=categorie&action=listTopics&id=<?= $category->getId() ?>"><?= $category->getNomCategorie() ?></a>
+                                    <?php if (App\Session::getUser() && App\Session::isAdmin()) {
+                                    ?>
+                                        <div class="editForm" id="editForm<?= $category->getID() ?>">
+                                            <form action="index.php?ctrl=categorie&action=editCategory&id=<?= $category->getId() ?>" method="post">
+                                                <input id="edit<?= $category->getId() ?>" name="edit<?= $category->getId() ?>" type="text" value="<?= $category->getNomCategorie() ?>" required></input>
+                                                <button type="submit" name="edit">Valider</button>
+                                            </form>
+                                            <button onclick="showEditForm(<?= $category->getId() ?>)" type="submit" name="cancel">Annuler</button>
+                                        </div>
+                                        <button id="editBtn<?= $category->getID() ?>" onclick="showEditForm(<?= $category->getId() ?>)" type="submit" name="edit">Modifier</button>
+                                        <a href="index.php?ctrl=categorie&action=deleteCategory&id=<?= $category->getID() ?>">Supprimer</a>
+                                    <?php
+                                    }
+                                    ?>
+                                    <br>
+                                    <span id="categoryDesc<?= $category->getID() ?>" class="cat-description"><?= $category->getDescriptionCategorie() ?></span>
+                                    <?php if (App\Session::getUser() && App\Session::isAdmin()) {
+                                    ?>
+                                        <div class="editForm" id="editDescForm<?= $category->getID() ?>">
+                                            <form action="index.php?ctrl=categorie&action=editDescCategoryDesc&id=<?= $category->getId() ?>" method="post">
+                                                <textarea id="editDesc<?= $category->getId() ?>" name="editDesc<?= $category->getId() ?>" rows="2"><?= $category->getDescriptionCategorie() ?></textarea>
+                                                <button type="submit" name="editDesc">Valider</button>
+                                            </form>
+                                            <button onclick="showEditDescForm(<?= $category->getId() ?>)" type="submit" name="cancel">Annuler</button>
+                                        </div>
+                                        <button id="editDescBtn<?= $category->getID() ?>" onclick="showEditDescForm(<?= $category->getId() ?>)" type="submit" name="edit"><?= empty($category->getDescriptionCategorie()) ? "Ajouter une description" : "Modifier" ?></button>
+                                    <?php
+                                    }
+                                    ?>
                                 </div>
-                                <button id="editBtn<?= $category->getID() ?>" onclick="showEditForm(<?= $category->getId() ?>)" type="submit" name="edit">Modifier</button>
-                                <a href="index.php?ctrl=categorie&action=deleteCategory&id=<?= $category->getID() ?>">Supprimer</a>
-                            <?php
-                            }
-                            ?>
-                            <br>
-                            <span id="categoryDesc<?= $category->getID() ?>"><?= $category->getDescriptionCategorie() ?></span>
-                            <?php if (App\Session::getUser() && App\Session::isAdmin()) {
-                            ?>
-                                <div class="editForm" id="editDescForm<?= $category->getID() ?>">
-                                    <form action="index.php?ctrl=categorie&action=editDescCategoryDesc&id=<?= $category->getId() ?>" method="post">
-                                        <textarea id="editDesc<?= $category->getId() ?>" name="editDesc<?= $category->getId() ?>" rows="2"><?= $category->getDescriptionCategorie() ?></textarea>
-                                        <button type="submit" name="editDesc">Valider</button>
-                                    </form>
-                                    <button onclick="showEditDescForm(<?= $category->getId() ?>)" type="submit" name="cancel">Annuler</button>
-                                </div>
-                                <button id="editDescBtn<?= $category->getID() ?>" onclick="showEditDescForm(<?= $category->getId() ?>)" type="submit" name="edit"><?= empty($category->getDescriptionCategorie()) ? "Ajouter une description" : "Modifier" ?></button>
-                            <?php
-                            }
-                            ?>
+                            </div>
                         </td>
                         <td class="cellCenter"><?= $category->getNbSujets() ?></td> <!-- Nombre de sujets de la catégorie -->
                         <td class="cellCenter"><?= $category->getNbMessages() - $category->getNbSujets() ?></td> <!-- Nombre de messages - nombres de sujets pour obtenir uniquement le nombre de réponses -->
