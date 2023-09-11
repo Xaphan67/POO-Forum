@@ -16,6 +16,7 @@
     --infosColor: #FFE4D0;
     --cattopicoColor: #D7D1E5;
     --textColor: #5C7488;
+    --btnColor: #F27935;
 }
 
 /* -- Layout -- */
@@ -192,6 +193,29 @@ a,
 
 .cat-description {
     font-size: 12px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-color: var(--btnColor);
+    color: white;
+    border: 1px solid var(--btnColor);
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.btn svg {
+    fill: white;
+    min-width: 0px;
+    padding-top: 5px;
 }
 
 /* Tablettes et ordinateurs */
