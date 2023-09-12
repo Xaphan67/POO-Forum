@@ -47,13 +47,13 @@
                         <?php
                         } else {
                         ?>
-                            <a href="index.php?ctrl=security&action=login">
+                            <a href="#login-Mod">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
                                     <path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V256c0 17.7 14.3 32 32 32s32-14.3 32-32V32zM143.5 120.6c13.6-11.3 15.4-31.5 4.1-45.1s-31.5-15.4-45.1-4.1C49.7 115.4 16 181.8 16 256c0 132.5 107.5 240 240 240s240-107.5 240-240c0-74.2-33.8-140.6-86.6-184.6c-13.6-11.3-33.8-9.4-45.1 4.1s-9.4 33.8 4.1 45.1c38.9 32.3 63.5 81 63.5 135.4c0 97.2-78.8 176-176 176s-176-78.8-176-176c0-54.4 24.7-103.1 63.5-135.4z" />
                                 </svg>
                                 Connexion
                             </a>
-                            <a href="index.php?ctrl=security&action=register">
+                            <a href="#register-Mod">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512">
                                     <path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
                                 </svg>
@@ -72,6 +72,50 @@
                     <h3 class="message" style="color: green"><?= App\Session::getFlash("success") ?></h3>
                 </div>
                 <?= $page ?>
+                <div id="register-Mod" class="modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <header class="container"> 
+                                <a href="#" class="closebtn">×</a>
+                                <h2>Inscription</h2>
+                            </header>
+                            <div class="container">
+                            <p>Merci de remplir le formulaire pour vous inscrire</p>
+                            <form action="index.php?ctrl=security&action=register" method="post">
+                                <label for="pseudo">Pseudonyme : *</label>
+                                <input type=text name="pseudo" required>
+                                <label for="email">E-mail : *</label>
+                                <input type="email" name="email" required>
+                                <label for="mdp">Mot de passe : *</label>
+                                <input type="password" name="mdp" required>
+                                <label for="mdpCheck">Confirmer le mot de passe : *</label>
+                                <input type="password" name="mdpCheck" required>
+                                <button class="btn btn-form" type="submit" name="submit">S'inscrire</button>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div id="login-Mod" class="modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <header class="container"> 
+                                <a href="#" class="closebtn">×</a>
+                                <h2>Connexion</h2>
+                            </header>
+                            <div class="container">
+                            <p>Merci de remplir le formulaire pour vous connecter</p>
+                            <form action="index.php?ctrl=security&action=login" method="post">
+                                <label for="email">E-mail : *</label>
+                                <input type="email" name="email" required>
+                                <label for="mdp">Mot de passe : *</label>
+                                <input type="password" name="mdp" required>
+                                <button class="btn btn-form" type="submit" name="submit">Se connecter</button>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
             </main>
         </div>
         <footer>
