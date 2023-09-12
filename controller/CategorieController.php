@@ -48,42 +48,31 @@ class CategorieController extends AbstractController implements ControllerInterf
         ];
     }
 
-    // Traite les informations et modifie le nom d'une catégorie via le formulaire
+    // Traite les informations et modifie la catégorie via le formulaire
     public function editCategory($categoryId)
     {
         $this->restrictTo("ROLE_ADMIN"); // Seul l'admin peut avoir accès -> redirige vers le formulaire de login sinon
 
         $categoryManager = new CategorieManager();
 
-        if (isset($_POST['edit']) && isset($_POST['edit' . $categoryId]) && !empty($_POST['edit' . $categoryId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
-            $nom = filter_input(INPUT_POST, "edit" . $categoryId, FILTER_SANITIZE_SPECIAL_CHARS);
-            if ($nom) {
-                $categoryManager->edit($categoryId, $nom); // Ajoute les informations du formulaire en BDD
-                Session::addFlash("success", "Nom de la catégorie modifié !");
+        if (isset($_POST['edit']) && isset($_POST['name' . $categoryId]) && isset($_POST['desc' . $categoryId]) && !empty($_POST['name' . $categoryId]) && !empty($_POST['desc' . $categoryId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+            $nom = filter_input(INPUT_POST, "name" . $categoryId, FILTER_SANITIZE_SPECIAL_CHARS);
+            $description = filter_input(INPUT_POST, "desc" . $categoryId, FILTER_SANITIZE_SPECIAL_CHARS);
+            if ($nom && $description) {
+                $categoryManager->edit($categoryId, $nom, $description); // Ajoute les informations du formulaire en BDD
+                Session::addFlash("success", "Catégorie modifié !");
                 $this->redirectTo("categorie", "listCategories"); // Redirection vers la liste des catégories
+            } else {
+                switch(true) {
+                    case !$nom:
+                        Session::addFlash("error", "Le nom est invalide !");
+                        break;
+                    case !$description:
+                        Session::addFlash("error", "La description est invalide !");
+                        break;
+                }
             }
         }
-        Session::addFlash("error", "Le nom est invalide !");
-
-        $this->redirectTo("categorie", "listCategories"); // Redirection vers la liste des catégories
-    }
-
-    // Traite les informations et modifie la description d'une catégorie via le formulaire
-    public function editDescCategoryDesc($categoryId)
-    {
-        $this->restrictTo("ROLE_ADMIN"); // Seul l'admin peut avoir accès -> redirige vers le formulaire de login sinon
-
-        $categoryManager = new CategorieManager();
-
-        if (isset($_POST['editDesc'])) { // Vérifie qu'un formulaire à été soumis et que les champs existent
-            $description = filter_input(INPUT_POST, "editDesc" . $categoryId, FILTER_SANITIZE_SPECIAL_CHARS);
-            if ($description !== false) {
-                $categoryManager->editDesc($categoryId, $description); // Ajoute les informations du formulaire en BDD
-                Session::addFlash("success", "Description de la catégorie modifiée !");
-                $this->redirectTo("categorie", "listCategories"); // Redirection vers la liste des catégories
-            }
-        }
-        Session::addFlash("error", "La description est invalide !");
 
         $this->redirectTo("categorie", "listCategories"); // Redirection vers la liste des catégories
     }

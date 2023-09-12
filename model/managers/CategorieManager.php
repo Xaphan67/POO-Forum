@@ -66,28 +66,15 @@ class CategorieManager extends Manager
         );
     }
 
-    // Modifie le nom de la catégorie
-    public function edit($id, $nom)
+    // Modifie la catégorie
+    public function edit($id, $nom, $description)
     {
         $sql = "UPDATE categorie c
-            SET c.nomCategorie = :nom
+            SET c.nomCategorie = :nom, c.descriptionCategorie = :description
             WHERE c.id_categorie = :id";
 
         return $this->getOneOrNullResult(
-            DAO::update($sql, ["nom" => $nom, "id" => $id]),
-            $this->className
-        );
-    }
-
-    // Modifie la description de la catégorie
-    public function editDesc($id, $description)
-    {
-        $sql = "UPDATE categorie c
-            SET c.descriptionCategorie = :description
-            WHERE c.id_categorie = :id";
-
-        return $this->getOneOrNullResult(
-            DAO::update($sql, ["description" => $description, "id" => $id]),
+            DAO::update($sql, ["nom" => $nom, "description" => $description, "id" => $id]),
             $this->className
         );
     }

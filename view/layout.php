@@ -80,18 +80,18 @@
                                 <h2>Inscription</h2>
                             </header>
                             <div class="container">
-                            <p>Merci de remplir le formulaire pour vous inscrire</p>
-                            <form action="index.php?ctrl=security&action=register" method="post">
-                                <label for="pseudo">Pseudonyme : *</label>
-                                <input type=text name="pseudo" required>
-                                <label for="email">E-mail : *</label>
-                                <input type="email" name="email" required>
-                                <label for="mdp">Mot de passe : *</label>
-                                <input type="password" name="mdp" required>
-                                <label for="mdpCheck">Confirmer le mot de passe : *</label>
-                                <input type="password" name="mdpCheck" required>
-                                <button class="btn btn-form" type="submit" name="submit">S'inscrire</button>
-                            </form>
+                                <p>Merci de remplir le formulaire pour vous inscrire</p>
+                                <form action="index.php?ctrl=security&action=register" method="post">
+                                    <label for="pseudo">Pseudonyme : *</label>
+                                    <input type=text name="pseudo" required>
+                                    <label for="email">E-mail : *</label>
+                                    <input type="email" name="email" required>
+                                    <label for="mdp">Mot de passe : *</label>
+                                    <input type="password" name="mdp" required>
+                                    <label for="mdpCheck">Confirmer le mot de passe : *</label>
+                                    <input type="password" name="mdpCheck" required>
+                                    <button class="btn btn-form" type="submit" name="submit">S'inscrire</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -104,14 +104,14 @@
                                 <h2>Connexion</h2>
                             </header>
                             <div class="container">
-                            <p>Merci de remplir le formulaire pour vous connecter</p>
-                            <form action="index.php?ctrl=security&action=login" method="post">
-                                <label for="email">E-mail : *</label>
-                                <input type="email" name="email" required>
-                                <label for="mdp">Mot de passe : *</label>
-                                <input type="password" name="mdp" required>
-                                <button class="btn btn-form" type="submit" name="submit">Se connecter</button>
-                            </form>
+                                <p>Merci de remplir le formulaire pour vous connecter</p>
+                                <form action="index.php?ctrl=security&action=login" method="post">
+                                    <label for="email">E-mail : *</label>
+                                    <input type="email" name="email" required>
+                                    <label for="mdp">Mot de passe : *</label>
+                                    <input type="password" name="mdp" required>
+                                    <button class="btn btn-form" type="submit" name="submit">Se connecter</button>
+                                </form>
                             </div>
                         </div>
                     </div>
