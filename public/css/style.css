@@ -160,7 +160,8 @@ form {
 }
 
 input,
-textarea {
+textarea,
+select {
     background-color: var(--arianebgColor);
     border: 1px solid var(--textColor);
     border-radius: 5px;

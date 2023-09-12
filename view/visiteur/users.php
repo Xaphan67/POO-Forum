@@ -41,41 +41,71 @@ $users = $result["data"]['users'];
                                 <a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $user->getId() ?>"><?= $user ?></a>
                             </div>
                         </td>
-                        <td class ="responsive-table-hide"><?= $user->getDateInscriptionVisiteur() ?></td>
+                        <td class ="responsive-table-hide">
+                            <?= $user->getDateInscriptionVisiteur() ?>
+                        </td>
                         <td>
                             <div class="roleForm" id="role<?= $user->getId() ?>">
                                 <?= $user->getRoleVisiteur() ?>
-                                <button class="btn" onclick="showRoleEditForm(<?= $user->getId() ?>)" type="submit" name="edit">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="1.7em" viewBox="0 0 512 512">
+                                <a class="btn" href="#role<?= $user->getId() ?>-Mod" title="Modifier le rôle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 512 512">
                                         <path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/>
                                     </svg>
-                                </button>
+                                </a>
                             </div>
-                            <form class="editForm" id="editForm<?= $user->getId() ?>" action="index.php?ctrl=visiteur&action=editRole&id=<?= $user->getId() ?>" method="post">
-                                <select id="edit<?= $user->getId() ?>" name="edit<?= $user->getId() ?>" required>
-                                    <option value="">Veuillez sélectionner un rôle</option>
-                                    <option value="ROLE_ADMIN" <?= $user->getRoleVisiteur() == "Administrateur" ? "selected" : "" ?>>Administrateur</option>
-                                    <option value="ROLE_MODERATOR" <?= $user->getRoleVisiteur() == "Modérateur" ? "selected" : "" ?>>Modérateur</option>
-                                    <option value="ROLE_MEMBER" <?= $user->getRoleVisiteur() == "Membre" ? "selected" : "" ?>>Membre</option>
-                                </select>
-                                <button type="submit" name="edit">Modifier</button>
-                            </form>
+                            <div id="role<?= $user->getId() ?>-Mod" class="modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <header class="container"> 
+                                            <a href="#" class="closebtn">×</a>
+                                            <h2>Modifier le rôle</h2>
+                                        </header>
+                                        <div class="container">
+                                            <p>Sélectionnee le nouveau rôle pour cet utilisateur</p>
+                                            <form action="index.php?ctrl=visiteur&action=editRole&id=<?= $user->getId() ?>" method="post">
+                                                <label for="edit<?= $user->getId() ?>">Rôle : *</label>
+                                                <select id="edit<?= $user->getId() ?>" name="edit<?= $user->getId() ?>" required>
+                                                    <option value="">Veuillez sélectionner un rôle</option>
+                                                    <option value="ROLE_ADMIN" <?= $user->getRoleVisiteur() == "Administrateur" ? "selected" : "" ?>>Administrateur</option>
+                                                    <option value="ROLE_MODERATOR" <?= $user->getRoleVisiteur() == "Modérateur" ? "selected" : "" ?>>Modérateur</option>
+                                                    <option value="ROLE_MEMBER" <?= $user->getRoleVisiteur() == "Membre" ? "selected" : "" ?>>Membre</option>
+                                                </select>
+                                                <button class="btn btn-form" type="submit" name="edit">Modifier</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
                         </td>
                         <td class="cellCenter-responsive">
                             <?php
                             if ($user->getRoleVisiteur() != "Administrateur") {
                                 if ($user->getDateBanissementVisiteur() < $today) {
                             ?>
-                                    <button class="btn btn-form responsive-hide" id="banBtn<?= $user->getId() ?>" onclick="showBanForm(<?= $user->getId() ?>)" type="submit" name="ban">Bannir</button>
-                                    <button class="btn responsive-show" id="banBtn<?= $user->getId() ?>" onclick="showBanForm(<?= $user->getId() ?>)" type="submit" name="ban" title="Bannir l'utilisateur">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="1.7em" viewBox="0 0 512 512">
+                                    <a class="btn btn-form responsive-hide" id="banBtn<?= $user->getId() ?>" href="#ban<?= $user->getId() ?>-Mod">Bannir</a>
+                                    <a class="btn responsive-show" id="banBtn<?= $user->getId() ?>" href="#ban<?= $user->getId() ?>-Mod" title="Bannir l'utilisateur">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 512 512">
                                             <path d="M318.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-120 120c-12.5 12.5-12.5 32.8 0 45.3l16 16c12.5 12.5 32.8 12.5 45.3 0l4-4L325.4 293.4l-4 4c-12.5 12.5-12.5 32.8 0 45.3l16 16c12.5 12.5 32.8 12.5 45.3 0l120-120c12.5-12.5 12.5-32.8 0-45.3l-16-16c-12.5-12.5-32.8-12.5-45.3 0l-4 4L330.6 74.6l4-4c12.5-12.5 12.5-32.8 0-45.3l-16-16zm-152 288c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l48 48c12.5 12.5 32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-1.4-1.4L272 285.3 226.7 240 168 298.7l-1.4-1.4z"/>
                                         </svg>
-                                    </button>
-                                    <form class="editForm" id="banForm<?= $user->getId() ?>" action="index.php?ctrl=visiteur&action=ban&id=<?= $user->getId() ?>" method="post">
-                                        <input id="ban<?= $user->getId() ?>" name="ban<?= $user->getId() ?>" type="date" required></input>
-                                        <button class="btn btn-form" type="submit" name="ban">Bannir</button>
-                                    </form>
+                                    </a>
+                                    <div id="ban<?= $user->getId() ?>-Mod" class="modal">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <header class="container"> 
+                                                    <a href="#" class="closebtn">×</a>
+                                                    <h2>Bannir l'utilisateur</h2>
+                                                </header>
+                                                <div class="container">
+                                                    <p>Sélectionnee la date de fin du bannissement de cet utilisateur</p>
+                                                    <form action="index.php?ctrl=visiteur&action=ban&id=<?= $user->getId() ?>" method="post">
+                                                        <label for="ban<?= $user->getId() ?>">Date : *</label>
+                                                        <input id="ban<?= $user->getId() ?>" name="ban<?= $user->getId() ?>" type="date" required></input>
+                                                        <button class="btn btn-form" type="submit" name="ban">Bannir</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <?php
                                 } else {
                                 ?>
@@ -106,31 +136,3 @@ $users = $result["data"]['users'];
         </tbody>
     </table>
 </div>
-
-<script>
-    // Affiche le formulaire d'edition du titre du rôle
-    function showRoleEditForm(id) {
-        const role = document.querySelector("#role" + id);
-        const editForm = document.querySelector("#editForm" + id);
-        if (role.style.display != "none") {
-            role.style.display = "none";
-            editForm.style.display = "unset";
-        } else {
-            role.style.display = "unset";
-            editForm.style.display = "none";
-        }
-    }
-
-    // Affiche le forumulaire de banissement
-    function showBanForm(id) {
-        const banBtn = document.querySelector("#banBtn" + id);
-        const banForm = document.querySelector("#banForm" + id);
-        if (banBtn.style.display != "none") {
-            banBtn.style.display = "none";
-            banForm.style.display = "unset";
-        } else {
-            banBtn.style.display = "unset";
-            banForm.style.display = "none";
-        }
-    }
-</script>
