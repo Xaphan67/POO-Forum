@@ -36,18 +36,42 @@ $topics = $result["data"]['topics'];
                 ?>
                     <tr>
                         <td> <!-- Lien vers le sujet, avec icône de cadenas si le sujet est verrouillé -->
-                            <?php
-                            if ($topic->getVerouilleSujet()) {
-                            ?>
-                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
-                                    <path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z" />
-                                </svg>
-                            <?php
-                            }
-                            ?>
-                            <a href="index.php?ctrl=sujet&action=viewTopic&id=<?= $topic->getId() ?>"><?= $topic->getTitreSujet() ?></a>
+                            <div class="topicName">
+                                <div class="topicIcon">
+                                    <svg width="50px" height="50px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6 8h12v1H6zm0 4h9v-1H6zm16-6.25v8.5A2.753 2.753 0 0 1 19.25 17h-7.087L6 21.481V17H4.75A2.753 2.753 0 0 1 2 14.25v-8.5A2.753 2.753 0 0 1 4.75 3h14.5A2.753 2.753 0 0 1 22 5.75zm-1 0A1.752 1.752 0 0 0 19.25 4H4.75A1.752 1.752 0 0 0 3 5.75v8.5A1.752 1.752 0 0 0 4.75 16H7v3.519L11.837 16h7.413A1.752 1.752 0 0 0 21 14.25z"/><path fill="none" d="M0 0h24v24H0z"/>
+                                    </svg>
+                                    <?php
+                                    if ($topic->getVerouilleSujet()) {
+                                    ?>
+                                        <svg class="lock" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                                            <path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z" />
+                                        </svg>
+                                    <?php
+                                    }
+                                    ?>
+                                </div>
+                                <a href="index.php?ctrl=sujet&action=viewTopic&id=<?= $topic->getId() ?>"><?= $topic->getTitreSujet() ?></a>
+                            </div>
+                            <div class="esponsive-msg">
+                                Dernier message par
+                                <?php
+                                if ($topic->getRoleVisiteurRecent() != "ROLE_DELETED") {
+                                ?>
+                                    <a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $topic->getIdVisiteurRecent() ?>"><?= $topic->getPseudoVisiteurRecent() ?></a>
+                                <?php
+                                } else {
+                                ?>
+                                    <?= $topic->getPseudoVisiteurRecent() ?>
+                                <?php
+                                }
+                                ?>
+                                <br>Le <?= $topic->getDateMessageRecent() ?>
+                                <br>
+                                Réponses : <?= max(0, $topic->getNbMessages() - 1) ?>
+                            </div>
                         </td>
-                        <td class="no-padding">
+                        <td class="responsive-table-hide">
                             <div class="visiteur-display">
                                 <figure>
                                     <img class="avatar-msg" src="<?= PUBLIC_DIR ?>/img/<?= "avatars/" . $topic->getVisiteur()->getAvatarVisiteur() ?>" alt="Avatar de <?= $topic->getVisiteur() ?>" />
@@ -65,8 +89,8 @@ $topics = $result["data"]['topics'];
                                 ?>
                             </div>
                         </td>
-                        <td class="cellCenter"><?= max(0, $topic->getNbMessages() - 1) ?></td> <!-- Nombre de messages dans le sujet, -1 pour ne compter que les réponses -->
-                        <td>Par
+                        <td class="cellCenter responsive-table-hide"><?= max(0, $topic->getNbMessages() - 1) ?></td> <!-- Nombre de messages dans le sujet, -1 pour ne compter que les réponses -->
+                        <td class="responsive-table-hide">Par
                             <?php
                             if ($topic->getRoleVisiteurRecent() != "ROLE_DELETED") {
                             ?>
@@ -98,14 +122,16 @@ $topics = $result["data"]['topics'];
     if (App\Session::getUser()) {
         if (!App\Session::getUser()->isBanned()) {
         ?>
-            <p>Créer un nouveau sujet :</p>
-            <form action="index.php?ctrl=sujet&action=newTopic&id=<?= $category->getId() ?>" method="post">
-                <label for="nom">Nom du sujet : *</label>
-                <input type=text id="nom" name="nom" required>
-                <label for="message">Message : *</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
-                <button type="submit" name="submit">Créer</button>
-            </form>
+            <div class="form">
+                <div class="form-head">Créer un nouveau sujet</div>
+                <form action="index.php?ctrl=sujet&action=newTopic&id=<?= $category->getId() ?>" method="post">
+                    <label for="nom">Nom du sujet : *</label>
+                    <input type=text id="nom" name="nom" required>
+                    <label for="message">Message : *</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                    <button class="btn btn-form" type="submit" name="submit">Créer un sujet</button>
+                </form>
+            </div>
         <?php
         } else {
         ?>

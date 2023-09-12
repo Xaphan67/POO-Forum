@@ -126,7 +126,7 @@ $categories = $result["data"]['categories'];
     if (App\Session::getUser() && App\Session::isAdmin()) {
     ?>
         <div class="form">
-            <div class="form-head">Ajouter une catégorie :</div>
+            <div class="form-head">Ajouter une catégorie</div>
             <form action="index.php?ctrl=categorie&action=listCategories" method="post">
                 <label for="nom">Nom de la catégorie : *</label>
                 <input type=text id="nom" name="nom" required>
