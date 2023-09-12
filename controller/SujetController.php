@@ -59,22 +59,32 @@ class SujetController extends AbstractController implements ControllerInterface
         $this->redirectTo("categorie", "listTopics", $categoryId); // Redicection vers la liste des sujets de la catégorie
     }
 
-    // Traite les informations et modifie le titre du sujet via le formulaire
+    // Traite les informations et modifie le sujet via le formulaire
     public function editTopic($topicId)
     {
         $topicManager = new SujetManager();
+        $postManager = new MessageManager();
 
         if (Session::getUser() && (Session::getUser()->getId() == $topicManager->findOneById($topicId)->getVisiteur()->getId() || Session::isAdmin())) // Vérifie que le visiteur est connecté et qu'il est l'auteur du message
         {
-            if (isset($_POST['edit']) && isset($_POST["edit" . $topicId]) && !empty($_POST["edit" . $topicId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
-
-                $title = filter_input(INPUT_POST, "edit" . $topicId, FILTER_SANITIZE_SPECIAL_CHARS);
-                if ($title) {
-                    $topicManager->edit($topicId, $title); // Ajoute les informations du formulaire pour le 1er message du sujet
-                    Session::addFlash("success", "Titre du sujet modifié !");
+            $firstPostId = $topicManager->getFirstPostId($topicId)["id_message"];
+            if (isset($_POST['edit']) && isset($_POST["name" . $topicId]) && isset($_POST["msg" . $firstPostId]) && !empty($_POST["name" . $topicId]) && !empty($_POST["msg" . $firstPostId])) { // Vérifie qu'un formulaire à été soumis et que les champs existent et ne son pas vides
+                $title = filter_input(INPUT_POST, "name" . $topicId, FILTER_SANITIZE_SPECIAL_CHARS);
+                $message = filter_input(INPUT_POST, "msg" . $firstPostId, FILTER_SANITIZE_SPECIAL_CHARS);
+                if ($title && $message) {
+                    $topicManager->edit($topicId, $title); // Modifie le nom du sujet
+                    $postManager->edit($firstPostId, $message); // modifie le 1er message du sujet
+                    Session::addFlash("success", "Sujet modifié !");
                     $this->redirectTo("sujet", "viewTopic", $topicId); // Redicection vers la vue du sujet
                 }
-                Session::addFlash("error", "Le titre du sujet est invalide !");
+                switch (true) {
+                    case !$titre:
+                        Session::addFlash("error", "Le titre est invalide !");
+                        break;
+                    case !$message:
+                        Session::addFlash("error", "Le message est invalide !");
+                        break;
+                }
             }
         }
 

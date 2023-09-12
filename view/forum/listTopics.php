@@ -116,32 +116,34 @@ $topics = $result["data"]['topics'];
         <p>Aucun sujet !</p>
         <?php
     }
+    ?>
 
 
-    // Formulaire de création d'un nouveau sujet, uniquement si un visiteur est connecté et non banni
-    if (App\Session::getUser()) {
-        if (!App\Session::getUser()->isBanned()) {
-        ?>
-            <div class="form">
-                <div class="form-head">Créer un nouveau sujet</div>
-                <form action="index.php?ctrl=sujet&action=newTopic&id=<?= $category->getId() ?>" method="post">
-                    <label for="nom">Nom du sujet : *</label>
-                    <input type=text id="nom" name="nom" required>
-                    <label for="message">Message : *</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                    <button class="btn btn-form" type="submit" name="submit">Créer un sujet</button>
-                </form>
-            </div>
+     <!--Formulaire de création d'un nouveau sujet, uniquement si un visiteur est connecté et non banni-->
+    <div class="form">
+        <div class="form-head">Créer un nouveau sujet</div>
         <?php
+        if (App\Session::getUser()) {
+            if (!App\Session::getUser()->isBanned()) {
+            ?>
+            <form action="index.php?ctrl=sujet&action=newTopic&id=<?= $category->getId() ?>" method="post">
+                <label for="nom">Nom du sujet : *</label>
+                <input type=text id="nom" name="nom" required>
+                <label for="message">Message : *</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+                <button class="btn btn-form" type="submit" name="submit">Créer un sujet</button>
+            </form>
+            <?php
+            } else {
+            ?>
+                <p>Vous ne pouvez pas poster un nouveau message car vous êtes banni jusqu'au <?= App\Session::getUser()->getDateBanissementVisiteur()->format("d/m/Y") ?></p>
+            <?php
+            }
         } else {
-        ?>
-            <p>Vous ne pouvez pas poster un nouveau message car vous êtes banni jusqu'au <?= App\Session::getUser()->getDateBanissementVisiteur()->format("d/m/Y") ?></p>
-        <?php
-        }
-    } else {
         ?>
         <p>Connectez vous pour pouvoir poster un nouveau sujet</p>
     <?php
     }
     ?>
+    </div>
 </div>
