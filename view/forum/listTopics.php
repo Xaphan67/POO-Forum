@@ -101,7 +101,7 @@ $topics = $result["data"]['topics'];
             <p>Créer un nouveau sujet :</p>
             <form action="index.php?ctrl=sujet&action=newTopic&id=<?= $category->getId() ?>" method="post">
                 <label for="nom">Nom du sujet : *</label>
-                <input type=text name="nom" required>
+                <input type=text id="nom" name="nom" required>
                 <label for="message">Message : *</label>
                 <textarea id="message" name="message" rows="5" required></textarea>
                 <button type="submit" name="submit">Créer</button>

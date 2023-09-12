@@ -129,7 +129,7 @@ $categories = $result["data"]['categories'];
             <div class="form-head">Ajouter une catégorie :</div>
             <form action="index.php?ctrl=categorie&action=listCategories" method="post">
                 <label for="nom">Nom de la catégorie : *</label>
-                <input type=text name="nom" required>
+                <input type=text id="nom" name="nom" required>
                 <label for="description">Description :</label>
                 <textarea id="description" name="description" rows="5"></textarea>
                 <button class="btn btn-form" type="submit" name="submit">Créer la catégorie</button>
