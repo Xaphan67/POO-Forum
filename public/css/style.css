@@ -116,6 +116,7 @@ table {
     border-spacing: 0px;
     border-radius: 5px;
     border-top: 1px solid var(--arianebgColor);
+    min-width: 100%;
 }
 
 table tr:nth-child(even) {
@@ -139,7 +140,7 @@ thead {
 }
 
 td {
-    padding: 10px 0px 10px 20px;
+    padding: 10px;
 }
 
 td svg {
@@ -218,6 +219,17 @@ a,
     gap: 10px;
 }
 
+.cellCenter,
+.cellCenter-responsive {
+    padding-left: 0px;
+    text-align: center;
+}
+
+.cellCenter-responsive {
+    min-width: 40px;
+    padding-left: 0px;
+}
+
 .cat-infos {
     display: flex;
     flex-direction: column;
@@ -234,6 +246,7 @@ a,
 }
 
 .btn {
+    display: block;
     width: 30px;
     height: 30px;
     background-color: var(--btnColor);
@@ -323,8 +336,13 @@ a,
     }
 
     table {
+        min-width: 50%;
         width: 85%;
         margin-inline: auto;
+    }
+
+    td {
+        padding: 10px 10px 10px 20px;
     }
 
     th:first-child {
@@ -337,6 +355,11 @@ a,
 
     thead {
         display: contents;
+    }
+
+    .cellCenter-responsive {
+        text-align:left;
+        padding-inline: 20px;
     }
 
     .responsive-table-hide {
@@ -371,6 +394,10 @@ a,
     .responsive-msg {
         display: none;
     }
+
+    .ban {
+        display: flex;
+    }
 }
 
 /* Odinateurs */
@@ -401,11 +428,6 @@ a,
 
 .width10 {
     width: 10%;
-}
-
-.cellCenter {
-    padding-left: 0px;
-    text-align: center;
 }
 
 .main-message {
