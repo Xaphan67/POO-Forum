@@ -145,7 +145,7 @@ $firstId = $result["data"]['firstId'];
                                 <div class="modal-content">
                                     <header class="container">
                                         <a href="#" class="closebtn">×</a>
-                                        <h2>Modifier le message</h2>
+                                        <h3>Modifier le message</h2>
                                     </header>
                                     <div class="container">
                                         <form action="index.php?ctrl=sujet&action=editTopic&id=<?= $topic->getId() ?>" method="post">
@@ -164,7 +164,7 @@ $firstId = $result["data"]['firstId'];
                                 <div class="modal-content">
                                     <header class="container">
                                         <a href="#" class="closebtn">×</a>
-                                        <h2>Modifier le message</h2>
+                                        <h3>Modifier le message</h2>
                                     </header>
                                     <div class="container">
                                         <form action="index.php?ctrl=message&action=editPost&id=<?= $message->getId() ?>" method="post">

@@ -75,9 +75,9 @@
                 <div id="register-Mod" class="modal">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <header class="container"> 
+                            <header class="container">
                                 <a href="#" class="closebtn">×</a>
-                                <h2>Inscription</h2>
+                                <h3>Inscription</h2>
                             </header>
                             <div class="container">
                                 <p>Merci de remplir le formulaire pour vous inscrire</p>
@@ -95,13 +95,13 @@
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
                 <div id="login-Mod" class="modal">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <header class="container"> 
+                            <header class="container">
                                 <a href="#" class="closebtn">×</a>
-                                <h2>Connexion</h2>
+                                <h3>Connexion</h2>
                             </header>
                             <div class="container">
                                 <p>Merci de remplir le formulaire pour vous connecter</p>
@@ -115,7 +115,7 @@
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
             </main>
         </div>
         <footer>

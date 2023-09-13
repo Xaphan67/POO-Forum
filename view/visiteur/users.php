@@ -59,7 +59,7 @@ $users = $result["data"]['users'];
                                     <div class="modal-content">
                                         <header class="container">
                                             <a href="#" class="closebtn">×</a>
-                                            <h2>Modifier le rôle</h2>
+                                            <h3>Modifier le rôle</h2>
                                         </header>
                                         <div class="container">
                                             <p>Sélectionnee le nouveau rôle pour cet utilisateur</p>
@@ -94,7 +94,7 @@ $users = $result["data"]['users'];
                                             <div class="modal-content">
                                                 <header class="container">
                                                     <a href="#" class="closebtn">×</a>
-                                                    <h2>Bannir l'utilisateur</h2>
+                                                    <h3>Bannir l'utilisateur</h2>
                                                 </header>
                                                 <div class="container">
                                                     <p>Sélectionnee la date de fin du bannissement de cet utilisateur</p>

@@ -359,6 +359,14 @@ a,
     width: 110px;
 }
 
+.btn-norm {
+    width: 150px;
+}
+
+.btn-large {
+    width: 220px;
+}
+
 .form {
     margin-inline: auto;
     background-color: white;
@@ -411,7 +419,8 @@ a,
     margin-left: auto;
 }
 
-h1 {
+h1,
+h2 {
     font-size: 20px;
     font-weight: initial;
     color: var(--topicColor);
@@ -426,6 +435,11 @@ h1 {
 
 .side-infos {
     display: none;
+}
+
+.side-infos-black {
+    padding-top: 20px;
+    color: black;
 }
 
 .side-msg {
@@ -455,6 +469,22 @@ h1 {
 .msgUserInfos {
     display: flex;
     flex-direction: column;
+}
+
+.prf-msgTopic {
+    padding-bottom: 10px;
+}
+
+.prf-Infos {
+    text-align: center;
+}
+
+.profil {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding-bottom: 20px;
 }
 
 /* --- Modales --- */
@@ -497,7 +527,7 @@ h1 {
 }
 
 /* Le contenu de la modale */
-h2 {
+h3 {
     color: white;
     line-height: 50px;
     font-weight: initial;
@@ -648,19 +678,42 @@ h2 {
         padding: 10px 10px 10px 20px;
     }
 
-    .side-infos-black {
-        padding-top: 20px;
-        color: black;
-    }
-
     .message-display {
         width: 85%;
+    }
+
+    .message-display-prf {
+        width: 100%;
     }
 
     .msgUserInfos {
         display: flex;
         flex-direction: row;
         gap: 10px;
+    }
+
+    .prf-msgTopic {
+        padding-bottom: 0px;
+    }
+
+    .prf-msgInfos {
+        flex-direction: row;
+        justify-content: start;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .prf-Infos {
+        text-align: start;
+    }
+
+    .prf-responsive {
+        display: flex;
+    }
+
+    .lastMsgs {
+        width: 100%;
+        padding-left: 10px;
     }
 
     /* --- Modales --- */

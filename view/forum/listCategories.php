@@ -67,7 +67,7 @@ $categories = $result["data"]['categories'];
                                                 <div class="modal-content">
                                                     <header class="container">
                                                         <a href="#" class="closebtn">×</a>
-                                                        <h2>Modifier la catégorie</h2>
+                                                        <h3>Modifier la catégorie</h2>
                                                     </header>
                                                     <div class="container">
                                                         <p>Merci de remplir le formulaire pour modifier la catégorie</p>
