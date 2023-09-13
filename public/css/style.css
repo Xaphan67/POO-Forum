@@ -112,11 +112,6 @@ main {
     padding-left: 10px;
 }
 
-.msg-head {
-    position: relative;
-    min-height: 10px;
-}
-
 /* --- Main Content --- */
 
 .width60 {
@@ -140,7 +135,7 @@ main {
 }
 
 .main-message {
-    height: 150px;
+    padding: 10px;
 }
 
 .editForm {
@@ -150,6 +145,7 @@ main {
 .avatar-prf {
     max-width: 150px;
     border-radius: 100%;
+    margin-bottom: 10px;
 }
 
 .avatar-msg {
@@ -180,6 +176,14 @@ table tr:nth-child(even) {
     background-color: white;
 }
 
+.messages-display tr:first-child td:first-child {
+    border-top-left-radius: 5px;
+}
+
+.messages-display tr:first-child td:last-child {
+    border-top-right-radius: 5px;
+}
+
 table tr:last-child td:first-child {
     border-bottom-left-radius: 5px;
 }
@@ -195,7 +199,7 @@ th,
     text-align: left;
     padding-left: 20px;
     background-color: var(--headbgColor);
-    color: white;;
+    color: white;
     font-size: 16px;
     font-weight: initial;
 }
@@ -254,9 +258,20 @@ label {
     align-items: center;
     gap: 6px;
     padding-inline: 10px;
-    line-height: 50px;
-    height: 50px;
+    min-height: 50px;
     border-radius: 10px 10px 0px 0px;
+}
+
+.arianePath {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.pathPart {
+    display: block;
+    line-height: 30px;
 }
 
 a,
@@ -313,8 +328,8 @@ a,
 
 .actions-abs {
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 10px;
+    right: 10px;
 }
 
 .btn {
@@ -346,7 +361,7 @@ a,
 
 .form {
     margin-inline: auto;
-    background-color:  white;
+    background-color: white;
     border-radius: 0px 0px 5px 5px;
     box-shadow: 0px 5px 5px rgba(0, 0, 0, .25);
 }
@@ -410,52 +425,75 @@ h1 {
 }
 
 .side-infos {
-    vertical-align: top;
-    border-right: 1px solid var(--tableinnerColor);
-    background-color: white;
+    display: none;
 }
 
-.side-infos-black {
-    color: black;
+.side-msg {
+    width: 100%;
 }
 
 .top-infos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
     border-bottom: 1px solid var(--tableinnerColor);
+    padding: 10px;
+    min-height: 50px;
+}
+
+.message-display {
+    display: flex;
+    margin-inline: auto;
+    margin-bottom: 20px;
     background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, .25);
+
+}
+
+.msgUserInfos {
+    display: flex;
+    flex-direction: column;
 }
 
 /* --- Modales --- */
 
 /* Animation */
 @keyframes fadeIN {
-    from {opacity: 0;}
-    to {opacity:1;}
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* Foncer l'arrière-plan de la fenêtre modale */
 .modal {
-  display: none;
-  position:fixed;
-  z-index: 2;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  animation-name: fadeIN;
-  animation-duration: 0.5s;
-  background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    animation-name: fadeIN;
+    animation-duration: 0.5s;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* Afficher la fenêtre modale lorsqu'elle est ciblée par un lien */
 .modal:target {
-  display: table;
+    display: table;
 }
 
 /* la fenêtre modale  */
 .modal-dialog {
-  display: table-cell;
-  vertical-align: middle;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 /* Le contenu de la modale */
@@ -466,16 +504,16 @@ h2 {
 }
 
 .modal-dialog .modal-content {
-  margin: auto;
-  background-color: white;
-  padding: 0;
-  outline: 0;
-  text-align: justify;
-  width: 90%;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.25);
-  animation-name: fadeIN;
-  animation-duration: 0.5s;
+    margin: auto;
+    background-color: white;
+    padding: 0;
+    outline: 0;
+    text-align: justify;
+    width: 90%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.25);
+    animation-name: fadeIN;
+    animation-duration: 0.5s;
 }
 
 .modal-content header {
@@ -489,22 +527,22 @@ h2 {
 
 /* Bouton servant à fermer la fenêtre modale */
 .closebtn {
-  text-decoration: none;
-  float: right;
-  font-size: 35px;
-  font-weight: bold;
-  color: white;
+    text-decoration: none;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+    color: white;
 }
 
 .closebtn:hover,
 .closebtn:focus {
-  color: var(--linksColor);
-  text-decoration: none;
-  cursor: pointer;
+    color: var(--linksColor);
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .container {
-  padding: 2px 16px;
+    padding: 2px 16px;
 }
 
 /* Tablettes et ordinateurs */
@@ -552,7 +590,7 @@ h2 {
     th:first-child {
         border-radius: 5px 0px 0px 0px;
     }
-    
+
     th:last-child {
         border-radius: 0px 5px 0px 0px;
     }
@@ -562,7 +600,7 @@ h2 {
     }
 
     .cellCenter-responsive {
-        text-align:left;
+        text-align: left;
         padding-inline: 20px;
     }
 
@@ -594,7 +632,7 @@ h2 {
     .actions {
         margin-left: auto;
     }
-    
+
     .responsive-msg {
         display: none;
     }
@@ -603,12 +641,34 @@ h2 {
         display: flex;
     }
 
+    .side-infos {
+        display: block;
+        border-right: 1px solid var(--tableinnerColor);
+        width: 275px;
+        padding: 10px 10px 10px 20px;
+    }
+
+    .side-infos-black {
+        padding-top: 20px;
+        color: black;
+    }
+
+    .message-display {
+        width: 85%;
+    }
+
+    .msgUserInfos {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
     /* --- Modales --- */
 
     .modal-dialog .modal-content {
         width: 90%;
         max-width: 500px;
-      }
+    }
 }
 
 /* Odinateurs */
