@@ -55,7 +55,7 @@ $topics = $result["data"]['topics'];
                                 </div>
                                 <a href="index.php?ctrl=sujet&action=viewTopic&id=<?= $topic->getId() ?>"><?= $topic->getTitreSujet() ?></a>
                             </div>
-                            <div class="esponsive-msg">
+                            <div class="responsive-msg">
                                 Dernier message par
                                 <?php
                                 if ($topic->getRoleVisiteurRecent() != "ROLE_DELETED") {

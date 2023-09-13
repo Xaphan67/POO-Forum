@@ -78,7 +78,7 @@ class SujetController extends AbstractController implements ControllerInterface
                     $this->redirectTo("sujet", "viewTopic", $topicId); // Redicection vers la vue du sujet
                 }
                 switch (true) {
-                    case !$titre:
+                    case !$title:
                         Session::addFlash("error", "Le titre est invalide !");
                         break;
                     case !$message:
