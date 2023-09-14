@@ -27,6 +27,7 @@ class SujetController extends AbstractController implements ControllerInterface
 
         return [
             "view" => VIEW_DIR . "forum/viewTopic.php",
+            "meta" => "Les messages du sujet " . $topicManager->findOneById($topicId)->getTitreSujet(),
             "data" => [
                 "topic" => $topicManager->findOneById($topicId), // Informations du sujet
                 "posts" => $postManager->getAllPostsFromTopic($topicId), // liste des messages du sujet

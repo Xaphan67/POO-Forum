@@ -23,7 +23,7 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
     <div class="prf-responsive">
         <div class="profil">
             <div class="prf-Infos">
-                <img class="avatar-prf" src="<?= PUBLIC_DIR ?>/img/<?= "avatars/" . $user->getAvatarVisiteur() ?>" alt="Avatar de <?= $user->getPseudoVisiteur() ?>" /><br>
+                <img class="avatar-prf" src="<?= PUBLIC_DIR ?>/img/<?= "avatars/" . $user->getAvatarVisiteur() ?>" alt="Avatar de <?= $user->getPseudoVisiteur() ?>"><br>
                 <span style="color: var(--linksColor)"><?= $user->getPseudoVisiteur() ?></span>
                 <br>
                 <?= $user->getRoleVisiteur() ?>
@@ -74,7 +74,7 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
                     <div class="modal-content">
                         <header class="container">
                             <a href="#" class="closebtn">×</a>
-                            <h3>Modifier le pseudonyme</h2>
+                            <h3>Modifier le pseudonyme</h3>
                         </header>
                         <div class="container">
                             <form action="index.php?ctrl=visiteur&action=editPseudo&id=<?= $user->getId() ?>" method="post" enctype="multipart/form-data">
@@ -91,7 +91,7 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
                     <div class="modal-content">
                         <header class="container">
                             <a href="#" class="closebtn">×</a>
-                            <h3>Modifier l'email</h2>
+                            <h3>Modifier l'email</h3>
                         </header>
                         <div class="container">
                             <form action="index.php?ctrl=visiteur&action=editEmail&id=<?= $user->getId() ?>" method="post" enctype="multipart/form-data">
@@ -108,7 +108,7 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
                     <div class="modal-content">
                         <header class="container">
                             <a href="#" class="closebtn">×</a>
-                            <h3>Modifier l'avatar</h2>
+                            <h3>Modifier l'avatar</h3>
                         </header>
                         <div class="container">
                             <form action="index.php?ctrl=visiteur&action=editAvatar&id=<?= $user->getId() ?>" method="post" enctype="multipart/form-data">
@@ -125,7 +125,7 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
                     <div class="modal-content">
                         <header class="container">
                             <a href="#" class="closebtn">×</a>
-                            <h3>Modifier le mot de passe</h2>
+                            <h3>Modifier le mot de passe</h3>
                         </header>
                         <div class="container">
                             <form action="index.php?ctrl=visiteur&action=editMdp&id=<?= $user->getId() ?>" method="post" enctype="multipart/form-data">

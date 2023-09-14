@@ -67,13 +67,13 @@ $categories = $result["data"]['categories'];
                                                 <div class="modal-content">
                                                     <header class="container">
                                                         <a href="#" class="closebtn">×</a>
-                                                        <h3>Modifier la catégorie</h2>
+                                                        <h3>Modifier la catégorie</h3>
                                                     </header>
                                                     <div class="container">
                                                         <p>Merci de remplir le formulaire pour modifier la catégorie</p>
                                                         <form action="index.php?ctrl=categorie&action=editCategory&id=<?= $category->getId() ?>" method="post">
                                                             <label for="name<?= $category->getId() ?>">Nom de la catégorie : *</label>
-                                                            <input id="name<?= $category->getId() ?>" name="name<?= $category->getId() ?>" type="text" value="<?= $category->getNomCategorie() ?>" required></input>
+                                                            <input id="name<?= $category->getId() ?>" name="name<?= $category->getId() ?>" type="text" value="<?= $category->getNomCategorie() ?>" required>
                                                             <label for="desc<?= $category->getId() ?>">Description de la catégorie :</label>
                                                             <textarea id="desc<?= $category->getId() ?>" name="desc<?= $category->getId() ?>" rows="2"><?= $category->getDescriptionCategorie() ?></textarea>
                                                             <button class="btn btn-form" type="submit" name="edit">Modifier</button>

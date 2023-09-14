@@ -71,7 +71,7 @@ $firstId = $result["data"]['firstId'];
             <div class="message-display">
                 <div class="side-infos">
                     <figure>
-                        <img class="avatar-prf" src="<?= PUBLIC_DIR ?>/img/<?= "avatars/" . $message->getVisiteur()->getAvatarVisiteur() ?>" alt="Avatar de <?= $message->getVisiteur() ?>" />
+                        <img class="avatar-prf" src="<?= PUBLIC_DIR ?>/img/<?= "avatars/" . $message->getVisiteur()->getAvatarVisiteur() ?>" alt="Avatar de <?= $message->getVisiteur() ?>">
                     </figure>
                     <?= $visiteurLink ?>
                     <br>
@@ -148,12 +148,12 @@ $firstId = $result["data"]['firstId'];
                                 <div class="modal-content">
                                     <header class="container">
                                         <a href="#" class="closebtn">×</a>
-                                        <h3>Modifier le message</h2>
+                                        <h3>Modifier le message</h3>
                                     </header>
                                     <div class="container">
                                         <form action="index.php?ctrl=sujet&action=editTopic&id=<?= $topic->getId() ?>" method="post">
                                             <label for="name<?= $topic->getId() ?>">Nom du sujet : *</label>
-                                            <input id="name<?= $topic->getId() ?>" name="name<?= $topic->getId() ?>" type="text" value="<?= $topic->getTitreSujet() ?>" required></input>
+                                            <input id="name<?= $topic->getId() ?>" name="name<?= $topic->getId() ?>" type="text" value="<?= $topic->getTitreSujet() ?>" required>
                                             <label for="msg<?= $message->getId() ?>">Message : *</label>
                                             <textarea id="msg<?= $message->getId() ?>" name="msg<?= $message->getId() ?>" rows="5" required><?= $message->getTexteMessage() ?></textarea>
                                             <button class="btn btn-form" type="submit" name="edit">Modifier</button>
@@ -170,7 +170,7 @@ $firstId = $result["data"]['firstId'];
                                 <div class="modal-content">
                                     <header class="container">
                                         <a href="#" class="closebtn">×</a>
-                                        <h3>Modifier le message</h2>
+                                        <h3>Modifier le message</h3>
                                     </header>
                                     <div class="container">
                                         <form action="index.php?ctrl=message&action=editPost&id=<?= $message->getId() ?>" method="post">

@@ -17,6 +17,7 @@ class HomeController extends AbstractController implements ControllerInterface
 
         return [
             "view" => VIEW_DIR . "forum/listCategories.php",
+            "meta" => "Les catgégories de FORUM PHP",
             "data" => [
                 "categories" => $categoryManager->getAllCategories() // Informations relatives aux catégories (Noms, nombre sujets et réponses etc...)
             ]

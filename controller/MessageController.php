@@ -16,6 +16,7 @@ class MessageController extends AbstractController implements ControllerInterfac
     {
         return [
             "view" => VIEW_DIR . "home.php",
+            "meta" => "Les catgégories de FORUM PHP"
         ];
     }
 

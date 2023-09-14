@@ -16,6 +16,7 @@ class CategorieController extends AbstractController implements ControllerInterf
     {
         return [
             "view" => VIEW_DIR . "home.php",
+            "meta" => "Les catgégories de FORUM PHP"
         ];
     }
 
@@ -42,6 +43,7 @@ class CategorieController extends AbstractController implements ControllerInterf
 
         return [
             "view" => VIEW_DIR . "forum/listCategories.php",
+            "meta" => "Les catégories de FORUM PHP",
             "data" => [
                 "categories" => $categoryManager->getAllCategories() // Informations relatives aux catégories (Noms, nombre sujets et réponses etc...)
             ]
@@ -98,6 +100,7 @@ class CategorieController extends AbstractController implements ControllerInterf
 
         return [
             "view" => VIEW_DIR . "forum/listTopics.php",
+            "meta" => "Tous les sujets de la catégorie " . $categoryManager->findOneById($categoryId)->getNomCategorie(),
             "data" => [
                 "category" => $categoryManager->findOneById($categoryId), // Informations sur la catégorie
                 "topics" => $topicManager->getAllTopicsFromCategory($categoryId) // Liste des sujets de la catégorie

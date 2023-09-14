@@ -19,6 +19,7 @@ class VisiteurController extends AbstractController implements ControllerInterfa
 
         return [
             "view" => VIEW_DIR . "forum/listCategories.php",
+            "meta" => "Les catgégories de FORUM PHP",
             "data" => [
                 "categories" => $categoryManager->getAllCategories() // Informations relatives aux catégories (Noms, nombre sujets et réponses etc...)
             ]
@@ -35,6 +36,7 @@ class VisiteurController extends AbstractController implements ControllerInterfa
 
         return [
             "view" => VIEW_DIR . "visiteur/users.php",
+            "meta" => "Gestion des utilisateurs de FORUM PHP",
             "data" => [
                 "users" => $users
             ]
@@ -49,6 +51,7 @@ class VisiteurController extends AbstractController implements ControllerInterfa
 
         return [
             "view" => VIEW_DIR . "visiteur/profile.php",
+            "meta" => "Profil de " . $VisitorManager->findOneById($id)->getPseudoVisiteur(),
             "data" => [
                 "user" => $VisitorManager->findOneById($id),
                 "posts" => $postManager->getLastPostsFromVisitor($id),

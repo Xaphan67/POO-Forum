@@ -37,7 +37,7 @@ $users = $result["data"]['users'];
                         <td>
                             <div class="visiteur-display">
                                 <figure>
-                                    <img class="avatar-msg" src="<?= PUBLIC_DIR ?>/img/<?= "avatars/" . $user->getAvatarVisiteur() ?>" alt="Avatar de <?= $user ?>" />
+                                    <img class="avatar-msg" src="<?= PUBLIC_DIR ?>/img/<?= "avatars/" . $user->getAvatarVisiteur() ?>" alt="Avatar de <?= $user ?>">
                                 </figure>
                                 <a href="index.php?ctrl=visiteur&action=viewProfile&id=<?= $user->getId() ?>"><?= $user ?></a>
                             </div>
@@ -59,7 +59,7 @@ $users = $result["data"]['users'];
                                     <div class="modal-content">
                                         <header class="container">
                                             <a href="#" class="closebtn">×</a>
-                                            <h3>Modifier le rôle</h2>
+                                            <h3>Modifier le rôle</h3>
                                         </header>
                                         <div class="container">
                                             <p>Sélectionnee le nouveau rôle pour cet utilisateur</p>
@@ -83,8 +83,7 @@ $users = $result["data"]['users'];
                             if ($user->getRoleVisiteur() != "Administrateur") {
                                 if ($user->getDateBanissementVisiteur() < $today) {
                             ?>
-                                    <a class="btn btn-form responsive-hide" id="banBtn<?= $user->getId() ?>" href="#ban<?= $user->getId() ?>-Mod">Bannir</a>
-                                    <a class="btn responsive-show" id="banBtn<?= $user->getId() ?>" href="#ban<?= $user->getId() ?>-Mod" title="Bannir l'utilisateur">
+                                    <a class="btn" id="banBtn<?= $user->getId() ?>" href="#ban<?= $user->getId() ?>-Mod" title="Bannir l'utilisateur">
                                         <svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 512 512">
                                             <path d="M318.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-120 120c-12.5 12.5-12.5 32.8 0 45.3l16 16c12.5 12.5 32.8 12.5 45.3 0l4-4L325.4 293.4l-4 4c-12.5 12.5-12.5 32.8 0 45.3l16 16c12.5 12.5 32.8 12.5 45.3 0l120-120c12.5-12.5 12.5-32.8 0-45.3l-16-16c-12.5-12.5-32.8-12.5-45.3 0l-4 4L330.6 74.6l4-4c12.5-12.5 12.5-32.8 0-45.3l-16-16zm-152 288c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l48 48c12.5 12.5 32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-1.4-1.4L272 285.3 226.7 240 168 298.7l-1.4-1.4z" />
                                         </svg>
@@ -94,13 +93,13 @@ $users = $result["data"]['users'];
                                             <div class="modal-content">
                                                 <header class="container">
                                                     <a href="#" class="closebtn">×</a>
-                                                    <h3>Bannir l'utilisateur</h2>
+                                                    <h3>Bannir l'utilisateur</h3>
                                                 </header>
                                                 <div class="container">
                                                     <p>Sélectionnee la date de fin du bannissement de cet utilisateur</p>
                                                     <form action="index.php?ctrl=visiteur&action=ban&id=<?= $user->getId() ?>" method="post">
                                                         <label for="ban<?= $user->getId() ?>">Date : *</label>
-                                                        <input id="ban<?= $user->getId() ?>" name="ban<?= $user->getId() ?>" type="date" required></input>
+                                                        <input id="ban<?= $user->getId() ?>" name="ban<?= $user->getId() ?>" type="date" required>
                                                         <button class="btn btn-form" type="submit" name="ban">Bannir</button>
                                                     </form>
                                                 </div>

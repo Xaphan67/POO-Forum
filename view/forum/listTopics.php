@@ -76,7 +76,7 @@ $topics = $result["data"]['topics'];
                         <td class="responsive-table-hide">
                             <div class="visiteur-display">
                                 <figure>
-                                    <img class="avatar-msg" src="<?= PUBLIC_DIR ?>/img/<?= "avatars/" . $topic->getVisiteur()->getAvatarVisiteur() ?>" alt="Avatar de <?= $topic->getVisiteur() ?>" />
+                                    <img class="avatar-msg" src="<?= PUBLIC_DIR ?>/img/<?= "avatars/" . $topic->getVisiteur()->getAvatarVisiteur() ?>" alt="Avatar de <?= $topic->getVisiteur() ?>">
                                 </figure>
                                 <?php
                                 if ($topic->getVisiteur()->getRoleVisiteur() != "ROLE_DELETED") {
