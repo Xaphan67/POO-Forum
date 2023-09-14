@@ -427,6 +427,10 @@ h2 {
     padding-bottom: 10px;
 }
 
+h2 {
+    text-align: center;
+}
+
 .main-message td {
     vertical-align: top;
     padding-top: 10px;
@@ -484,7 +488,12 @@ h2 {
     flex-direction: column;
     gap: 10px;
     align-items: center;
-    padding-bottom: 20px;
+    padding: 10px 0px 20px 0px;
+}
+
+.prf-responsive {
+    background-color: white;
+    border-radius: 5px;
 }
 
 /* --- Modales --- */
@@ -607,12 +616,6 @@ h3 {
         width: 266px;
     }
 
-    table {
-        min-width: 50%;
-        width: 85%;
-        margin-inline: auto;
-    }
-
     td {
         padding: 10px 10px 10px 20px;
     }
@@ -627,6 +630,12 @@ h3 {
 
     thead {
         display: contents;
+    }
+
+    h2 {
+        text-align: start;
+        padding-top: 10px;
+        padding-left: 10px;
     }
 
     .cellCenter-responsive {
@@ -655,10 +664,6 @@ h3 {
         align-items: center;
     }
 
-    .form {
-        width: 85%;
-    }
-
     .actions {
         margin-left: auto;
     }
@@ -678,18 +683,10 @@ h3 {
         padding: 10px 10px 10px 20px;
     }
 
-    .message-display {
-        width: 85%;
-    }
-
     .message-display-prf {
         width: 100%;
-    }
-
-    .msgUserInfos {
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
+        box-shadow:none;
+        margin-bottom: 0px;
     }
 
     .prf-msgTopic {
@@ -707,13 +704,19 @@ h3 {
         text-align: start;
     }
 
+    .profil {
+        padding: 10px 0px 20px 10px;
+    }
+
     .prf-responsive {
         display: flex;
+        box-shadow: 0px 5px 5px rgba(0, 0, 0, .25);
     }
 
     .lastMsgs {
         width: 100%;
-        padding-left: 10px;
+        margin-left: 10px;
+        border-left: 1px solid var(--cattopicoColor);
     }
 
     /* --- Modales --- */
@@ -725,4 +728,25 @@ h3 {
 }
 
 /* Odinateurs */
-@media only screen and (min-width: 1024px) {}
+@media only screen and (min-width: 1024px) {
+
+    table {
+        min-width: 50%;
+        width: 85%;
+        margin-inline: auto;
+    }
+
+    .msgUserInfos {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .message-display {
+        width: 85%;
+    }
+
+    .form {
+        width: 85%;
+    }
+}

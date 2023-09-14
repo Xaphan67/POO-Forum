@@ -135,7 +135,7 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
             </div>
         </div>
         <div class="lastMsgs">
-            <h2>Les derniers messages de <?= $user->getPseudoVisiteur() ?>:</h2>
+            <h2>Les derniers messages de <?= $user->getPseudoVisiteur() ?> :</h2>
             <?php
             if ($messages != null) {
             ?>

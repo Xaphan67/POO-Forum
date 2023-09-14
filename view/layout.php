@@ -84,12 +84,12 @@
                                 <form action="index.php?ctrl=security&action=register" method="post">
                                     <label for="pseudo">Pseudonyme : *</label>
                                     <input type=text id="pseudo" name="pseudo" required>
-                                    <label for="email">E-mail : *</label>
-                                    <input type="email" id="email" name="email" autocomplete="on" required>
-                                    <label for="mdp">Mot de passe : *</label>
-                                    <input type="password" id="mdp" name="mdp" required>
-                                    <label for="mdpCheck">Confirmer le mot de passe : *</label>
-                                    <input type="password" id="mdpCheck" name="mdpCheck" required>
+                                    <label for="registerEmail">E-mail : *</label>
+                                    <input type="email" id="registerEmail" name="email" autocomplete="on" required>
+                                    <label for="registerMdp">Mot de passe : *</label>
+                                    <input type="password" id="registerMdp" name="mdp" required>
+                                    <label for="registerMdpCheck">Confirmer le mot de passe : *</label>
+                                    <input type="password" id="registerMdpCheck" name="mdpCheck" required>
                                     <button class="btn btn-form" type="submit" name="submit">S'inscrire</button>
                                 </form>
                             </div>

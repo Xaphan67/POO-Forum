@@ -28,7 +28,7 @@ $topics = $result["data"]['topics'];
                     <th class="width50">Sujet</th>
                     <th class="width20 th-infos">Auteur</th>
                     <th class="width10 cellCenter th-infos">Réponses</th>
-                    <th class="width20 th-infos ">Dernier Message</th>
+                    <th class="width20 th-infos ">Dernier</th>
                 </tr>
             </thead>
             <tbody>

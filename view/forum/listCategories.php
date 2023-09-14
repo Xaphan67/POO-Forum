@@ -26,7 +26,7 @@ $categories = $result["data"]['categories'];
                     <th class="width60">Catégorie</th>
                     <th class="width10 cellCenter th-infos">Sujets</th>
                     <th class="width10 cellCenter th-infos">Réponses</th>
-                    <th class="width20 th-infos">Dernier Message</th>
+                    <th class="width20 th-infos">Dernier</th>
                 </tr>
             </thead>
             <tbody>

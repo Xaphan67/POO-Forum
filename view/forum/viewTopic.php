@@ -134,7 +134,7 @@ $firstId = $result["data"]['firstId'];
                             <?php if ($message->getDateModificationMessage() != null) {
                             ?>
                                 <div>
-                                    - Modifié le <?= $message->getDateModificationMessage() ?>
+                                    > Modifié le <?= $message->getDateModificationMessage() ?>
                                 </div>
                             <?php
                             }
