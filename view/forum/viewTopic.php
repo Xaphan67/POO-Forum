@@ -211,7 +211,7 @@ $firstId = $result["data"]['firstId'];
                 if (!$topic->getVerouilleSujet()) {
         ?>
                     <form action="index.php?ctrl=message&action=submitPost&id=<?= $topic->getId() ?>" method="post">
-                        <label for="reponse">Répondre : *</label>
+                        <label for="reponse">Votre réponse : *</label>
                         <textarea id="reponse" name="reponse" rows="5" required></textarea>
                         <button class="btn btn-form" type="submit" name="submit">Répondre</button>
                     </form>
