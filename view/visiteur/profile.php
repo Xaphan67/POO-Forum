@@ -24,7 +24,7 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
         <div class="profil">
             <div class="prf-Infos">
                 <img class="avatar-prf" src="<?= PUBLIC_DIR ?>/img/<?= "avatars/" . $user->getAvatarVisiteur() ?>" alt="Avatar de <?= $user->getPseudoVisiteur() ?>" /><br>
-                <?= $user->getPseudoVisiteur() ?>
+                <span style="color: var(--linksColor)"><?= $user->getPseudoVisiteur() ?></span>
                 <br>
                 <?= $user->getRoleVisiteur() ?>
                 <?php
@@ -163,7 +163,7 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
                                     <?php if ($message->getDateModificationMessage() != null) {
                                     ?>
                                         <div>
-                                            - Modifié le <?= $message->getDateModificationMessage() ?>
+                                            > Modifié le <?= $message->getDateModificationMessage() ?>
                                         </div>
                                     <?php
                                     }
