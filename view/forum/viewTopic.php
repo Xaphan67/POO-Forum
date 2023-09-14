@@ -140,6 +140,9 @@ $firstId = $result["data"]['firstId'];
                             }
                             ?>
                         </div>
+                        <?php
+                        if ($firstId["id_message"] == $message->getId()) {
+                        ?>
                         <div id="editFirst<?= $topic->getID() ?>-Mod" class="modal">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -159,6 +162,9 @@ $firstId = $result["data"]['firstId'];
                                 </div>
                             </div>
                         </div>
+                        <?php
+                        } else {
+                        ?>
                         <div id="editMsg<?= $message->getID() ?>-Mod" class="modal">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -176,6 +182,9 @@ $firstId = $result["data"]['firstId'];
                                 </div>
                             </div>
                         </div>
+                        <?php
+                        }
+                        ?>
                     </div>
                     <div class="main-message">
                         <?= $message->getTexteMessage() ?>
