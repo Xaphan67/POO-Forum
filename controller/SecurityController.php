@@ -62,10 +62,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
             Session::addFlash("error", "Au moins un champ du formulaire est invalide !");
             $this->redirectTo("security", "register"); // Redirige vers le formulaire d'inscription
         } else {
-            return [
-                "view" => VIEW_DIR . "home.php",
-                "meta" => "Les catgégories de FORUM PHP"
-            ];
+            $this->redirectTo("categorie", "listCategories"); // Redirige vers la liste des catégories
         }
     }
 
@@ -99,10 +96,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
             Session::addFlash("error", "Au moins un champ du formulaire est invalide !");
             $this->redirectTo("security", "login"); // Redirige vers la liste des catégories
         } else {
-            return [
-                "view" => VIEW_DIR . "home.php",
-                "meta" => "Les catgégories de FORUM PHP"
-            ];
+            $this->redirectTo("categorie", "listCategories"); // Redirige vers la liste des catégories
         }
     }
 
