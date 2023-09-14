@@ -22,7 +22,7 @@ $users = $result["data"]['users'];
         <thead>
             <tr>
                 <th class="width20">Pseudo</th>
-                <th class="width20 th-infos responsive-table-hide">Date d'inscription</th>
+                <th class="width20 th-infos responsive-table-hide">Inscription</th>
                 <th class="width30 th-infos">Rôle</th>
                 <th class="width30 th-infos">Bannissement</th>
             </tr>

@@ -28,13 +28,11 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
                 <br>
                 <?= $user->getRoleVisiteur() ?>
                 <?php
-                if (App\Session::getUser()) {
-                    if (App\Session::getUser()->getId() == $user->getId()) {
+                if (App\Session::getUser() && App\Session::getUser()->getId() == $user->getId()) {
                 ?>
-                        <br>
-                        <?= $user->getEmailVisiteur() ?>
+                    <br>
+                    <?= $user->getEmailVisiteur() ?>
                 <?php
-                    }
                 }
                 ?>
                 <div class="side-infos-black">
@@ -42,6 +40,16 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
                     <br>
                     Inscrit le : <?= $user->getDateInscriptionVisiteur() ?>
                 </div>
+                <?php
+                if ($user->isBanned() && App\Session::getUser() && App\Session::getUser()->getId() == $user->getId())
+                {
+                ?>
+                    <div class="ban">
+                        Banni jusqu'au <?= $user->getDateBanissementVisiteur()->format("d/m/Y") ?>
+                    </div>
+                <?php
+                }
+                ?>
             </div>
             <?php if (App\Session::getUser()) {
                 if (App\Session::getUser()->getId() == $user->getId() || App\Session::isAdmin()) {
@@ -70,8 +78,8 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
                         </header>
                         <div class="container">
                             <form action="index.php?ctrl=visiteur&action=editPseudo&id=<?= $user->getId() ?>" method="post" enctype="multipart/form-data">
-                                <label for="pseudo">Nouveau pseudo : *</label>
-                                <input type="text" name="pseudo" required>
+                                <label for="prfPseudo">Nouveau pseudo : *</label>
+                                <input type="text" id="prfPseudo" name="pseudo" required>
                                 <button class="btn btn-form" type="submit" name="submit">Modifier</button>
                             </form>
                         </div>
@@ -87,8 +95,8 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
                         </header>
                         <div class="container">
                             <form action="index.php?ctrl=visiteur&action=editEmail&id=<?= $user->getId() ?>" method="post" enctype="multipart/form-data">
-                                <label for="email">Nouvel email : *</label>
-                                <input type="text" name="email" required>
+                                <label for="prfEmail">Nouvel email : *</label>
+                                <input type="text" id="prfEmail" name="email" required>
                                 <button class="btn btn-form" type="submit" name="submit">Modifier</button>
                             </form>
                         </div>
@@ -104,8 +112,8 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
                         </header>
                         <div class="container">
                             <form action="index.php?ctrl=visiteur&action=editAvatar&id=<?= $user->getId() ?>" method="post" enctype="multipart/form-data">
-                                <label for="avatar">Nouvel avatar : *</label>
-                                <input type="file" name="avatar" required>
+                                <label for="prfAvatar">Nouvel avatar : *</label>
+                                <input type="file" id="prfAvatar" name="avatar" required>
                                 <button class="btn btn-form" type="submit" name="submit">Modifier</button>
                             </form>
                         </div>
@@ -121,12 +129,12 @@ $nbMessages = $result["data"]['nbPosts']["nbPosts"];
                         </header>
                         <div class="container">
                             <form action="index.php?ctrl=visiteur&action=editMdp&id=<?= $user->getId() ?>" method="post" enctype="multipart/form-data">
-                                <label for="oldMdp">Ancien mot de passe : *</label>
-                                <input type="password" name="oldMdp" required>
-                                <label for="newMdp">Nouveau mot de passe : *</label>
-                                <input type="password" name="newMdp" required>
-                                <label for="newMdpCheck">Confirmer le nouveau mot de passe : *</label>
-                                <input type="password" name="newMdpCheck" required>
+                                <label for="prfOldMdp">Ancien mot de passe : *</label>
+                                <input type="password" id="prfOldMdp" name="oldMdp" required>
+                                <label for="prfNewMdp">Nouveau mot de passe : *</label>
+                                <input type="password" id="prfNewMdp" name="newMdp" required>
+                                <label for="prfNewMdpCheck">Confirmer le nouveau mot de passe : *</label>
+                                <input type="password" id="prfNewMdpCheck" name="newMdpCheck" required>
                                 <button class="btn btn-form" type="submit" name="edit">Modifier</button>
                             </form>
                         </div>

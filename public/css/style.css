@@ -19,6 +19,7 @@
     --btnColor: #F27935;
     --topicColor: #49A0CC;
     --tableinnerColor: #E4E4E4;
+    --hoverColor: #f0f0f0;
 }
 
 /* -- Layout -- */
@@ -194,6 +195,10 @@ table tr:last-child td:last-child {
     border-bottom-right-radius: 5px;
 }
 
+table tr:hover {
+    background-color: var(--hoverColor);
+}
+
 th,
 .form-head {
     text-transform: uppercase;
@@ -346,6 +351,11 @@ a,
     cursor: pointer;
 }
 
+.btn:hover {
+    background-color: var(--linksColor);
+    transition: 0.3s;
+}
+
 .btn svg {
     fill: white;
     min-width: 0px;
@@ -496,6 +506,10 @@ h2 {
 .prf-responsive {
     background-color: white;
     border-radius: 5px;
+}
+
+.ban {
+    color: red;
 }
 
 /* --- Modales --- */
@@ -672,10 +686,6 @@ h3 {
 
     .responsive-msg {
         display: none;
-    }
-
-    .ban {
-        display: flex;
     }
 
     .side-infos {
